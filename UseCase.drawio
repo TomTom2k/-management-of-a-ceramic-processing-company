@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-09-16T06:03:43.084Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36" etag="pqMPRsncRLLBFLGzUfWW" version="21.7.5" type="github">
+<mxfile host="app.diagrams.net" modified="2023-09-16T06:05:09.688Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36 Edg/116.0.1938.81" etag="KYpE3PtBfLOlOjZHCT2J" version="21.7.5" type="github">
   <diagram id="moab_QOuEcnYYGaLpviC" name="Page-1">
-    <mxGraphModel dx="1909" dy="1029" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1236" dy="541" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -1150,7 +1150,7 @@
             <mxPoint x="2930" y="380" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="79gRq2DrtrsoFmL8w3pO-9" value="Quản lý nhân viên" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="1" vertex="1">
+        <mxCell id="79gRq2DrtrsoFmL8w3pO-9" value="Quản lý nhân viên sdfd" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" parent="1" vertex="1">
           <mxGeometry x="2870" y="360" width="160" height="40" as="geometry" />
         </mxCell>
         <mxCell id="5RVm7mu3YjyD82HHT5HA-10" value="" style="endArrow=open;dashed=1;html=1;rounded=0;endFill=0;entryX=0.48;entryY=1.019;entryDx=0;entryDy=0;entryPerimeter=0;exitX=0.512;exitY=-0.044;exitDx=0;exitDy=0;exitPerimeter=0;" parent="1" source="79gRq2DrtrsoFmL8w3pO-42" target="79gRq2DrtrsoFmL8w3pO-9" edge="1">
