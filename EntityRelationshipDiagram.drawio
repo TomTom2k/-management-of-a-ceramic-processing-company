@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-09-24T09:39:27.849Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.36" etag="TCErqPLCgWgUxzNW8uSm" version="21.8.1" type="github">
+<mxfile host="app.diagrams.net" modified="2023-09-24T09:46:11.854Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.36" etag="DDEqP6xb4B2lGAhxZh4A" version="21.8.1" type="github">
   <diagram name="Page-1" id="Ghzsh77A64IIgHnaPyvm">
-    <mxGraphModel dx="5160" dy="2643" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
+    <mxGraphModel dx="3177" dy="1708" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="850" pageHeight="1100" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -2164,9 +2164,6 @@
         <mxCell id="bbp2gtLHsUWTdlWe-nVv-1057" value="Ver 2" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="696" y="1872" width="120" height="60" as="geometry" />
         </mxCell>
-        <mxCell id="bbp2gtLHsUWTdlWe-nVv-1058" value="Với công đoạn dầu tiên thì cái này = 0" style="shape=callout;whiteSpace=wrap;html=1;perimeter=calloutPerimeter;direction=north;" parent="1" vertex="1">
-          <mxGeometry x="-36" y="2979" width="185" height="120" as="geometry" />
-        </mxCell>
         <mxCell id="3ldlTvQyAgdE7gyUH2BJ-159" value="TaiKhoan" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;labelBackgroundColor=none;fillColor=#F2CC8F;strokeColor=#E07A5F;fontColor=#393C56;fontSize=16;" parent="1" vertex="1">
           <mxGeometry x="1220" y="8" width="180" height="203" as="geometry" />
         </mxCell>
@@ -2236,7 +2233,7 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="P93kpgthiGGf6aDBAPAD-1" value="1. chuyển qua TV&lt;br&gt;2. soDienThoai chuyển qua NV" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
-          <mxGeometry x="1267" y="2075" width="251" height="60" as="geometry" />
+          <mxGeometry x="1595" y="2110" width="251" height="60" as="geometry" />
         </mxCell>
         <mxCell id="QA3vU-sfNnLC7Q7rCkGY-267" value="CongNhan" style="shape=table;startSize=30;container=1;collapsible=1;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;resizeLast=1;html=1;labelBackgroundColor=none;fillColor=#F2CC8F;strokeColor=#E07A5F;fontColor=#393C56;fontSize=16;" vertex="1" parent="1">
           <mxGeometry x="1059" y="4671" width="215" height="357" as="geometry" />
@@ -3218,7 +3215,7 @@
             <mxRectangle width="60" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="QA3vU-sfNnLC7Q7rCkGY-487" value="password" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;labelBackgroundColor=none;strokeColor=#E07A5F;fontColor=#393C56;fontSize=16;" vertex="1" parent="QA3vU-sfNnLC7Q7rCkGY-485">
+        <mxCell id="QA3vU-sfNnLC7Q7rCkGY-487" value="matKhau" style="shape=partialRectangle;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;whiteSpace=wrap;html=1;labelBackgroundColor=none;strokeColor=#E07A5F;fontColor=#393C56;fontSize=16;" vertex="1" parent="QA3vU-sfNnLC7Q7rCkGY-485">
           <mxGeometry x="60" width="120" height="30" as="geometry">
             <mxRectangle width="120" height="30" as="alternateBounds" />
           </mxGeometry>
