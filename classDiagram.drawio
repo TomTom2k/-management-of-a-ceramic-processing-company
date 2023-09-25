@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-09-25T16:10:58.052Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36" etag="x6On0vudDY4KMUR6CQ3D" version="21.8.2" type="github">
+<mxfile host="app.diagrams.net" modified="2023-09-25T16:11:18.092Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36" etag="fzk2_977HgGh0ohtqsRE" version="21.8.2" type="github">
   <diagram id="C5RBs43oDa-KdzZeNtuy" name="Page-1">
     <mxGraphModel dx="3287" dy="482" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -768,7 +768,7 @@
         <mxCell id="891bXy2E5K4bELxM3DLC-59" value="+ sendTBAddThatBai(string noiDungThaiBai): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=16;" vertex="1" parent="891bXy2E5K4bELxM3DLC-53">
           <mxGeometry y="138" width="372" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="891bXy2E5K4bELxM3DLC-60" value="&lt;span style=&quot;font-weight: normal;&quot;&gt;+ checkSanPham():boolean&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=16;fontStyle=1" vertex="1" parent="891bXy2E5K4bELxM3DLC-53">
+        <mxCell id="891bXy2E5K4bELxM3DLC-60" value="&lt;span style=&quot;font-weight: normal;&quot;&gt;+ checkCuPhapSP():boolean&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;fontSize=16;fontStyle=1" vertex="1" parent="891bXy2E5K4bELxM3DLC-53">
           <mxGeometry y="164" width="372" height="24" as="geometry" />
         </mxCell>
       </root>
