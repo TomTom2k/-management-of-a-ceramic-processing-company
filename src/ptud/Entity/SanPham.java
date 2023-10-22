@@ -1,4 +1,4 @@
-package haha;
+package ptud.Entity;
 
 public class SanPham 
 {
