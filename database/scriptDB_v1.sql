@@ -1,8 +1,14 @@
---CREATE QuanLyLSP
---use QuanLyLSP
+CREATE DATABASE QuanLyLSP
+use QuanLyLSP
+
+CREATE TABLE BoPhan (
+	maBP VARCHAR(20) PRIMARY KEY, 
+	tenBP VARCHAR(30), 
+)
 
 CREATE TABLE NhanVien (
     maNV VARCHAR(20) PRIMARY KEY,
+	maBP VARCHAR(20),
     tenNV VARCHAR(30),
     gioiTinh BIT,
     ngaySinh DATE,
@@ -12,21 +18,23 @@ CREATE TABLE NhanVien (
     phuCap FLOAT(10),
     trangThai BIT,
     dienThoai VARCHAR(20),
-    hinhAnh VARBINARY(MAX)
+    hinhAnh VARBINARY(MAX), 
+	FOREIGN KEY (maBP) REFERENCES BoPhan(maBP)
 );
 
 CREATE TABLE BangDanhGia (
+	maBDG VARCHAR(20) PRIMARY KEY,
     nam INT,
     maNV VARCHAR(20),
     diemChuyenCan FLOAT,
     diemThaiDo FLOAT,
     diemHieuSuat FLOAT,
     bac CHAR,
-    PRIMARY KEY (nam, maNV),
     FOREIGN KEY (maNV) REFERENCES NhanVien(maNV)
 );
 
 CREATE TABLE PhieuChamCongHanhChinh (
+	maPCCHC VARCHAR(20),
     Ngay DATE,
     maNV VARCHAR(20),
     vang BIT,
@@ -34,7 +42,7 @@ CREATE TABLE PhieuChamCongHanhChinh (
     gioTangCa INT,
     tienPhat FLOAT(10),
     noiDungPhat VARCHAR(20),
-    PRIMARY KEY (maNV, Ngay),
+    PRIMARY KEY (maPCCHC),
 	FOREIGN KEY (maNV) REFERENCES NhanVien(maNV)
 );
 
@@ -51,6 +59,7 @@ CREATE TABLE TaiKhoan (
 
 CREATE TABLE CongNhan (
     maCN VARCHAR(20) PRIMARY KEY,
+	maBP VARCHAR(20),
     tenCN VARCHAR(30),
     gioiTinh BIT,
     ngaySinh DATE,
@@ -58,7 +67,8 @@ CREATE TABLE CongNhan (
     CCCD VARCHAR(30),
     trangThai BIT,
     choPhanCong BIT,
-    hinhAnh VARBINARY(MAX)
+    hinhAnh VARBINARY(MAX), 
+	FOREIGN KEY (maBP) REFERENCES BoPhan(maBP)
 );
 
 CREATE TABLE KhachHang (
@@ -94,10 +104,12 @@ CREATE TABLE SanPham (
 CREATE TABLE CongDoan (
     maCD VARCHAR(20) PRIMARY KEY,
     maSP VARCHAR(20),
+	maBP VARCHAR(20),
     tenCD VARCHAR(30),
     donGia FLOAT(10),
     trangThai BIT,
-    FOREIGN KEY (maSP) REFERENCES SanPham(maSP)
+    FOREIGN KEY (maSP) REFERENCES SanPham(maSP),
+	FOREIGN KEY (maBP) REFERENCES BoPhan(maBP)
 );
 
 CREATE TABLE CongDoanTienQuyet (
@@ -110,16 +122,18 @@ CREATE TABLE CongDoanTienQuyet (
 );
 
 CREATE TABLE ChiTietPhanCong (
+	maCTPC VARCHAR(20),
     maCD VARCHAR(20),
     maCN VARCHAR(20),
     ngay DATE,
     soLuongCDGiao INT,
-    PRIMARY KEY (maCD, maCN, ngay),
+    PRIMARY KEY (maCTPC),
     FOREIGN KEY (maCD) REFERENCES CongDoan(maCD),
     FOREIGN KEY (maCN) REFERENCES CongNhan(maCN)
 );
 
 CREATE TABLE PhieuLuong (
+	maPL VARCHAR(20) PRIMARY KEY,
     thang INT,
     nam INT,
     maNV VARCHAR(20),
@@ -129,18 +143,16 @@ CREATE TABLE PhieuLuong (
     thuong FLOAT(10),
     soNgayLam INT,
     luongThucNhan FLOAT(10),
-    PRIMARY KEY (thang, nam, maNV, maCN),
     FOREIGN KEY (maNV) REFERENCES NhanVien(maNV),
     FOREIGN KEY (maCN) REFERENCES CongNhan(maCN)
 );
 
 CREATE TABLE PhieuChamCongCongNhan (
-    maCN VARCHAR(20),
-    ngay DATE,
-    soLuongCDHoanThanh INT,
+	maPCCCN VARCHAR(20) PRIMARY KEY,
+	maCTPC VARCHAR(20), 
+    soLuongCD INT,
     soLuongCDTangCa INT,
-    phat FLOAT(10),
+    tienPhat FLOAT(10),
     noiDungPhat VARCHAR(255),
-    PRIMARY KEY (maCN, ngay),
-	FOREIGN KEY (maCN) REFERENCES CongNhan(maCN)
+	FOREIGN KEY (maCTPC) REFERENCES ChiTietPhanCong(maCTPC)
 );
