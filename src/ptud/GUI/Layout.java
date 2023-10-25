@@ -5,8 +5,10 @@
 package ptud.GUI;
 
 import java.awt.CardLayout;
+import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import ptud.ults.ImageCus;
 
 /**
  *
@@ -15,14 +17,16 @@ import javax.swing.JFrame;
 public class Layout extends javax.swing.JFrame {
 //    fun
     private void activeMenuItem(JButton button) {
-        btnQLTK.setBackground(java.awt.Color(238, 250, 235));
-        btnQLNS.setBackground(java.awt.Color(238, 250, 235));
-        btnQLHD.setBackground(java.awt.Color(238, 250, 235));
-        btnQLSP.setBackground(java.awt.Color(238, 250, 235));
-        btnTinhLuong.setBackground(java.awt.Color(238, 250, 235));
-        btnChamCong.setBackground(java.awt.Color(238, 250, 235)); 
+        Color color = new Color(238, 250, 235);
+        Color colorActive = new Color(198,222,192);
+        btnQLTK.setBackground(color);
+        btnQLNS.setBackground(color);
+        btnQLHD.setBackground(color);
+        btnQLSP.setBackground(color);
+        btnTinhLuong.setBackground(color);
+        btnChamCong.setBackground(color); 
      
-        button.setBackground(java.awt.Color(198,222,192));
+        button.setBackground(colorActive);
     }
 
     /**
@@ -32,7 +36,7 @@ public class Layout extends javax.swing.JFrame {
     public Layout() {
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        
+        avatarImage.setIcon(ImageCus.getScaledImageIcon("/assets/images/avataruser1.jpg", 160, 160));
         cardLayout = (CardLayout)(body.getLayout());
     }
 
@@ -47,7 +51,7 @@ public class Layout extends javax.swing.JFrame {
 
         Aside = new javax.swing.JPanel();
         avatar = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
+        avatarImage = new javax.swing.JLabel();
         menu = new javax.swing.JPanel();
         btnQLTK = new javax.swing.JButton();
         btnQLNS = new javax.swing.JButton();
@@ -71,16 +75,32 @@ public class Layout extends javax.swing.JFrame {
         getContentPane().setLayout(new java.awt.BorderLayout(0, 100));
 
         Aside.setBackground(new java.awt.Color(238, 250, 235));
+        Aside.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         Aside.setPreferredSize(new java.awt.Dimension(200, 300));
         Aside.setLayout(new java.awt.BorderLayout(0, 20));
 
         avatar.setBackground(new java.awt.Color(238, 250, 235));
         avatar.setPreferredSize(new java.awt.Dimension(200, 200));
-        avatar.setLayout(new java.awt.BorderLayout(20, 20));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/avataruser1.jpg"))); // NOI18N
-        jLabel1.setText("jLabel1");
-        avatar.add(jLabel1, java.awt.BorderLayout.CENTER);
+        avatarImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/avataruser1.jpg"))); // NOI18N
+        avatarImage.setPreferredSize(new java.awt.Dimension(160, 160));
+
+        javax.swing.GroupLayout avatarLayout = new javax.swing.GroupLayout(avatar);
+        avatar.setLayout(avatarLayout);
+        avatarLayout.setHorizontalGroup(
+            avatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(avatarLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(avatarImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(612, Short.MAX_VALUE))
+        );
+        avatarLayout.setVerticalGroup(
+            avatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(avatarLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(avatarImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
 
         Aside.add(avatar, java.awt.BorderLayout.NORTH);
 
@@ -200,16 +220,17 @@ public class Layout extends javax.swing.JFrame {
         logout.setPreferredSize(new java.awt.Dimension(200, 100));
 
         jPanel1.setBackground(new java.awt.Color(198, 222, 192));
+        jPanel1.setPreferredSize(new java.awt.Dimension(200, 5));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 200, Short.MAX_VALUE)
+            .addGap(0, 789, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 10, Short.MAX_VALUE)
+            .addGap(0, 5, Short.MAX_VALUE)
         );
 
         btnLogout.setBackground(new java.awt.Color(198, 222, 192));
@@ -217,6 +238,7 @@ public class Layout extends javax.swing.JFrame {
         btnLogout.setForeground(new java.awt.Color(0, 0, 0));
         btnLogout.setText("Đăng xuất");
         btnLogout.setBorder(null);
+        btnLogout.setPreferredSize(new java.awt.Dimension(70, 40));
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLogoutActionPerformed(evt);
@@ -227,20 +249,20 @@ public class Layout extends javax.swing.JFrame {
         logout.setLayout(logoutLayout);
         logoutLayout.setHorizontalGroup(
             logoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(logoutLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 789, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logoutLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
         logoutLayout.setVerticalGroup(
             logoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(logoutLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(btnLogout, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
-                .addGap(30, 30, 30))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
         );
 
         Aside.add(logout, java.awt.BorderLayout.SOUTH);
@@ -268,22 +290,27 @@ public class Layout extends javax.swing.JFrame {
 
     private void btnQLNSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLNSActionPerformed
         cardLayout.show(body, "tabNS");
+        activeMenuItem(btnQLNS);
     }//GEN-LAST:event_btnQLNSActionPerformed
 
     private void btnQLHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLHDActionPerformed
         cardLayout.show(body, "tabHD");
+        activeMenuItem(btnQLHD);
     }//GEN-LAST:event_btnQLHDActionPerformed
 
     private void btnQLSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLSPActionPerformed
          cardLayout.show(body, "tabSP");
+         activeMenuItem(btnQLSP);
     }//GEN-LAST:event_btnQLSPActionPerformed
 
     private void btnTinhLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTinhLuongActionPerformed
         cardLayout.show(body, "tabTL");
+        activeMenuItem(btnTinhLuong);
     }//GEN-LAST:event_btnTinhLuongActionPerformed
 
     private void btnChamCongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChamCongActionPerformed
         cardLayout.show(body, "tabCC");
+        activeMenuItem(btnChamCong);
     }//GEN-LAST:event_btnChamCongActionPerformed
 
     private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
@@ -328,6 +355,7 @@ public class Layout extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel Aside;
     private javax.swing.JPanel avatar;
+    private javax.swing.JLabel avatarImage;
     private javax.swing.JPanel body;
     private javax.swing.JButton btnChamCong;
     private javax.swing.JButton btnLogout;
@@ -343,7 +371,6 @@ public class Layout extends javax.swing.JFrame {
     private ptud.GUI.GD_QLSP gD_QLSP;
     private ptud.GUI.GD_QLTK gD_QLTK;
     private ptud.GUI.GD_TinhLuong gD_TinhLuong;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel logout;
     private javax.swing.JPanel menu;
