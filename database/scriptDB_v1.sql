@@ -4,7 +4,7 @@ use QuanLyLSP
 CREATE TABLE BoPhan (
 	maBP VARCHAR(20) PRIMARY KEY, 
 	tenBP VARCHAR(30), 
-)
+);
 
 CREATE TABLE NhanVien (
     maNV VARCHAR(20) PRIMARY KEY,
@@ -108,6 +108,9 @@ CREATE TABLE CongDoan (
     tenCD VARCHAR(30),
     donGia FLOAT(10),
     trangThai BIT,
+	soLuongChuanBi int, 
+	soLuongChuanBiToiThieu int, 
+	soLuongHoanThanh int, 
     FOREIGN KEY (maSP) REFERENCES SanPham(maSP),
 	FOREIGN KEY (maBP) REFERENCES BoPhan(maBP)
 );
@@ -115,7 +118,6 @@ CREATE TABLE CongDoan (
 CREATE TABLE CongDoanTienQuyet (
     maCDTQ VARCHAR(20),
 	maCD VARCHAR(20),
-    soLuongToiThieu INT,
 	PRIMARY KEY (maCD, maCDTQ),
     FOREIGN KEY (maCDTQ) REFERENCES CongDoan(maCD),
     FOREIGN KEY (maCD) REFERENCES CongDoan(maCD)
