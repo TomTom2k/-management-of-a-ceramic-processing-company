@@ -4,14 +4,29 @@
  */
 package ptud;
 
-import ptud.GUI.Layout;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import ptud.GUI.*;
 /**
  *
- * @author TomTom
+ * @author TomTom, TranLoc
  */
+ 
+
 public class Main {
     public static void main(String[] args) {
-        new Layout().setVisible(true);
+       begin();
     }
+    public static void begin() {
+        SplashScreen sp = new SplashScreen();
+        sp.setVisible(true);
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(SplashScreen.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        sp.setVisible(false);
+        new Login().setVisible(true);
+    }
+
 }
