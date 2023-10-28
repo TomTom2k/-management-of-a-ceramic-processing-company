@@ -366,7 +366,7 @@ public class GD_ChiTietHopDong extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Mã sản phẩm", "Tên sản phẩm", "số lượng", "Đơn giá"
             }
         ));
         jScrollPane1.setViewportView(jTable1);
