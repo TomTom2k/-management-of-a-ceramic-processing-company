@@ -113,6 +113,28 @@ public class CongDoan {
     public void setDsCDTQ(ArrayList<String> dsCDTQ) {
         this.dsCDTQ = dsCDTQ;
     }
+    
+    public void addCDTQ(String maCDTQ) {
+        if (dsCDTQ == null) {
+            dsCDTQ = new ArrayList<String>();
+        }
+        dsCDTQ.add(maCDTQ);
+    }
+
+    public void deleteCDTQ(String maCDTQ) {
+        if (dsCDTQ != null) {
+            dsCDTQ.remove(maCDTQ);
+        }
+    }
+
+    public void updateCDTQ(String maCDTQ, String maCDTQNew) {
+        if (dsCDTQ != null) {
+            int index = dsCDTQ.indexOf(maCDTQ);
+            if (index != -1) {
+                dsCDTQ.set(index, maCDTQNew);
+            }
+        }
+    }
 
     @Override
     public int hashCode() {
