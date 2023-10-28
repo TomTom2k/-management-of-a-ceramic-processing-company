@@ -27,6 +27,7 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel8 = new javax.swing.JPanel();
+        filler1 = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 32767));
         body = new javax.swing.JPanel();
         heading = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -394,6 +395,7 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
     private javax.swing.JPanel body;
     private javax.swing.JPanel body_1;
     private javax.swing.JPanel body_body_1;
+    private javax.swing.Box.Filler filler1;
     private javax.swing.JPanel heading;
     private javax.swing.JPanel heading_body_1;
     private javax.swing.JButton jButton1;
