@@ -28,13 +28,19 @@ public class Layout extends javax.swing.JFrame {
      
         button.setBackground(colorActive);
     }
+    
+    public void showLayout(String name) {
+        cardLayout.show(body, name);
+    }
 
     /**
      * Creates new form Layout
      */
-    CardLayout cardLayout;
+    private CardLayout cardLayout;
+    public static Layout instance;
     public Layout() {
         initComponents();
+        instance = this;
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         avatarImage.setIcon(ImageCus.getScaledImageIcon("/assets/images/avataruser1.jpg", 160, 160));
         cardLayout = (CardLayout)(body.getLayout());
@@ -70,6 +76,7 @@ public class Layout extends javax.swing.JFrame {
         gD_QLSP = new ptud.GUI.GD_QLSP();
         gD_TinhLuong = new ptud.GUI.GD_TinhLuong();
         gD_ChamCong = new ptud.GUI.GD_ChamCong();
+        gD_ThemNV1 = new ptud.GUI.GD_ThemNV();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.BorderLayout(0, 100));
@@ -270,6 +277,7 @@ public class Layout extends javax.swing.JFrame {
         body.add(gD_QLSP, "tabSP");
         body.add(gD_TinhLuong, "tabTL");
         body.add(gD_ChamCong, "tabCC");
+        body.add(gD_ThemNV1, "themNS");
 
         getContentPane().add(body, java.awt.BorderLayout.CENTER);
 
@@ -363,6 +371,7 @@ public class Layout extends javax.swing.JFrame {
     private ptud.GUI.GD_QLNS gD_QLNS;
     private ptud.GUI.GD_QLSP gD_QLSP;
     private ptud.GUI.GD_QLTK gD_QLTK;
+    private ptud.GUI.GD_ThemNV gD_ThemNV1;
     private ptud.GUI.GD_TinhLuong gD_TinhLuong;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel logout;
