@@ -383,6 +383,7 @@ public class GD_QLNS extends javax.swing.JPanel {
                 .addComponent(option, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(tableNV, javax.swing.GroupLayout.DEFAULT_SIZE, 332, Short.MAX_VALUE))
+
         );
 
         body.addTab("Nhân viên", dsNv);
