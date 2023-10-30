@@ -77,6 +77,7 @@ public class Layout extends javax.swing.JFrame {
         gD_TinhLuong = new ptud.GUI.GD_TinhLuong();
         gD_ChamCong = new ptud.GUI.GD_ChamCong();
         gD_ThemNV1 = new ptud.GUI.GD_ThemNV();
+        gD_DanhGia2 = new ptud.GUI.GD_DanhGia();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.BorderLayout(0, 100));
@@ -285,6 +286,7 @@ public class Layout extends javax.swing.JFrame {
         body.add(gD_TinhLuong, "tabTL");
         body.add(gD_ChamCong, "tabCC");
         body.add(gD_ThemNV1, "themNS");
+        body.add(gD_DanhGia2, "danhGiaNS");
 
         getContentPane().add(body, java.awt.BorderLayout.CENTER);
 
@@ -373,6 +375,7 @@ public class Layout extends javax.swing.JFrame {
     private javax.swing.JButton btnQLTK;
     private javax.swing.JButton btnTinhLuong;
     private ptud.GUI.GD_ChamCong gD_ChamCong;
+    private ptud.GUI.GD_DanhGia gD_DanhGia2;
     private ptud.GUI.GD_Main gD_Main;
     private ptud.GUI.GD_QLHD gD_QLHD;
     private ptud.GUI.GD_QLNS gD_QLNS;
