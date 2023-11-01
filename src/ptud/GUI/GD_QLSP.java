@@ -33,32 +33,6 @@ public class GD_QLSP extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-<<<<<<< HEAD
-        body = new javax.swing.JPanel();
-        heading = new javax.swing.JPanel();
-        heading_2 = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        timButton = new javax.swing.JButton();
-        heading_1 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
-        body_1 = new javax.swing.JPanel();
-        jPanel7 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-
-        body.setBackground(new java.awt.Color(255, 255, 255));
-        body.setLayout(new java.awt.BorderLayout());
-
-        heading.setBackground(new java.awt.Color(255, 255, 255));
-        heading.setLayout(new java.awt.BorderLayout());
-
-        heading_2.setBackground(new java.awt.Color(255, 255, 255));
-        heading_2.setPreferredSize(new java.awt.Dimension(694, 50));
-
-=======
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
@@ -168,94 +142,12 @@ public class GD_QLSP extends javax.swing.JPanel {
         jLabel5.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
 
         jTextField1.setText("100.000đ");
->>>>>>> c50d4610f41104852d5531e0a223a7b432f1bd3d
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
             }
         });
 
-<<<<<<< HEAD
-        jLabel2.setText("Tìm Kiếm:");
-
-        jLabel3.setText("Tìm kiếm theo:");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        timButton.setBackground(new java.awt.Color(198, 222, 192));
-        timButton.setToolTipText("");
-        timButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                timButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout heading_2Layout = new javax.swing.GroupLayout(heading_2);
-        heading_2.setLayout(heading_2Layout);
-        heading_2Layout.setHorizontalGroup(
-            heading_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(heading_2Layout.createSequentialGroup()
-                .addGap(192, 192, 192)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 405, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(timButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        heading_2Layout.setVerticalGroup(
-            heading_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(heading_2Layout.createSequentialGroup()
-                .addGroup(heading_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(timButton, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(jComboBox1))
-                .addContainerGap(27, Short.MAX_VALUE))
-        );
-
-        heading.add(heading_2, java.awt.BorderLayout.CENTER);
-
-        heading_1.setBackground(new java.awt.Color(225, 240, 221));
-        heading_1.setPreferredSize(new java.awt.Dimension(694, 50));
-
-        jLabel4.setBackground(new java.awt.Color(225, 240, 221));
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("QUẢN LÝ SẢN PHẨM");
-
-        javax.swing.GroupLayout heading_1Layout = new javax.swing.GroupLayout(heading_1);
-        heading_1.setLayout(heading_1Layout);
-        heading_1Layout.setHorizontalGroup(
-            heading_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(heading_1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 952, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        heading_1Layout.setVerticalGroup(
-            heading_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
-        );
-
-        heading.add(heading_1, java.awt.BorderLayout.PAGE_START);
-
-        body.add(heading, java.awt.BorderLayout.PAGE_START);
-
-        body_1.setBackground(new java.awt.Color(255, 255, 255));
-
-        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
-
-        jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
-
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-=======
         jCheckBox1.setText("Hoàn thành");
         jCheckBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jCheckBox1.setHorizontalTextPosition(javax.swing.SwingConstants.LEFT);
@@ -614,19 +506,12 @@ public class GD_QLSP extends javax.swing.JPanel {
 
         jTable5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
->>>>>>> c50d4610f41104852d5531e0a223a7b432f1bd3d
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null},
                 {null, null, null, null, null}
             },
             new String [] {
-<<<<<<< HEAD
-                "Mã Sản Phẩm", "Tên Sản Phẩm", "Số lượng", "Đơn giá", "Tiến độ"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable2);
-=======
                 "Mã công đoạn", "Tên công đoạn", "Bộ phận", "Số lượng chuẩn bị", "Số lượng hoàn thành"
             }
         ));
@@ -720,15 +605,11 @@ public class GD_QLSP extends javax.swing.JPanel {
                 jComboBoxMaHopDong3ActionPerformed(evt);
             }
         });
->>>>>>> c50d4610f41104852d5531e0a223a7b432f1bd3d
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-<<<<<<< HEAD
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 964, Short.MAX_VALUE)
-=======
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel7Layout.createSequentialGroup()
@@ -746,36 +627,11 @@ public class GD_QLSP extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBoxMaHopDong2, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(16, 16, 16))
->>>>>>> c50d4610f41104852d5531e0a223a7b432f1bd3d
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-<<<<<<< HEAD
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 430, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        javax.swing.GroupLayout body_1Layout = new javax.swing.GroupLayout(body_1);
-        body_1.setLayout(body_1Layout);
-        body_1Layout.setHorizontalGroup(
-            body_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(body_1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-        );
-        body_1Layout.setVerticalGroup(
-            body_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(body_1Layout.createSequentialGroup()
-                .addGap(0, 17, Short.MAX_VALUE)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 18, Short.MAX_VALUE))
-        );
-
-        body.add(body_1, java.awt.BorderLayout.CENTER);
-=======
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel8)
@@ -964,32 +820,11 @@ public class GD_QLSP extends javax.swing.JPanel {
         );
 
         jTabbedPane1.addTab("Phân chia công đoạn", jPanel2);
->>>>>>> c50d4610f41104852d5531e0a223a7b432f1bd3d
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-<<<<<<< HEAD
-            .addGap(0, 976, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(body, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 589, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(body, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-        );
-    }// </editor-fold>//GEN-END:initComponents
-
-=======
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jTabbedPane1)
                 .addContainerGap())
@@ -1066,33 +901,10 @@ public class GD_QLSP extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton7ActionPerformed
 
->>>>>>> c50d4610f41104852d5531e0a223a7b432f1bd3d
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-<<<<<<< HEAD
-    private void timButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_timButtonActionPerformed
-
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel body;
-    private javax.swing.JPanel body_1;
-    private javax.swing.JPanel heading;
-    private javax.swing.JPanel heading_1;
-    private javax.swing.JPanel heading_2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JButton timButton;
-=======
     private void jComboBoxMaBoPhanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxMaBoPhanActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBoxMaBoPhanActionPerformed
@@ -1185,6 +997,5 @@ public class GD_QLSP extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField3;
     private javax.swing.JToggleButton jToggleButton1;
     private javax.swing.JToggleButton jToggleButton2;
->>>>>>> c50d4610f41104852d5531e0a223a7b432f1bd3d
     // End of variables declaration//GEN-END:variables
 }
