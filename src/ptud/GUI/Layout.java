@@ -28,13 +28,19 @@ public class Layout extends javax.swing.JFrame {
      
         button.setBackground(colorActive);
     }
+    
+    public void showLayout(String name) {
+        cardLayout.show(body, name);
+    }
 
     /**
      * Creates new form Layout
      */
-    CardLayout cardLayout;
+    private CardLayout cardLayout;
+    public static Layout instance;
     public Layout() {
         initComponents();
+        instance = this;
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         avatarImage.setIcon(ImageCus.getScaledImageIcon("/assets/images/avataruser1.jpg", 160, 160));
         cardLayout = (CardLayout)(body.getLayout());
@@ -70,6 +76,7 @@ public class Layout extends javax.swing.JFrame {
         gD_QLSP = new ptud.GUI.GD_QLSP();
         gD_TinhLuong = new ptud.GUI.GD_TinhLuong();
         gD_ChamCong = new ptud.GUI.GD_ChamCong();
+        gD_ThemNV1 = new ptud.GUI.GD_ThemNV();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.BorderLayout(0, 100));
@@ -111,7 +118,6 @@ public class Layout extends javax.swing.JFrame {
 
         btnQLTK.setBackground(new java.awt.Color(238, 250, 235));
         btnQLTK.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        btnQLTK.setForeground(new java.awt.Color(0, 0, 0));
         btnQLTK.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnQLTK.setBorderPainted(false);
         btnQLTK.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -131,7 +137,6 @@ public class Layout extends javax.swing.JFrame {
 
         btnQLNS.setBackground(new java.awt.Color(238, 250, 235));
         btnQLNS.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        btnQLNS.setForeground(new java.awt.Color(0, 0, 0));
         btnQLNS.setText("Danh sách nhân sự");
         btnQLNS.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnQLNS.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -148,7 +153,6 @@ public class Layout extends javax.swing.JFrame {
 
         btnQLHD.setBackground(new java.awt.Color(238, 250, 235));
         btnQLHD.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        btnQLHD.setForeground(new java.awt.Color(0, 0, 0));
         btnQLHD.setText("Danh sách hợp đồng");
         btnQLHD.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnQLHD.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -165,7 +169,6 @@ public class Layout extends javax.swing.JFrame {
 
         btnQLSP.setBackground(new java.awt.Color(238, 250, 235));
         btnQLSP.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        btnQLSP.setForeground(new java.awt.Color(0, 0, 0));
         btnQLSP.setText("Danh sách sản phẩm");
         btnQLSP.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnQLSP.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -182,7 +185,6 @@ public class Layout extends javax.swing.JFrame {
 
         btnTinhLuong.setBackground(new java.awt.Color(238, 250, 235));
         btnTinhLuong.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        btnTinhLuong.setForeground(new java.awt.Color(0, 0, 0));
         btnTinhLuong.setText("Tính lương");
         btnTinhLuong.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnTinhLuong.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -199,7 +201,6 @@ public class Layout extends javax.swing.JFrame {
 
         btnChamCong.setBackground(new java.awt.Color(238, 250, 235));
         btnChamCong.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        btnChamCong.setForeground(new java.awt.Color(0, 0, 0));
         btnChamCong.setText("Chấm công");
         btnChamCong.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         btnChamCong.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -235,7 +236,6 @@ public class Layout extends javax.swing.JFrame {
 
         btnLogout.setBackground(new java.awt.Color(198, 222, 192));
         btnLogout.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnLogout.setForeground(new java.awt.Color(0, 0, 0));
         btnLogout.setText("Đăng xuất");
         btnLogout.setBorder(null);
         btnLogout.setPreferredSize(new java.awt.Dimension(70, 40));
@@ -249,7 +249,7 @@ public class Layout extends javax.swing.JFrame {
         logout.setLayout(logoutLayout);
         logoutLayout.setHorizontalGroup(
             logoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 789, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logoutLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -277,6 +277,7 @@ public class Layout extends javax.swing.JFrame {
         body.add(gD_QLSP, "tabSP");
         body.add(gD_TinhLuong, "tabTL");
         body.add(gD_ChamCong, "tabCC");
+        body.add(gD_ThemNV1, "themNS");
 
         getContentPane().add(body, java.awt.BorderLayout.CENTER);
 
@@ -370,6 +371,7 @@ public class Layout extends javax.swing.JFrame {
     private ptud.GUI.GD_QLNS gD_QLNS;
     private ptud.GUI.GD_QLSP gD_QLSP;
     private ptud.GUI.GD_QLTK gD_QLTK;
+    private ptud.GUI.GD_ThemNV gD_ThemNV1;
     private ptud.GUI.GD_TinhLuong gD_TinhLuong;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel logout;
