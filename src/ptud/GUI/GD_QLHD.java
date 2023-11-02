@@ -50,15 +50,12 @@ public class GD_QLHD extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         body_1 = new javax.swing.JPanel();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel6 = new javax.swing.JPanel();
+        hopDong_Panel = new javax.swing.JPanel();
         hopDongScroll = new javax.swing.JScrollPane();
         hopDongTable = new javax.swing.JTable();
-        jPanel7 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
-        jPanel8 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        khachHang_Panel = new javax.swing.JPanel();
+        khachHangScroll = new javax.swing.JScrollPane();
+        khachHangTable = new javax.swing.JTable();
 
         setDoubleBuffered(false);
         setFocusCycleRoot(true);
@@ -172,7 +169,7 @@ public class GD_QLHD extends javax.swing.JPanel {
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
 
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        hopDong_Panel.setBackground(new java.awt.Color(255, 255, 255));
 
         hopDongScroll.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -189,60 +186,27 @@ public class GD_QLHD extends javax.swing.JPanel {
         ));
         hopDongScroll.setViewportView(hopDongTable);
 
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout hopDong_PanelLayout = new javax.swing.GroupLayout(hopDong_Panel);
+        hopDong_Panel.setLayout(hopDong_PanelLayout);
+        hopDong_PanelLayout.setHorizontalGroup(
+            hopDong_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(hopDongScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 964, Short.MAX_VALUE)
         );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+        hopDong_PanelLayout.setVerticalGroup(
+            hopDong_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, hopDong_PanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(hopDongScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 853, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Hợp Đồng", jPanel6);
+        jTabbedPane1.addTab("Hợp Đồng", hopDong_Panel);
 
-        jPanel7.setBackground(new java.awt.Color(255, 255, 255));
+        khachHang_Panel.setBackground(new java.awt.Color(255, 255, 255));
 
-        jScrollPane2.setBackground(new java.awt.Color(255, 255, 255));
+        khachHangScroll.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Mã Sản Phẩm", "Tên Sản Phẩm", "Số lượng", "Đơn giá", "Tiến độ"
-            }
-        ));
-        jScrollPane2.setViewportView(jTable2);
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 964, Short.MAX_VALUE)
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 957, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        jTabbedPane1.addTab("Sản Phẩm", jPanel7);
-
-        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
-
-        jScrollPane3.setBackground(new java.awt.Color(255, 255, 255));
-
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        khachHangTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -253,23 +217,23 @@ public class GD_QLHD extends javax.swing.JPanel {
                 "Mã Khách Hàng", "Tên Khách hàng", "email", "số điện thoại", "Tổ chức"
             }
         ));
-        jScrollPane3.setViewportView(jTable3);
+        khachHangScroll.setViewportView(khachHangTable);
 
-        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
-        jPanel8.setLayout(jPanel8Layout);
-        jPanel8Layout.setHorizontalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 964, Short.MAX_VALUE)
+        javax.swing.GroupLayout khachHang_PanelLayout = new javax.swing.GroupLayout(khachHang_Panel);
+        khachHang_Panel.setLayout(khachHang_PanelLayout);
+        khachHang_PanelLayout.setHorizontalGroup(
+            khachHang_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(khachHangScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 964, Short.MAX_VALUE)
         );
-        jPanel8Layout.setVerticalGroup(
-            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel8Layout.createSequentialGroup()
+        khachHang_PanelLayout.setVerticalGroup(
+            khachHang_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(khachHang_PanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 957, Short.MAX_VALUE)
+                .addComponent(khachHangScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 957, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Khách Hàng", jPanel8);
+        jTabbedPane1.addTab("Khách Hàng", khachHang_Panel);
 
         javax.swing.GroupLayout body_1Layout = new javax.swing.GroupLayout(body_1);
         body_1.setLayout(body_1Layout);
@@ -337,19 +301,16 @@ public class GD_QLHD extends javax.swing.JPanel {
     private javax.swing.JPanel heading_2;
     private javax.swing.JScrollPane hopDongScroll;
     private javax.swing.JTable hopDongTable;
+    private javax.swing.JPanel hopDong_Panel;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
-    private javax.swing.JPanel jPanel8;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JScrollPane khachHangScroll;
+    private javax.swing.JTable khachHangTable;
+    private javax.swing.JPanel khachHang_Panel;
     private javax.swing.JPanel rightSide;
     private javax.swing.JButton taoHopDongButton;
     private javax.swing.JButton timButton;
