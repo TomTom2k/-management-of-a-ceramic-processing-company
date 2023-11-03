@@ -12,29 +12,27 @@ import java.util.Objects;
  */
 
 
-public class PhieuLuong {
+public class PhieuLuongNhanVien {
     private String maPL;     
     private int thang; 
     private int nam; 
     private String maNV; 
-    private String maCN; 
     private double phat; 
+    // private double phuCap; 
     // private double luong; 
     // private double thuong; 
-    private int soNgayLam; 
+    // private int soNgayLam; 
     // private double luongThucNhan; 
 
-    public PhieuLuong() {
+    public PhieuLuongNhanVien() {
     }
 
-    public PhieuLuong(String maPL, int thang, int nam, String maNV, String maCN, double phat, int soNgayLam) {
+    public PhieuLuongNhanVien(String maPL, int thang, int nam, String maNV, double phat) {
         setMaPL(maPL);
         setThang(thang);
         setNam(nam);
         setMaNV(maNV);
-        setMaCN(maCN);
         setPhat(phat);
-        setSoNgayLam(soNgayLam);
     }
 
     public String getMaPL() {
@@ -69,20 +67,18 @@ public class PhieuLuong {
         this.maNV = maNV;
     }
 
-    public String getMaCN() {
-        return maCN;
-    }
-
-    public void setMaCN(String maCN) {
-        this.maCN = maCN;
-    }
-
     public double getPhat() {
         return phat;
     }
 
     public void setPhat(double phat) {
         this.phat = phat;
+    }
+    
+    public double getPhuCap() {
+        double PhuCap = 0;
+        // xử lý tính toán
+        return PhuCap;
     }
 
     public double getLuong() {
@@ -99,11 +95,9 @@ public class PhieuLuong {
 
 
     public int getSoNgayLam() {
+        int soNgayLam = 0; 
+        // xử lý tính toán
         return soNgayLam;
-    }
-
-    public void setSoNgayLam(int soNgayLam) {
-        this.soNgayLam = soNgayLam;
     }
 
     public double getLuongThucNhan() {
@@ -120,19 +114,18 @@ public class PhieuLuong {
                 ", thang=" + thang +
                 ", nam=" + nam +
                 ", maNV='" + maNV + '\'' +
-                ", maCN='" + maCN + '\'' +
                 ", phat=" + phat +
                 ", luong=" + getLuong() +
                 ", thuong=" + getThuong() +
-                ", soNgayLam=" + soNgayLam +
+                ", soNgayLam=" + getSoNgayLam() +
                 ", luongThucNhan=" + getLuongThucNhan() +
                 '}';
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 97 * hash + Objects.hashCode(this.maPL);
+        int hash = 3;
+        hash = 73 * hash + Objects.hashCode(this.maPL);
         return hash;
     }
 
@@ -147,24 +140,23 @@ public class PhieuLuong {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final PhieuLuong other = (PhieuLuong) obj;
+        final PhieuLuongNhanVien other = (PhieuLuongNhanVien) obj;
         return Objects.equals(this.maPL, other.maPL);
-    }
-    
+    }    
 }
 
 
-// CREATE TABLE PhieuLuong (
+// CREATE TABLE PhieuLuongNhanVien (
 // 	maPL VARCHAR(20) PRIMARY KEY,
 //     thang INT,
 //     nam INT,
 //     maNV VARCHAR(20),
-//     maCN VARCHAR(20),
+//     maNV VARCHAR(20),
 //     phat FLOAT(10),
 //     luong FLOAT(10),
 //     thuong FLOAT(10),
 //     soNgayLam INT,
 //     luongThucNhan FLOAT(10),
 //     FOREIGN KEY (maNV) REFERENCES NhanVien(maNV),
-//     FOREIGN KEY (maCN) REFERENCES CongNhan(maCN)
+//     FOREIGN KEY (maNV) REFERENCES CongNhan(maNV)
 // );
