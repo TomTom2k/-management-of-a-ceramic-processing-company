@@ -5,8 +5,8 @@ CREATE TABLE BoPhan (
 	maBP VARCHAR(20) PRIMARY KEY, 
 	tenBP VARCHAR(30), 
 );
-
 CREATE TABLE NhanVien (
+
     maNV VARCHAR(20) PRIMARY KEY,
 	maBP VARCHAR(20),
     tenNV VARCHAR(30),
@@ -22,7 +22,7 @@ CREATE TABLE NhanVien (
 	FOREIGN KEY (maBP) REFERENCES BoPhan(maBP)
 );
 
-CREATE TABLE BangDanhGia (
+CREATE TABLE BangDanhGiaNhanVien (
 	maBDG VARCHAR(20) PRIMARY KEY,
     nam INT,
     maNV VARCHAR(20),
@@ -32,6 +32,7 @@ CREATE TABLE BangDanhGia (
     bac CHAR,
     FOREIGN KEY (maNV) REFERENCES NhanVien(maNV)
 );
+
 
 CREATE TABLE PhieuChamCongHanhChinh (
 	maPCCHC VARCHAR(20),
@@ -69,6 +70,17 @@ CREATE TABLE CongNhan (
     choPhanCong BIT,
     hinhAnh VARBINARY(MAX), 
 	FOREIGN KEY (maBP) REFERENCES BoPhan(maBP)
+);
+
+CREATE TABLE BangDanhGiaCongNhan (
+	maBDG VARCHAR(20) PRIMARY KEY,
+    nam INT,
+    maCN VARCHAR(20),
+    diemChuyenCan FLOAT,
+    diemThaiDo FLOAT,
+    diemHieuSuat FLOAT,
+    bac CHAR,
+    FOREIGN KEY (maCN) REFERENCES CongNhan(maCN)
 );
 
 CREATE TABLE KhachHang (
@@ -134,18 +146,30 @@ CREATE TABLE ChiTietPhanCong (
     FOREIGN KEY (maCN) REFERENCES CongNhan(maCN)
 );
 
-CREATE TABLE PhieuLuong (
+CREATE TABLE PhieuLuongNhanVien (
 	maPL VARCHAR(20) PRIMARY KEY,
     thang INT,
     nam INT,
     maNV VARCHAR(20),
-    maCN VARCHAR(20),
-    phat FLOAT(10),
     luong FLOAT(10),
     thuong FLOAT(10),
+	phat FLOAT(10),
+	phuCap FLOAT(10),
     soNgayLam INT,
     luongThucNhan FLOAT(10),
     FOREIGN KEY (maNV) REFERENCES NhanVien(maNV),
+);
+
+CREATE TABLE PhieuLuongCongNhan (
+	maPL VARCHAR(20) PRIMARY KEY,
+    thang INT,
+    nam INT,
+    maCN VARCHAR(20),
+    luong FLOAT(10),
+    thuong FLOAT(10),
+	phat FLOAT(10),
+    soNgayLam INT,
+    luongThucNhan FLOAT(10),
     FOREIGN KEY (maCN) REFERENCES CongNhan(maCN)
 );
 
