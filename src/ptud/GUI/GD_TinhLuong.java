@@ -5,6 +5,7 @@
 
 package ptud.GUI;
 
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import ptud.DAO.DAO_PhieuLuongNhanVien;
@@ -345,9 +346,9 @@ public class GD_TinhLuong extends javax.swing.JPanel {
         
         // test DAO insert phieuluongnhanvien
         DAO_PhieuLuongNhanVien dao = DAO_PhieuLuongNhanVien.getInstance(); 
-        PhieuLuongNhanVien pl1 = new PhieuLuongNhanVien("PLNV002", 30, 8, "003", 120000); 
-        boolean thanhCong =  dao.deleteById(pl1.getMaPL()); 
-        if(thanhCong){
+        PhieuLuongNhanVien pl1 = new PhieuLuongNhanVien("PLNV001", 30, 8, "003", 120000); 
+        ArrayList<PhieuLuongNhanVien> thanhCong =  dao.getAll(); 
+        if(thanhCong!=null){
             JOptionPane.showMessageDialog(null, "Tinh luong thanh cong");
         }   
         else{
