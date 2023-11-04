@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 import ptud.Connection.ConnectDB;
 import ptud.Entity.PhieuLuongNhanVien;
+import static ptud.Main.connection;
+
 /**
  *
  * @author KHANH PC
@@ -28,25 +30,10 @@ public class DAO_PhieuLuongNhanVien implements DAOInterface<PhieuLuongNhanVien> 
     public boolean insert(PhieuLuongNhanVien t) {
         //let code to insert PhieuLuongNhanVien t to database sqlserver 
         try {
-            // Create a PreparedStatement to insert the data
-            //      this is database 
-            //     CREATE TABLE PhieuLuongNhanVien (
-            //     maPL VARCHAR(20) PRIMARY KEY,
-            //     thang INT,
-            //     nam INT,
-            //     maNV VARCHAR(20),
-            //     luong FLOAT(10),
-            //     thuong FLOAT(10),
-            //     phat FLOAT(10),
-            //     phuCap FLOAT(10),
-            //     soNgayLam INT,
-            //     luongThucNhan FLOAT(10),
-            //     FOREIGN KEY (maNV) REFERENCES NhanVien(maNV),
-            // );
+            // Create a PreparedStatement to insert the data  
             
-            connectDB.connectDatabase();
-            Connection connection = ConnectDB.getConnection(); 
-            
+//            connectDB.connectDatabase();
+//            Connection connection = ConnectDB.getConnection(); 
             String query = "INSERT INTO PhieuLuongNhanVien (maPL, thang, nam, maNV, luong, thuong, phat, phuCap, soNgayLam, luongThucNhan) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(query);
             

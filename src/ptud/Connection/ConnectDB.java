@@ -19,7 +19,7 @@ public class ConnectDB {
 	public static ConnectDB getInstance() {return instance;}
 	public static java.sql.Connection getConnection() {return connection;}
     //Methods
-	public void connectDatabase() {
+	public static void connectDatabase() {
 		try {
 			//Login by Windows Authentication
 				//String url = "jdbc:sqlserver://localhost:1433;databaseName=HotelManagement;integratedSecurity=true;";
@@ -35,7 +35,7 @@ public class ConnectDB {
 			e.printStackTrace();
 		}
 	}
-	public void disconnectDatabase() {
+	public static void disconnectDatabase() {
 		if(connection != null) {
 			try {
 				connection.close();
