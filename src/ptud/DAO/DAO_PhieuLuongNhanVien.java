@@ -5,8 +5,8 @@
 package ptud.DAO;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Connection;
 import java.util.ArrayList;
 import ptud.Entity.PhieuLuongNhanVien;
 import static ptud.Main.connection;
@@ -25,12 +25,63 @@ public class DAO_PhieuLuongNhanVien implements DAOInterface<PhieuLuongNhanVien> 
     
     @Override
     public PhieuLuongNhanVien get(String id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        // let code to get PhieuLuongNhanVien t from database
+        PhieuLuongNhanVien phieuLuongNhanVien = null;
+        try {
+            String query = "SELECT * FROM PhieuLuongNhanVien WHERE maPL = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, id);
+            ResultSet resultSet = statement.executeQuery();
+            
+            if (resultSet.next()) {
+                String maPL = resultSet.getString("maPL");
+                int thang = resultSet.getInt("thang");
+                int nam = resultSet.getInt("nam");
+                String maNV = resultSet.getString("maNV");
+                double phat = resultSet.getDouble("phat");
+                
+                phieuLuongNhanVien = new PhieuLuongNhanVien(maPL, thang, nam, maNV, phat);
+            }
+            
+            // log the info to the output to check the result
+            System.out.println("PhieuLuongNhanVien: " + phieuLuongNhanVien.toString());
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return phieuLuongNhanVien;
     }
 
     @Override
     public ArrayList<PhieuLuongNhanVien> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        // let code to get all PhieuLuongNhanVien from database
+        ArrayList<PhieuLuongNhanVien> phieuLuongNhanViens = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM PhieuLuongNhanVien";
+            PreparedStatement statement = connection.prepareStatement(query);
+            ResultSet resultSet = statement.executeQuery();
+            
+            while (resultSet.next()) {
+                String maPL = resultSet.getString("maPL");
+                int thang = resultSet.getInt("thang");
+                int nam = resultSet.getInt("nam");
+                String maNV = resultSet.getString("maNV");
+                double phat = resultSet.getDouble("phat");
+                
+                PhieuLuongNhanVien phieuLuongNhanVien = new PhieuLuongNhanVien(maPL, thang, nam, maNV, phat);
+                phieuLuongNhanViens.add(phieuLuongNhanVien);
+            }
+
+            // log the info to the output to check the result
+            System.out.println("PhieuLuongNhanViens: " + phieuLuongNhanViens.toString());
+            
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return phieuLuongNhanViens;
     }
 
     

@@ -11,6 +11,11 @@ import java.util.ArrayList;
  * @author KHANH PC
  */
 public interface DAOInterface<T> {
+    // Phương thức để lấy một bản ghi cụ thể từ cơ sở dữ liệu theo id
+    public T get(String id);
+    
+    // Phương thức để lấy tất cả các bản ghi từ cơ sở dữ liệu
+    public ArrayList<T> getAll();
 
     public boolean insert(T t);
 
@@ -20,10 +25,5 @@ public interface DAOInterface<T> {
     // Phương thức để xóa một bản ghi khỏi cơ sở dữ liệu theo id
     public boolean deleteById(String id);
     
-    // Phương thức để lấy một bản ghi cụ thể từ cơ sở dữ liệu theo id
-    public T get(String id);
-    
-    // Phương thức để lấy tất cả các bản ghi từ cơ sở dữ liệu
-    public ArrayList<T> getAll();
 }
 
