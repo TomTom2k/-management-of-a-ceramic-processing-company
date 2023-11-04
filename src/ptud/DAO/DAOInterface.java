@@ -18,10 +18,10 @@ public interface DAOInterface<T> {
     public boolean update(T t);
 
     // Phương thức để xóa một bản ghi khỏi cơ sở dữ liệu theo id
-    public boolean deleteById(int id);
+    public boolean deleteById(String id);
     
     // Phương thức để lấy một bản ghi cụ thể từ cơ sở dữ liệu theo id
-    public T get(int id);
+    public T get(String id);
     
     // Phương thức để lấy tất cả các bản ghi từ cơ sở dữ liệu
     public ArrayList<T> getAll();

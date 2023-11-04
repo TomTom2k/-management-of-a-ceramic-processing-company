@@ -8,8 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.util.ArrayList;
-
-import ptud.Connection.ConnectDB;
 import ptud.Entity.PhieuLuongNhanVien;
 import static ptud.Main.connection;
 
@@ -19,21 +17,29 @@ import static ptud.Main.connection;
  */
 public class DAO_PhieuLuongNhanVien implements DAOInterface<PhieuLuongNhanVien> {
 
-    // make method to create an instance
-    public ConnectDB connectDB = ConnectDB.getInstance(); 
     
     public static DAO_PhieuLuongNhanVien getInstance() {
         return new DAO_PhieuLuongNhanVien();
     }
+    
+    
+    @Override
+    public PhieuLuongNhanVien get(String id) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public ArrayList<PhieuLuongNhanVien> getAll() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    
    
     @Override
     public boolean insert(PhieuLuongNhanVien t) {
         //let code to insert PhieuLuongNhanVien t to database sqlserver 
         try {
             // Create a PreparedStatement to insert the data  
-            
-//            connectDB.connectDatabase();
-//            Connection connection = ConnectDB.getConnection(); 
             String query = "INSERT INTO PhieuLuongNhanVien (maPL, thang, nam, maNV, luong, thuong, phat, phuCap, soNgayLam, luongThucNhan) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(query);
             
@@ -66,24 +72,60 @@ public class DAO_PhieuLuongNhanVien implements DAOInterface<PhieuLuongNhanVien> 
 
     @Override
     public boolean update(PhieuLuongNhanVien t) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+        try {
+            // Create a PreparedStatement to update the data  
+            String query = "UPDATE PhieuLuongNhanVien SET thang = ?, nam = ?, maNV = ?, luong = ?, thuong = ?, phat = ?, phuCap = ?, soNgayLam = ?, luongThucNhan = ? WHERE maPL = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            
+            // Set the values of the parameters
+            statement.setInt(1, t.getThang());
+            statement.setInt(2, t.getNam());
+            statement.setString(3, t.getMaNV());
+            statement.setDouble(4, t.getLuong());
+            statement.setDouble(5, t.getThuong());
+            statement.setDouble(6, t.getPhat());
+            statement.setDouble(7, t.getPhuCap());
+            statement.setInt(8, t.getSoNgayLam());
+            statement.setDouble(9, t.getLuongThucNhan());
+            statement.setString(10, t.getMaPL());
 
-    @Override
-    public boolean deleteById(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public PhieuLuongNhanVien get(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public ArrayList<PhieuLuongNhanVien> getAll() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+            
+            // Execute the query
+            int rowsAffected = statement.executeUpdate();
+          
+            // Check if the update was successful
+            if (rowsAffected > 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
     
+    @Override
+    public boolean deleteById(String id) {
+        // let code to delete PhieuLuongNhanVien t from database
+        try {
+            // Create a PreparedStatement to delete the data  
+            String query = "DELETE FROM PhieuLuongNhanVien WHERE maPL = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            
+            // Set the value of the parameter
+            statement.setString(1, id);
+            
+            // Execute the query
+            int rowsAffected = statement.executeUpdate();
+          
+            // Check if the delete was successful
+            if (rowsAffected > 0) {
+                return true;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
 // this is my database
 /* 

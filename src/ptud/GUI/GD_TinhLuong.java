@@ -345,8 +345,8 @@ public class GD_TinhLuong extends javax.swing.JPanel {
         
         // test DAO insert phieuluongnhanvien
         DAO_PhieuLuongNhanVien dao = DAO_PhieuLuongNhanVien.getInstance(); 
-        PhieuLuongNhanVien pl1 = new PhieuLuongNhanVien("PLNV002", 26, 8, "002", 100000); 
-        boolean thanhCong =  dao.insert(pl1); 
+        PhieuLuongNhanVien pl1 = new PhieuLuongNhanVien("PLNV002", 30, 8, "003", 120000); 
+        boolean thanhCong =  dao.deleteById(pl1.getMaPL()); 
         if(thanhCong){
             JOptionPane.showMessageDialog(null, "Tinh luong thanh cong");
         }   
