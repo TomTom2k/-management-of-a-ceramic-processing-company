@@ -10,7 +10,7 @@ package ptud.Entity;
  */
 public class BangDanhGia {
     private long id;
-    private ThanhVien thanhVien;
+    private NhanVien thanhVien;
     private int nam;
     private float diemChuyenCan;
     private float diemchuyenMon;
@@ -22,7 +22,7 @@ public class BangDanhGia {
         return id;
     }
 
-    public ThanhVien getThanhVien() {
+    public NhanVien getThanhVien() {
         return thanhVien;
     }
 
@@ -54,7 +54,7 @@ public class BangDanhGia {
         this.id = id;
     }
 
-    public void setThanhVien(ThanhVien thanhVien) {
+    public void setThanhVien(NhanVien thanhVien) {
         this.thanhVien = thanhVien;
     }
 
@@ -93,7 +93,7 @@ public class BangDanhGia {
     public BangDanhGia() {
     }
 
-    public BangDanhGia(long id, ThanhVien thanhVien, int nam, float diemChuyenCan, float diemchuyenMon, float diemThaiDo, float diemHieuSuat) {
+    public BangDanhGia(long id, NhanVien thanhVien, int nam, float diemChuyenCan, float diemchuyenMon, float diemThaiDo, float diemHieuSuat) {
         this.id = id;
         this.thanhVien = thanhVien;
         this.nam = nam;

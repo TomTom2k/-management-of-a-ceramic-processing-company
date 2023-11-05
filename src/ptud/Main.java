@@ -4,8 +4,10 @@
  */
 package ptud;
 
+import java.sql.Connection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import ptud.Connection.ConnectDB;
 import ptud.GUI.*;
 /**
  *
@@ -17,7 +19,11 @@ public class Main {
     public static void main(String[] args) {
        begin();
     }
+    public static Connection connection = null; 
     public static void begin() {
+        ConnectDB.connectDatabase();
+        connection = ConnectDB.getConnection(); 
+        
         SplashScreen sp = new SplashScreen();
         sp.setVisible(true);
         try {

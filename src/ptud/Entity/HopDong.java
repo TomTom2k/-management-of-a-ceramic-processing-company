@@ -14,25 +14,45 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 // lưu ý khi đổ dữ liệu vào table thì phải set oldMaHD = maHD nằm cuối danh sách.
 public class HopDong {
-   String maHD;
-   String tenHD;
-   LocalDate ngayBatDau;
-   LocalDate  ngayKetThucDuKien;
-   String trangThai;
-   static String oldMaHD = null; // mặc định null
-   double donGia; 
+    
+    
+    // khai bao thuoc tinh
+   private String maHD;
+   private String tenHD;
+   private LocalDate ngayBatDau;
+   private LocalDate ngayKetThucDuKien;
+   private String trangThai;
+   public static String oldMaHD = null;
+   private double donGia; 
+   private String maKH; 
+   
+   
+   
+   
+    public void setMaKH(String maKH)
+    {
+        if(maKH.trim().equals(""))
+        {
+            maKH = "Khong xac dinh!";
+        }
+        this.maHD = maHD;
+    }  
+    public void setMaHD(String maHD)
+    {
+        this.maHD = maHD;
+    }
     public void setMaHD() 
     {
-		maHD = generateMaHD(); // khởi tạo mã hd
-                oldMaHD = maHD;
+	maHD = generateMaHD();
 	}
 	public void setTenHD(String tenHD) 
 	{
-		if(tenHD.trim().equals("")) // kiểm tra chuỗi không rỗng
+		if(tenHD.trim().equals(""))
 		{
 			this.tenHD ="Không xác định";
 		}
-		else {
+		else 
+                {
 			this.tenHD = tenHD;
 		}
 	}
@@ -48,18 +68,21 @@ public class HopDong {
 	{
 		this.trangThai = "Chờ xác nhận";
 	}
+  
    String generateMaHD()
    {
-	   if(oldMaHD==null) // nếu đây là hợp đồng đầu tiên được tạo
+	   if(oldMaHD==null)
 	   {
 		 maHD = generateNgayBatDau()+"01";
+		 oldMaHD = maHD;
 		  
 	   }
 	   else
 	   {
-		 if(oldMaHD.substring(0,5).compareTo(generateNgayBatDau())==0) 
+		 if(oldMaHD.substring(0,6).compareTo(generateNgayBatDau())==0)
 		 {
-			int stt = Integer.parseInt(oldMaHD.substring(6,7));
+			int stt = Integer.parseInt(oldMaHD.substring(6,8));
+		    
 			stt++;
 			if(stt<=9)
 			{
@@ -78,9 +101,14 @@ public class HopDong {
 	   }
 	   return maHD;
    }
-   public double getDonGia() {
+   public String getMaKH()
+   {
+       return maKH;
+   }
+   public double getDonGia() 
+   {
 	return donGia;
-}
+   }
    public String getDonGiaString()
    {
 	   Locale localeVN = new Locale("vi", "VN");
@@ -103,17 +131,27 @@ String generateNgayBatDau()
 	   int day = ngayBatDau.getDayOfMonth();
 	   int month = ngayBatDau.getMonthValue();
 	   int year = ngayBatDau.getYear();
-	   return ""+day+month+year%100;
+	   if(year%100<10)
+	   {
+		   return ""+day+month+"0"+year%100;
+	   }
+	   else 
+	   {
+		   return ""+day+month+year%100;
+	   }
+	  
    }
-   public String getNgayBatDau() 
+   public LocalDate getNgayBatDau() 
+   {
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");	
+	//return ngayKetThucDuKien.format(formatter);
+        return ngayBatDau;   
+   }
+   public LocalDate getNgayKetThuc() 
    {
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	return ngayBatDau.format(formatter);
-   }
-   public String getNgayKetThuc() 
-   {
-	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	return ngayKetThucDuKien.format(formatter);
+	//return ngayKetThucDuKien.format(formatter);
+        return ngayKetThucDuKien;
    }
 public String getMaHD() {
 	return maHD;
@@ -127,7 +165,8 @@ public LocalDate getNgayKetThucDuKien() {
 public String getTrangThai() {
 	return trangThai;
 }
-public HopDong(String tenHD, LocalDate ngayBatDau, LocalDate ngayKetThucDuKien,double donGia) {
+public HopDong(String tenHD, LocalDate ngayBatDau, LocalDate ngayKetThucDuKien,double donGia,String maKH) 
+{
 	super();
 	this.setNgayBatDau(ngayBatDau);
 	this.setNgayKetThucDuKien(ngayKetThucDuKien);
@@ -135,6 +174,18 @@ public HopDong(String tenHD, LocalDate ngayBatDau, LocalDate ngayKetThucDuKien,d
 	this.setTrangThai(trangThai);
 	this.setDonGia(donGia);
 	this.setMaHD();
+         this.setMaKH(maKH);
+}
+public HopDong(String maHD,String tenHD, LocalDate ngayBatDau, LocalDate ngayKetThucDuKien,double donGia,String maKH)
+{
+        super();
+	this.setNgayBatDau(ngayBatDau);
+	this.setNgayKetThucDuKien(ngayKetThucDuKien);
+	this.setTenHD(tenHD);
+	this.setTrangThai(trangThai);
+	this.setDonGia(donGia);
+	this.setMaHD(maHD);
+        this.setMaKH(maKH);
 }
 public String ToString()
 {
