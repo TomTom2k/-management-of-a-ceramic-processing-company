@@ -16,6 +16,10 @@ public class KhachHang
 	{
 		this.maKhachHang = maKhachHang;
 	}
+        public void setMaKhachHang() 
+	{
+		
+	}
 	public String getTenKhachHang() 
 	{
 		return tenKhachHang;
@@ -48,5 +52,26 @@ public class KhachHang
 	{
 		this.sdt = sdt;
 	}
-
+        public KhachHang()
+        {
+            
+        }       
+        public KhachHang(String maKhachHang, String tenKhachHang, boolean isToChuc, String email, String sdt) 
+        {
+	 super();
+	 this.setMaKhachHang(maKhachHang);
+         this.setSdt(sdt);
+         this.setEmail(email);
+         this.setTenKhachHang(tenKhachHang);
+         this.setToChuc(isToChuc);
+	}
+        public KhachHang( String tenKhachHang, boolean isToChuc, String email, String sdt) 
+        {
+	 super();	
+         this.setSdt(sdt);
+         this.setEmail(email);
+         this.setTenKhachHang(tenKhachHang);
+         this.setToChuc(isToChuc);
+         this.setMaKhachHang();
+	}
 }
