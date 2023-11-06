@@ -6,18 +6,63 @@ import java.time.LocalDate;
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 /**
  *
  * @author TomTom
  */
-public class NhanVien extends ThanhVien {
+public class NhanVien {
+
     private String maNV;
+    private BoPhan boPhan;
+    private String ten;
+    private boolean gioiTinh;
+    private LocalDate ngaySinh;
+    private LocalDate ngayBatDauLam;
+    private String cccd;
+    private String dienThoai;
+    private boolean trangThai;
+    private byte[] avatar;
     private double luongCoBan;
     private double phuCap;
 
     public String getMaNV() {
         return maNV;
+    }
+
+    public BoPhan getBoPhan() {
+        return boPhan;
+    }
+
+    public String getTen() {
+        return ten;
+    }
+
+    public boolean isGioiTinh() {
+        return gioiTinh;
+    }
+
+    public LocalDate getNgaySinh() {
+        return ngaySinh;
+    }
+
+    public LocalDate getNgayBatDauLam() {
+        return ngayBatDauLam;
+    }
+
+    public String getCccd() {
+        return cccd;
+    }
+
+    public String getDienThoai() {
+        return dienThoai;
+    }
+
+    public boolean isTrangThai() {
+        return trangThai;
+    }
+
+    public byte[] getAvatar() {
+        return avatar;
     }
 
     public double getLuongCoBan() {
@@ -32,6 +77,42 @@ public class NhanVien extends ThanhVien {
         this.maNV = maNV;
     }
 
+    public void setBoPhan(BoPhan boPhan) {
+        this.boPhan = boPhan;
+    }
+
+    public void setTen(String ten) {
+        this.ten = ten;
+    }
+
+    public void setGioiTinh(boolean gioiTinh) {
+        this.gioiTinh = gioiTinh;
+    }
+
+    public void setNgaySinh(LocalDate ngaySinh) {
+        this.ngaySinh = ngaySinh;
+    }
+
+    public void setNgayBatDauLam(LocalDate ngayBatDauLam) {
+        this.ngayBatDauLam = ngayBatDauLam;
+    }
+
+    public void setCccd(String cccd) {
+        this.cccd = cccd;
+    }
+
+    public void setDienThoai(String dienThoai) {
+        this.dienThoai = dienThoai;
+    }
+
+    public void setTrangThai(boolean trangThai) {
+        this.trangThai = trangThai;
+    }
+
+    public void setAvatar(byte[] avatar) {
+        this.avatar = avatar;
+    }
+
     public void setLuongCoBan(double luongCoBan) {
         this.luongCoBan = luongCoBan;
     }
@@ -40,20 +121,27 @@ public class NhanVien extends ThanhVien {
         this.phuCap = phuCap;
     }
 
-    public NhanVien() {
-    }
-
-    public NhanVien(String maNV, double luongCoBan, double phuCap, String ten, boolean gioiTinh, LocalDate ngaySinh, LocalDate ngayBatDauLam, String cccd, String dienThoai, boolean trangThai, byte[] avatar) {
-        super(ten, gioiTinh, ngaySinh, ngayBatDauLam, cccd, dienThoai, trangThai, avatar);
+    public NhanVien(String maNV, BoPhan boPhan, String ten, boolean gioiTinh, LocalDate ngaySinh, LocalDate ngayBatDauLam, String cccd, String dienThoai, boolean trangThai, byte[] avatar, double luongCoBan, double phuCap) {
         this.maNV = maNV;
+        this.boPhan = boPhan;
+        this.ten = ten;
+        this.gioiTinh = gioiTinh;
+        this.ngaySinh = ngaySinh;
+        this.ngayBatDauLam = ngayBatDauLam;
+        this.cccd = cccd;
+        this.dienThoai = dienThoai;
+        this.trangThai = trangThai;
+        this.avatar = avatar;
         this.luongCoBan = luongCoBan;
         this.phuCap = phuCap;
     }
 
+    public NhanVien() {
+    }
+
     @Override
     public String toString() {
-        return "NhanVien{" + "maNV=" + maNV + super.toString() + ", luongCoBan=" + luongCoBan + ", phuCap=" + phuCap + '}';
+        return "NhanVien{" + "maNV=" + maNV + ", boPhan=" + boPhan + ", ten=" + ten + ", gioiTinh=" + gioiTinh + ", ngaySinh=" + ngaySinh + ", ngayBatDauLam=" + ngayBatDauLam + ", cccd=" + cccd + ", dienThoai=" + dienThoai + ", trangThai=" + trangThai + ", avatar=" + avatar + ", luongCoBan=" + luongCoBan + ", phuCap=" + phuCap + '}';
     }
-    
-    
+
 }

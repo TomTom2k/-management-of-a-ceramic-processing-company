@@ -13,11 +13,11 @@ public class ConnectDB {
     private static java.sql.Connection connection = null;
     
     //Constructor
-	public ConnectDB() {}
-	
-	//Get
-	public static ConnectDB getInstance() {return instance;}
-	public static java.sql.Connection getConnection() {return connection;}
+    public ConnectDB() {}
+
+    //Get
+    public static ConnectDB getInstance() {return instance;}
+    public static java.sql.Connection getConnection() {return connection;}
     //Methods
 	public static void connectDatabase() {
 		try {

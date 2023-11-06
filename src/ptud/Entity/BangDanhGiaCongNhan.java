@@ -1,16 +1,20 @@
+package ptud.Entity;
+
+
+import ptud.Entity.CongNhan;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package ptud.Entity;
 
 /**
  *
  * @author TomTom
  */
-public class BangDanhGia {
+public class BangDanhGiaCongNhan {
     private long id;
-    private ThanhVien thanhVien;
+    private CongNhan congNhan;
     private int nam;
     private float diemChuyenCan;
     private float diemchuyenMon;
@@ -22,8 +26,8 @@ public class BangDanhGia {
         return id;
     }
 
-    public ThanhVien getThanhVien() {
-        return thanhVien;
+    public CongNhan getCongNhan() {
+        return congNhan;
     }
 
     public int getNam() {
@@ -54,8 +58,8 @@ public class BangDanhGia {
         this.id = id;
     }
 
-    public void setThanhVien(ThanhVien thanhVien) {
-        this.thanhVien = thanhVien;
+    public void setThanhVien(CongNhan congNhan) {
+        this.congNhan = congNhan;
     }
 
     public void setNam(int nam) {
@@ -90,12 +94,12 @@ public class BangDanhGia {
             this.bac = 'A';
     }
 
-    public BangDanhGia() {
+    public BangDanhGiaCongNhan() {
     }
 
-    public BangDanhGia(long id, ThanhVien thanhVien, int nam, float diemChuyenCan, float diemchuyenMon, float diemThaiDo, float diemHieuSuat) {
+    public BangDanhGiaCongNhan(long id, CongNhan congNhan, int nam, float diemChuyenCan, float diemchuyenMon, float diemThaiDo, float diemHieuSuat) {
         this.id = id;
-        this.thanhVien = thanhVien;
+        this.congNhan = congNhan;
         this.nam = nam;
         this.diemChuyenCan = diemChuyenCan;
         this.diemchuyenMon = diemchuyenMon;
@@ -105,8 +109,6 @@ public class BangDanhGia {
 
     @Override
     public String toString() {
-        return "BangDanhGia{" + "id=" + id + ", thanhVien=" + thanhVien + ", nam=" + nam + ", diemChuyenCan=" + diemChuyenCan + ", diemchuyenMon=" + diemchuyenMon + ", diemThaiDo=" + diemThaiDo + ", diemHieuSuat=" + diemHieuSuat + ", bac=" + bac + '}';
+        return "BangDanhGia{" + "id=" + id + ", congNhan=" + congNhan + ", nam=" + nam + ", diemChuyenCan=" + diemChuyenCan + ", diemchuyenMon=" + diemchuyenMon + ", diemThaiDo=" + diemThaiDo + ", diemHieuSuat=" + diemHieuSuat + ", bac=" + bac + '}';
     }
-    
-    
 }
