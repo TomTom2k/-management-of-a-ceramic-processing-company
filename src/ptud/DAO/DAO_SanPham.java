@@ -42,7 +42,7 @@ public class DAO_SanPham implements DAOInterface<SanPham>
                 
             }           
             // log the info to the output to check the result            
-            connection.close();
+            
         } 
         catch (SQLException e) 
         {
@@ -70,7 +70,7 @@ public class DAO_SanPham implements DAOInterface<SanPham>
             } 
 
             // log the info to the output to check the result                     
-            connection.close();
+            
         } catch (SQLException e) 
         {
             e.printStackTrace();

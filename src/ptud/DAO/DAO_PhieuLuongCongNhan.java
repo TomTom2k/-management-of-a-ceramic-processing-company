@@ -1,5 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this licenseOverride
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package ptud.DAO;
@@ -42,7 +42,6 @@ public class DAO_PhieuLuongCongNhan implements DAOInterface<PhieuLuongCongNhan>{
                 return phieuLuongCongNhan;
             }
             
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -74,7 +73,6 @@ public class DAO_PhieuLuongCongNhan implements DAOInterface<PhieuLuongCongNhan>{
                 phieuLuongCongNhans.add(phieuLuongCongNhan);
             }
             
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

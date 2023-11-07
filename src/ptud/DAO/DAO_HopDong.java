@@ -49,7 +49,7 @@ public class DAO_HopDong implements DAOInterface<HopDong> {
                 hopDong.setMaHD(id);
             }           
             // log the info to the output to check the result            
-            connection.close();
+            
         } 
         catch (SQLException e) 
         {
@@ -80,7 +80,7 @@ public class DAO_HopDong implements DAOInterface<HopDong> {
             }
 
             // log the info to the output to check the result                     
-            connection.close();
+            
         } catch (SQLException e) 
         {
             e.printStackTrace();

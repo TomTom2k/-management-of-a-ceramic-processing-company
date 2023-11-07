@@ -55,7 +55,7 @@ public class DAO_BangDanhGiaNhanVien implements DAOInterface<BangDanhGiaNhanVien
                 bangDanhGia = new BangDanhGiaNhanVien(maBDG, nhanVien, nam, diemChuyenCan, diemChuyenMon, diemThaiDo, diemHieuSuat, bac);
             }
 
-            connection.close();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -85,7 +85,7 @@ public class DAO_BangDanhGiaNhanVien implements DAOInterface<BangDanhGiaNhanVien
                 dsBangDanhGia.add(bangDanhGia);
             }
 
-            connection.close();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }

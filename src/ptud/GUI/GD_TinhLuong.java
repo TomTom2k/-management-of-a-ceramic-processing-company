@@ -5,10 +5,12 @@
 
 package ptud.GUI;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-
-import ptud.DAO.DAO_PhieuLuongNhanVien;
+import ptud.DAO.*;
+import ptud.Entity.ChiTietPhanCong;
+import ptud.Entity.CongDoan;
 import ptud.Entity.PhieuLuongNhanVien;
 
 /**
@@ -361,24 +363,21 @@ public class GD_TinhLuong extends javax.swing.JPanel {
     private void jButtonTinhLuongMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonTinhLuongMouseReleased
         // TODO add your handling code here:
         
-        // test DAO insert phieuluongnhanvien
-        DAO_PhieuLuongNhanVien dao = DAO_PhieuLuongNhanVien.getInstance(); 
-        PhieuLuongNhanVien pl1 = new PhieuLuongNhanVien("PLNV001", 30, 8, "003", 120000); 
-        ArrayList<PhieuLuongNhanVien> thanhCong =  dao.getAll(); 
-        if(thanhCong!=null){
-            JOptionPane.showMessageDialog(null, "Tinh luong thanh cong");
-        }   
-        else{
-            JOptionPane.showMessageDialog(null, "Tinh luong that bai");
-        }
-            
     }//GEN-LAST:event_jButtonTinhLuongMouseReleased
 
     private void jButtonTinhLuong1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonTinhLuong1MouseReleased
         // TODO add your handling code here:
-        DAO_PhieuLuongNhanVien dao = DAO_PhieuLuongNhanVien.getInstance(); 
-        PhieuLuongNhanVien pl1 = new PhieuLuongNhanVien("PLNV002", 8, 2023, "001", 100000); 
-        dao.insert(pl1); 
+        DAO_CongDoan dao = DAO_CongDoan.getInstance(); 
+        
+        ArrayList<CongDoan> isInserted = dao.getAllByTrangThai(false); 
+        if (!isInserted.isEmpty()) {
+            for (int i = 0; i < isInserted.size(); i++) {
+                System.out.println(isInserted.get(i).toString());
+            }
+        } else {
+            System.out.println("Failed to deleteById ChiTietPhanCong!");
+        }
+       
     }//GEN-LAST:event_jButtonTinhLuong1MouseReleased
 
     private void jButtonTinhLuong1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTinhLuong1ActionPerformed

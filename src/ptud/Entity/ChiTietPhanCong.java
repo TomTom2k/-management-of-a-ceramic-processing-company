@@ -14,12 +14,14 @@ public class ChiTietPhanCong {
     private LocalDate ngay;
     private int soLuongCDGiao;
 
+    public ChiTietPhanCong(){}; 
+
     public ChiTietPhanCong(String maCTPC, String maCD, String maCN, LocalDate ngay, int soLuongCDGiao) {
-        this.maCTPC = maCTPC;
-        this.maCD = maCD;
-        this.maCN = maCN;
-        this.ngay = ngay;
-        this.soLuongCDGiao = soLuongCDGiao;
+        setMaCD(maCD);
+        setMaCN(maCN);
+        setMaCTPC(maCTPC);
+        setNgay(ngay);
+        setSoLuongCDGiao(soLuongCDGiao);
     }
 
     public String getMaCTPC() {
