@@ -30,7 +30,7 @@ public class PhieuLuongCongNhan {
         setMaPL(maPL);
         setThang(thang);
         setNam(nam);
-        setMaNV(maCN);
+        setMaCN(maCN);
         setPhat(phat);
     }
 
@@ -58,11 +58,11 @@ public class PhieuLuongCongNhan {
         this.nam = nam;
     }
 
-    public String getMaNV() {
+    public String getMaCN() {
         return maCN;
     }
 
-    public void setMaNV(String maCN) {
+    public void setMaCN(String maCN) {
         this.maCN = maCN;
     }
 
