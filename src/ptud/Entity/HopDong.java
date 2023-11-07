@@ -143,15 +143,21 @@ String generateNgayBatDau()
    }
    public LocalDate getNgayBatDau() 
    {
-	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");	
-	//return ngayKetThucDuKien.format(formatter);
         return ngayBatDau;   
    }
    public LocalDate getNgayKetThuc() 
    {
-	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	//return ngayKetThucDuKien.format(formatter);
         return ngayKetThucDuKien;
+   }
+   public String  getNgayBatDauString()
+   {      
+	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");	
+	return ngayKetThucDuKien.format(formatter);
+   }
+   public String  getNgayKetThucString()
+   {
+       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	return ngayKetThucDuKien.format(formatter);
    }
 public String getMaHD() {
 	return maHD;

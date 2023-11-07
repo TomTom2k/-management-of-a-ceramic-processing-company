@@ -38,7 +38,8 @@ public class DAO_SanPham implements DAOInterface<SanPham>
                 String tenSP = resultSet.getString("tenSP");
                 int soLuong = resultSet.getInt("soLuong");
                 double donGia = resultSet.getFloat("donGia");
-                sanPham = new SanPham(id, tenSP, soLuong, donGia, soLuong);
+                String maHD = resultSet.getString("maHD");
+                sanPham = new SanPham(id, tenSP, soLuong, donGia,maHD);
                 
             }           
             // log the info to the output to check the result            
@@ -65,10 +66,11 @@ public class DAO_SanPham implements DAOInterface<SanPham>
                 String tenSP = resultSet.getString("tenSP");
                 int soLuong = resultSet.getInt("soLuong");
                 double donGia = resultSet.getFloat("donGia");
-                SanPham sanPham = new SanPham(maSP, tenSP, soLuong, donGia, soLuong);              
+                String maHD = resultSet.getString("maHD");
+                SanPham sanPham = new SanPham(maSP, tenSP, soLuong, donGia,maHD);            
                 sanPhams.add(sanPham);
             } 
-
+ 
             // log the info to the output to check the result                     
             
         } catch (SQLException e) 
@@ -84,13 +86,14 @@ public class DAO_SanPham implements DAOInterface<SanPham>
         //let code to insert sanPham to database sqlserver 
         try {
             // Create a PreparedStatement to insert the data  
-            String query = "INSERT INTO SanPham (maSP, tenSP,soLuong, donGia) VALUES (?, ?, ?, ?)";
+            String query = "INSERT INTO SanPham (maSP, tenSP,soLuong, donGia,maHD) VALUES (?, ?, ?, ?,?)";
             PreparedStatement statement = connection.prepareStatement(query);           
             // Set the values of the parameters
             statement.setString(1, sanPham.getMaSanPham());
             statement.setString(2, sanPham.getTenSanPham());
             statement.setInt(3, sanPham.getSoLuong()); 
-            statement.setDouble(4, sanPham.getDonGia());                       
+            statement.setDouble(4, sanPham.getDonGia()); 
+            statement.setString(5, sanPham.getMaHD());                       
             // Execute the query
             int rowsAffected = statement.executeUpdate();         
             // Check if the insert was successful

@@ -5,7 +5,11 @@
 package ptud.GUI;
 
 import java.awt.CardLayout;
+import java.lang.invoke.MethodHandles;
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
+import ptud.DAO.DAO_HopDong;
+import ptud.Entity.HopDong;
 import ptud.GUI.GUI_HD.GD_ChiTietHopDong;
 import ptud.ults.ImageCus;
 
@@ -15,15 +19,58 @@ import ptud.ults.ImageCus;
  */
 public class GD_QLHD extends javax.swing.JPanel {
 
+    DAO_HopDong daoHongDong = new DAO_HopDong();
+    DefaultTableModel hopDongModel;
+      String[]  firstHopDongRow;
     /**
      * Creates new form GD_HD
      */
-    public GD_QLHD() {
+    public GD_QLHD() 
+    {
         initComponents();
-         cardLayout = (CardLayout)(rightSide.getLayout());
-        
+        cardLayout = (CardLayout) (rightSide.getLayout());
+        hopDongModel = (DefaultTableModel) hopDongTable.getModel();
+        updateTable();
     }
-
+    void updateTable()
+    {
+        deleleTable();
+        filHopDongTable();
+    }
+    int deleleTable()
+    {
+        int rowIndex = hopDongModel.getRowCount();
+        for(int i = 1; i< rowIndex;i++)
+        {
+            if(hopDongModel.getRowCount()==1)
+            {
+                return 1;
+            }
+            else
+            {
+              hopDongModel.removeRow(1);
+            }          
+        }
+        return 0;
+    }
+    void filHopDongTable()
+    {
+       for(HopDong hopDong : daoHongDong.getAll())
+       {
+           changeEnityToObject(hopDong);
+       }
+    }
+    void changeEnityToObject(HopDong hopDong)
+    {
+        Object[] rowDate = new Object[6];
+        rowDate[0] = hopDong.getMaHD();
+        rowDate[1] = hopDong.getTenHD();
+        rowDate[2] = hopDong.getNgayBatDauString();
+        rowDate[3] = hopDong.getNgayKetThucString();
+        rowDate[4] = hopDong.getDonGiaString();
+        rowDate[5] = hopDong.getTrangThai();
+        hopDongModel.addRow(rowDate);         
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -175,10 +222,7 @@ public class GD_QLHD extends javax.swing.JPanel {
 
         hopDongTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Mã hợp đồng", "Tên hợp đồng", "Ngày bắt đầu", "Ngày kết thúc", "Trị giá hợp đồng", "Trạng thái"

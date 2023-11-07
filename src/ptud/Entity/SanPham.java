@@ -3,23 +3,35 @@ package ptud.Entity;
 public class SanPham 
 {
 	// Author VoPhuocHau
+  String maHD;
+
+    public String getMaHD() 
+    {
+        return maHD;
+    }
+
+    public void setMaHD(String maHD) 
+    {
+        this.maHD = maHD;
+    }
   String maSanPham;
   String tenSanPham;
   int soLuong;
   double donGia;
+  
   public String getMaSanPham() 
     {
 		return maSanPham;
 	}
-	public void setMaSanPham(String maSanPham,int stt) 
+	public void setMaSanPham(int stt) 
 	{
 		if(stt<10)
 		{
-			this.maSanPham = maSanPham+"0"+stt;
+			this.maSanPham = this.maHD+"0"+stt;
 		}
 		else 
 		{
-			this.maSanPham = maSanPham+stt;
+			this.maSanPham = this.maHD+stt;
 		}
 	}
 	public String getTenSanPham() {
@@ -58,12 +70,17 @@ public class SanPham
 		}
 		this.donGia = donGia;
 	}
-	public SanPham(String maSanPham, String tenSanPham, int soLuong, double donGia,int stt) 
+        public void setMaSanPham(String maSanPham)
+        {
+            this.maSanPham = maSanPham;
+        }
+	public SanPham(String maSanPham, String tenSanPham, int soLuong, double donGia,String maHD) 
 	{
 		super();
-		this.setDonGia(donGia);
-		this.setMaSanPham(maSanPham, stt);
+		this.setDonGia(donGia);               
+		this.setMaSanPham(maSanPham);
 		this.setSoLuong(soLuong);
 		this.setTenSanPham(tenSanPham);
+                this.setMaHD(maHD);
 	}
 }
