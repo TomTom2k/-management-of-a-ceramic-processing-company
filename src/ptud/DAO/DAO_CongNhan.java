@@ -45,7 +45,7 @@ public class DAO_CongNhan implements DAOInterface<CongNhan> {
                 congNhan = new CongNhan(maCN, ten, gioiTinh, ngaySinh, ngayBatDauLam, cccd, dienThoai, trangThai, avatar, choPhanCong);
             }
 
-            connection.close();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -77,7 +77,7 @@ public class DAO_CongNhan implements DAOInterface<CongNhan> {
                 dsCongNhan.add(congNhan);
             }
 
-            connection.close();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }

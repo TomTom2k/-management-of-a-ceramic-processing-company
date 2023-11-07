@@ -17,6 +17,10 @@ import static ptud.Main.connection;
 
 public class DAO_CongDoan implements DAOInterface<CongDoan> {
 
+    public static DAO_CongDoan getInstance() {
+        return new DAO_CongDoan();
+    }
+
     @Override
     public CongDoan get(String id) {
         // let code to get CongDoan t from database
@@ -51,7 +55,6 @@ public class DAO_CongDoan implements DAOInterface<CongDoan> {
                 return congDoan;
             }
             
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -94,7 +97,6 @@ public class DAO_CongDoan implements DAOInterface<CongDoan> {
                 congDoans.add(congDoan);
             }
             
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -135,7 +137,6 @@ public class DAO_CongDoan implements DAOInterface<CongDoan> {
                 congDoans.add(congDoan);
             }
             
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -174,16 +175,54 @@ public class DAO_CongDoan implements DAOInterface<CongDoan> {
                 }
                 CongDoan congDoan = new CongDoan(maCD, maSP, maBP, tenCD, donGia, trangThai, soLuongChuanBiToiThieu, dsCDTQ);
                 congDoans.add(congDoan);
-            }
-            
-            connection.close();
-            
+            }    
             return congDoans;
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }
     }
+
+    public ArrayList<CongDoan> getAllByTrangThai(boolean trangThai) {
+        // let code to get all CongDoan from database by TrangThai
+        try {
+            ArrayList<CongDoan> congDoans = new ArrayList<>();
+
+            String query = "SELECT * FROM CongDoan WHERE trangThai = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setBoolean(1, trangThai);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                String maCD = resultSet.getString("maCD");
+                String maSP = resultSet.getString("maSP");
+                String maBP = resultSet.getString("maBP");
+                String tenCD = resultSet.getString("tenCD");
+                double donGia = resultSet.getDouble("donGia");
+                int soLuongChuanBiToiThieu = resultSet.getInt("soLuongChuanBiToiThieu");
+
+                ArrayList<String> dsCDTQ = new ArrayList<>();
+                // get dsCDTQ from my CongDoanTienQuyet database
+                String queryCDTQ = "SELECT maCDTQ FROM CongDoanTienQuyet WHERE maCD = ?";
+                PreparedStatement statementCDTQ = connection.prepareStatement(queryCDTQ);
+                statementCDTQ.setString(1, maCD);
+                ResultSet resultSetCDTQ = statementCDTQ.executeQuery();
+
+                while (resultSetCDTQ.next()) {
+                    String maCDTQ = resultSetCDTQ.getString("maCDTQ");
+                    dsCDTQ.add(maCDTQ);
+                }
+
+                CongDoan congDoan = new CongDoan(maCD, maSP, maBP, tenCD, donGia, trangThai, soLuongChuanBiToiThieu, dsCDTQ);
+                congDoans.add(congDoan);
+            }
+            return congDoans;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    
 
     @Override
     public boolean insert(CongDoan t) {

@@ -53,7 +53,7 @@ public class DAO_NhanVien implements  DAOInterface<NhanVien>{
                         avatar, luongCoBan, phuCap);
             }
             
-            connection.close();
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -89,7 +89,7 @@ public class DAO_NhanVien implements  DAOInterface<NhanVien>{
                 dsNhanVien.add(nhanVien);
             }
             
-            connection.close();
+            
         } catch (SQLException e) {
             e.printStackTrace();
         }

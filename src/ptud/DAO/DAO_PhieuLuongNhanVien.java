@@ -4,11 +4,11 @@
  */
 package ptud.DAO;
 
+import ptud.Entity.PhieuLuongNhanVien;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import ptud.Entity.PhieuLuongNhanVien;
 import static ptud.Main.connection;
 
 /**
@@ -45,7 +45,6 @@ public class DAO_PhieuLuongNhanVien implements DAOInterface<PhieuLuongNhanVien> 
             
             // log the info to the output to check the result
             System.out.println("PhieuLuongNhanVien: " + phieuLuongNhanVien.toString());
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -76,7 +75,6 @@ public class DAO_PhieuLuongNhanVien implements DAOInterface<PhieuLuongNhanVien> 
             // log the info to the output to check the result
             System.out.println("PhieuLuongNhanViens: " + phieuLuongNhanViens.toString());
             
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
