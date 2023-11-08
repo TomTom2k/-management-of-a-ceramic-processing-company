@@ -100,7 +100,6 @@ public class DAO_CongDoan implements DAOInterface<CongDoan> {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return congDoans;
     }
 
@@ -332,6 +331,21 @@ public class DAO_CongDoan implements DAOInterface<CongDoan> {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public String getLastMaCD( String maSP) {
+        try {
+            String query = "SELECT TOP 1 maCD FROM CongDoan WHERE maSP = ? ORDER BY maCD DESC";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, maSP);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getString("maCD");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
     
 }
