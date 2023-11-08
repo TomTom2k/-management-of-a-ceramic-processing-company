@@ -33,7 +33,7 @@ public class DAO_BoPhan implements DAOInterface<BoPhan> {
                 boPhan = new BoPhan(id, tenBP);
             }
 
-            connection.close();
+    
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -53,7 +53,7 @@ public class DAO_BoPhan implements DAOInterface<BoPhan> {
                 BoPhan boPhan = new BoPhan(maBP, tenBP);
                 dsBoPhan.add(boPhan);
 
-                connection.close();
+        
             }
         } catch (SQLException e) {
             e.printStackTrace();
