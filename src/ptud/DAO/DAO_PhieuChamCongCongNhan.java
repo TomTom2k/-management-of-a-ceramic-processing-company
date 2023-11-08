@@ -8,6 +8,9 @@ package ptud.DAO;
  *
  * @author TranLoc
  */
-public class DAO_PhieuChamCong {
+public class DAO_PhieuChamCongCongNhan {
     
+    public static DAO_PhieuChamCongCongNhan getInstance() {
+        return new DAO_PhieuChamCongCongNhan();
+    }
 }

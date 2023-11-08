@@ -37,7 +37,7 @@ CREATE TABLE BangDanhGiaNhanVien (
 
 CREATE TABLE PhieuChamCongHanhChinh (
 	maPCCHC VARCHAR(20),
-    Ngay DATE,
+    ngayChamCong DATE,
     maNV VARCHAR(20),
     vang BIT,
     diTre BIT,
@@ -177,6 +177,7 @@ CREATE TABLE PhieuLuongCongNhan (
 CREATE TABLE PhieuChamCongCongNhan (
 	maPCCCN VARCHAR(20) PRIMARY KEY,
 	maCTPC VARCHAR(20), 
+	ngayChamCong DATE,
     soLuongCD INT,
     soLuongCDTangCa INT,
     tienPhat FLOAT(10),
