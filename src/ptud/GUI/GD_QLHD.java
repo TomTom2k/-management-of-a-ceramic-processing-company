@@ -9,7 +9,9 @@ import java.lang.invoke.MethodHandles;
 import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 import ptud.DAO.DAO_HopDong;
+import ptud.DAO.DAO_KhachHang;
 import ptud.Entity.HopDong;
+import ptud.Entity.KhachHang;
 import ptud.GUI.GUI_HD.GD_ChiTietHopDong;
 import ptud.ults.ImageCus;
 
@@ -20,7 +22,9 @@ import ptud.ults.ImageCus;
 public class GD_QLHD extends javax.swing.JPanel {
 
     DAO_HopDong daoHongDong = new DAO_HopDong();
+    DAO_KhachHang daoKhachHang = new DAO_KhachHang();
     DefaultTableModel hopDongModel;
+    DefaultTableModel khacHangModel;
       String[]  firstHopDongRow;
     /**
      * Creates new form GD_HD
@@ -30,46 +34,77 @@ public class GD_QLHD extends javax.swing.JPanel {
         initComponents();
         cardLayout = (CardLayout) (rightSide.getLayout());
         hopDongModel = (DefaultTableModel) hopDongTable.getModel();
+        khacHangModel = (DefaultTableModel) khachHangTable.getModel();
         updateTable();
     }
     void updateTable()
     {
-        deleleTable();
-        filHopDongTable();
+        deleleTable(hopDongModel);
+        deleleTable(khacHangModel);
+        fillHopDongTable();
+        fillKhachHangTable();
     }
-    int deleleTable()
+    int deleleTable(DefaultTableModel model)
     {
-        int rowIndex = hopDongModel.getRowCount();
-        for(int i = 1; i< rowIndex;i++)
+        int rowIndex = model.getRowCount();
+        for(int i = 0; i< rowIndex;i++)
         {
-            if(hopDongModel.getRowCount()==1)
+            if(model.getRowCount()==0)
             {
                 return 1;
             }
             else
             {
-              hopDongModel.removeRow(1);
+              model.removeRow(0);
             }          
         }
         return 0;
     }
-    void filHopDongTable()
+    void fillHopDongTable()
     {
        for(HopDong hopDong : daoHongDong.getAll())
        {
-           changeEnityToObject(hopDong);
+           changeEnityHD(hopDong);
        }
     }
-    void changeEnityToObject(HopDong hopDong)
+    void fillKhachHangTable()
     {
-        Object[] rowDate = new Object[6];
-        rowDate[0] = hopDong.getMaHD();
-        rowDate[1] = hopDong.getTenHD();
-        rowDate[2] = hopDong.getNgayBatDauString();
-        rowDate[3] = hopDong.getNgayKetThucString();
-        rowDate[4] = hopDong.getDonGiaString();
-        rowDate[5] = hopDong.getTrangThai();
-        hopDongModel.addRow(rowDate);         
+       for(KhachHang khachHang : daoKhachHang.getAll())
+       {
+           changeEnityKH(khachHang);
+       }
+    }
+    void changeEnityHD(HopDong hopDong)
+    {
+        Object[] rowData = new Object[6];
+        rowData[0] = hopDong.getMaHD();
+        rowData[1] = hopDong.getTenHD();
+        rowData[2] = hopDong.getNgayBatDauString();
+        rowData[3] = hopDong.getNgayKetThucString();
+        rowData[4] = hopDong.getDonGiaString();
+        rowData[5] = hopDong.getTrangThai();
+        hopDongModel.addRow(rowData);         
+    }
+     void changeEnityKH(KhachHang khachHang)
+    {
+        Object[] rowData = new Object[5];
+        rowData[0] = khachHang.getMaKhachHang();
+        rowData[1] = khachHang.getTenKhachHang();
+        rowData[2] = khachHang.getEmail();
+        rowData[3] = khachHang.getSdt();
+        rowData[4] = khachHang.isToChuc();
+        khacHangModel.addRow(rowData);         
+    }
+    HopDong changeObjectToEnity(Object[] rowData)
+    {
+        HopDong hopDong = new HopDong();
+        hopDong.setMaHD(rowData[0].toString());
+        hopDong.setTenHD(rowData[1].toString());
+        hopDong.setNgayBatDau(rowData[2].toString());
+        hopDong.setNgayKetThuc( rowData[3].toString());
+        hopDong.setDonGia(rowData[4].toString());
+        hopDong.setTrangThai(rowData[5].toString());
+        return hopDong;
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -82,8 +117,8 @@ public class GD_QLHD extends javax.swing.JPanel {
 
         gD_ChiTietHopDong2 = new ptud.GUI.GUI_HD.GD_ChiTietHopDong();
         rightSide = new javax.swing.JPanel();
-        gD_ChiTietHopDong3 = new ptud.GUI.GUI_HD.GD_ChiTietHopDong();
-        gD_TaoHopDong2 = new ptud.GUI.GUI_HD.GD_TaoHopDong();
+        gD_ChiTietHopDong = new ptud.GUI.GUI_HD.GD_ChiTietHopDong();
+        gD_TaoHopDong = new ptud.GUI.GUI_HD.GD_TaoHopDong();
         body = new javax.swing.JPanel();
         heading = new javax.swing.JPanel();
         heading_2 = new javax.swing.JPanel();
@@ -112,8 +147,8 @@ public class GD_QLHD extends javax.swing.JPanel {
         rightSide.setForeground(new java.awt.Color(255, 255, 255));
         rightSide.setPreferredSize(new java.awt.Dimension(300, 600));
         rightSide.setLayout(new java.awt.CardLayout());
-        rightSide.add(gD_ChiTietHopDong3, "CTHD");
-        rightSide.add(gD_TaoHopDong2, "THD");
+        rightSide.add(gD_ChiTietHopDong, "CTHD");
+        rightSide.add(gD_TaoHopDong, "THD");
 
         body.setBackground(new java.awt.Color(255, 255, 255));
         body.setLayout(new java.awt.BorderLayout());
@@ -228,6 +263,11 @@ public class GD_QLHD extends javax.swing.JPanel {
                 "Mã hợp đồng", "Tên hợp đồng", "Ngày bắt đầu", "Ngày kết thúc", "Trị giá hợp đồng", "Trạng thái"
             }
         ));
+        hopDongTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                hopDongTableMouseClicked(evt);
+            }
+        });
         hopDongScroll.setViewportView(hopDongTable);
 
         javax.swing.GroupLayout hopDong_PanelLayout = new javax.swing.GroupLayout(hopDong_Panel);
@@ -329,6 +369,15 @@ public class GD_QLHD extends javax.swing.JPanel {
         isCTHD *=-1;
      
     }//GEN-LAST:event_taoHopDongButtonActionPerformed
+
+    private void hopDongTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hopDongTableMouseClicked
+      int index = hopDongTable.getSelectedRow();
+      String maHD = hopDongModel.getValueAt(index,0).toString();
+      HopDong hopDong = daoHongDong.get(maHD);
+      gD_ChiTietHopDong.receiveHopDong(hopDong );
+     
+// TODO add your handling code here:
+    }//GEN-LAST:event_hopDongTableMouseClicked
    /**
      * Creates new form Layout
      */
@@ -337,9 +386,9 @@ public class GD_QLHD extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel body;
     private javax.swing.JPanel body_1;
+    private ptud.GUI.GUI_HD.GD_ChiTietHopDong gD_ChiTietHopDong;
     private ptud.GUI.GUI_HD.GD_ChiTietHopDong gD_ChiTietHopDong2;
-    private ptud.GUI.GUI_HD.GD_ChiTietHopDong gD_ChiTietHopDong3;
-    private ptud.GUI.GUI_HD.GD_TaoHopDong gD_TaoHopDong2;
+    private ptud.GUI.GUI_HD.GD_TaoHopDong gD_TaoHopDong;
     private javax.swing.JPanel heading;
     private javax.swing.JPanel heading_1;
     private javax.swing.JPanel heading_2;

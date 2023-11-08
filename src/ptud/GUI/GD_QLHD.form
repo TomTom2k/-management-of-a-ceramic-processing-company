@@ -57,14 +57,14 @@
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.DesignCardLayout"/>
       <SubComponents>
-        <Component class="ptud.GUI.GUI_HD.GD_ChiTietHopDong" name="gD_ChiTietHopDong3">
+        <Component class="ptud.GUI.GUI_HD.GD_ChiTietHopDong" name="gD_ChiTietHopDong">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
               <CardConstraints cardName="CTHD"/>
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="ptud.GUI.GUI_HD.GD_TaoHopDong" name="gD_TaoHopDong2">
+        <Component class="ptud.GUI.GUI_HD.GD_TaoHopDong" name="gD_TaoHopDong">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
               <CardConstraints cardName="THD"/>
@@ -377,6 +377,9 @@
                               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="hopDongTableMouseClicked"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>

@@ -4,21 +4,83 @@
  */
 package ptud.GUI.GUI_HD;
 
+import javax.swing.table.DefaultTableModel;
+import ptud.DAO.DAOInterface;
+import ptud.Entity.HopDong;
+import ptud.Entity.SanPham;
+
 /**
  *
  * @author vohau
  */
 public class GD_ChiTietHopDong extends javax.swing.JPanel {
 
+    HopDong hopDong = new HopDong();
+    DefaultTableModel sanPhamModel;
     /**
      * Creates new form GD_ChiTietHopDong
      */
     public GD_ChiTietHopDong() {
         initComponents();
         tienDoSanPhamTable.getColumnModel().getColumn(1).setCellRenderer(new TienDoTableCellRender());
+        sanPhamModel = (DefaultTableModel)sanPhamTable.getModel();
       
     }
-
+    void changeEnityToObject(SanPham sanPham)
+    {
+        Object[] rowData = new Object[4];
+        rowData[0] = sanPham.getMaSanPham();
+        rowData[1] = sanPham.getTenSanPham();
+        rowData[2] = sanPham.getSoLuong();
+        rowData[3] = sanPham.getDonGia();
+        sanPhamModel.addRow(rowData);         
+    }
+    public void receiveHopDong(HopDong hopDong1)
+    {
+         hopDong = hopDong1;
+         updateData();
+         
+         updateTable();
+    }
+    public void updateData()
+    {
+        maHDTextField.setText(hopDong.getMaHD());
+        tenHDmaHDTextField.setText(hopDong.getTenHD());
+        triGiamaHDTextField.setText(hopDong.getDonGiaString());
+        trangThaimaHDTextField.setText(hopDong.getTrangThai());
+        ngayBDmaHDTextField.setText(hopDong.getNgayBatDauString());   
+        ngayKTmaHDTextField.setText(hopDong.getNgayKetThucString());
+        maKHmaHDTextField.setText(hopDong.getMaKH());
+    }
+    void updateTable()
+    {     
+        deleleTable();
+        filHopDongTable();   
+    }
+    int deleleTable()
+    {
+        int rowIndex = sanPhamModel.getRowCount();
+        for(int i = 0; i< rowIndex;i++)
+        {
+            if(sanPhamModel.getRowCount()==0)
+            {
+                return 1;
+            }
+            else
+            {
+              sanPhamModel.removeRow(0);
+            }          
+        }
+        return 0;
+    }
+    void filHopDongTable()
+    {
+        hopDong.updateListSanPham();
+       for(SanPham sanPham :hopDong.getSanPhams())
+       {
+           changeEnityToObject(sanPham);
+       }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -53,7 +115,7 @@ public class GD_ChiTietHopDong extends javax.swing.JPanel {
         xacNhanButton = new javax.swing.JButton();
         jPanel11 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        sanPhamTable = new javax.swing.JTable();
         tienDoSanPham = new javax.swing.JPanel();
         footer_1 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -282,8 +344,8 @@ public class GD_ChiTietHopDong extends javax.swing.JPanel {
 
         jPanel11.setBackground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setBackground(new java.awt.Color(225, 240, 221));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        sanPhamTable.setBackground(new java.awt.Color(225, 240, 221));
+        sanPhamTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -294,7 +356,7 @@ public class GD_ChiTietHopDong extends javax.swing.JPanel {
                 "Mã sản phẩm", "Tên sản phẩm", "số lượng", "Đơn giá"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(sanPhamTable);
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -453,11 +515,11 @@ public class GD_ChiTietHopDong extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel13;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JTextField maHDTextField;
     private javax.swing.JTextField maKHmaHDTextField;
     private javax.swing.JTextField ngayBDmaHDTextField;
     private javax.swing.JTextField ngayKTmaHDTextField;
+    private javax.swing.JTable sanPhamTable;
     private javax.swing.JTextField tenHDmaHDTextField;
     private javax.swing.JProgressBar thoiGianProgessBar;
     private javax.swing.JProgressBar tienDoProgessBar;
