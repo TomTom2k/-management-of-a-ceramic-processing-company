@@ -85,7 +85,7 @@ public class GD_QLHD extends javax.swing.JPanel {
         rowData[5] = hopDong.getTrangThai();
         hopDongModel.addRow(rowData);         
     }
-     void changeEnityKH(KhachHang khachHang)
+    void changeEnityKH(KhachHang khachHang)
     {
         Object[] rowData = new Object[5];
         rowData[0] = khachHang.getMaKhachHang();
