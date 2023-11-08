@@ -30,8 +30,10 @@ public class ConnectDB {
 				String password = "12345678";
 				
 			connection = java.sql.DriverManager.getConnection(url, username, password);
+                        System.err.println("Thành công");
 		} 
 		catch (java.sql.SQLException e) {
+//                        System.out.println("Lỗi tại đây");
 			e.printStackTrace();
 		}
 	}

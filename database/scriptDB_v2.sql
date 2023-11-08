@@ -181,6 +181,7 @@ CREATE TABLE PhieuChamCongCongNhan (
     soLuongCDTangCa INT,
     tienPhat FLOAT(10),
     noiDungPhat NVARCHAR(255),
+	tienThuong FLOAT(10),
 	FOREIGN KEY (maCTPC) REFERENCES ChiTietPhanCong(maCTPC)
 );
 
