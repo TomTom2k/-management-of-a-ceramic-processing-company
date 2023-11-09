@@ -83,4 +83,14 @@ public class SanPham
 		this.setTenSanPham(tenSanPham);
                 this.setMaHD(maHD);
 	}
+        public SanPham(int stt, String tenSanPham, int soLuong, double donGia,String maHD) 
+	{
+		super();
+                this.setMaHD(maHD);
+		this.setDonGia(donGia);               		
+		this.setSoLuong(soLuong);
+		this.setTenSanPham(tenSanPham);
+                this.setMaSanPham(stt);
+                
+	}
 }

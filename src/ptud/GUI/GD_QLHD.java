@@ -36,8 +36,9 @@ public class GD_QLHD extends javax.swing.JPanel {
         hopDongModel = (DefaultTableModel) hopDongTable.getModel();
         khacHangModel = (DefaultTableModel) khachHangTable.getModel();
         updateTable();
+        gD_TaoHopDong.receiveGD_QLHD(this);
     }
-    void updateTable()
+    public void updateTable()
     {
         deleleTable(hopDongModel);
         deleleTable(khacHangModel);

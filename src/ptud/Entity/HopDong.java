@@ -26,7 +26,21 @@ public class HopDong {
    public static String oldMaHD = null;
    private double donGia; 
    private String maKH; 
-   static int soLuongSanPham = 0;
+
+    public int getSoLuongSanPham() {
+        return soLuongSanPham;
+    }
+
+    public void setSoLuongSanPham() 
+    {
+        int count =0;
+       for(SanPham sanPham : sanPhams)
+       {
+           count++;
+       }
+       soLuongSanPham = count;
+    }
+   private int soLuongSanPham;
    ArrayList<SanPham> sanPhams = new ArrayList<>();
 
     public ArrayList<SanPham> getSanPhams() {
