@@ -90,7 +90,7 @@ public class DAO_KhachHang implements DAOInterface<KhachHang>
         //let code to insert khachHang to database sqlserver 
         try {
             // Create a PreparedStatement to insert the data  
-            String query = "INSERT INTO KhachHang (maKH, tenKH,toChuc, email, dienThoai) VALUES (?, ?, ?, ?, ?,)";
+            String query = "INSERT INTO KhachHang (maKH, tenKH,toChuc, email, dienThoai) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(query);           
             // Set the values of the parameters
             statement.setString(1, khachHang.getMaKhachHang());

@@ -27,11 +27,13 @@ public class SanPham
 	{
 		if(stt<10)
 		{
-			this.maSanPham = this.maHD+"0"+stt;
+                    String sttString = "0"+stt;
+			this.maSanPham = this.maHD+sttString;
 		}
 		else 
-		{
-			this.maSanPham = this.maHD+stt;
+		{  
+                    String sttString = ""+stt;
+                    this.maSanPham = this.maHD+stt;
 		}
 	}
 	public String getTenSanPham() {

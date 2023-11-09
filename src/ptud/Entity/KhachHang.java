@@ -1,5 +1,7 @@
 package ptud.Entity;
 
+import java.time.LocalDate;
+
 public class KhachHang 
 {
 	// Author VoPhuocHau
@@ -16,9 +18,28 @@ public class KhachHang
 	{
 		this.maKhachHang = maKhachHang;
 	}
-        public void setMaKhachHang() 
+        public void setMaKhachHang(int stt) 
 	{
-		
+          int year = LocalDate.now().getYear();
+          year= year%100;
+          maKhachHang = ""+year;
+            System.out.println(maKhachHang);
+          if(stt<10)
+          {
+              maKhachHang += "000"+stt;
+          }
+          else if(stt<100)
+          {
+              maKhachHang += "00"+stt;
+          }
+          else if(stt<1000)
+          {
+              maKhachHang += "0"+stt; 
+          }
+          else
+          {
+              maKhachHang += ""+stt;   
+          }
 	}
 	public String getTenKhachHang() 
 	{
@@ -65,13 +86,13 @@ public class KhachHang
          this.setTenKhachHang(tenKhachHang);
          this.setToChuc(isToChuc);
 	}
-        public KhachHang( String tenKhachHang, boolean isToChuc, String email, String sdt) 
+        public KhachHang(int stt,String tenKhachHang, boolean isToChuc, String email, String sdt) 
         {
 	 super();	
          this.setSdt(sdt);
          this.setEmail(email);
          this.setTenKhachHang(tenKhachHang);
          this.setToChuc(isToChuc);
-         this.setMaKhachHang();
+         this.setMaKhachHang(stt);
 	}
 }

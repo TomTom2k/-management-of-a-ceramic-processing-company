@@ -50,7 +50,31 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
         try 
         {
             boolean isCreate = true;
-        } catch (Exception e) {
+            if (!checkRegex("[A-Z]{1}", jTextField7.getText())) {
+                jLabel15.setText("Chữ cái đầu phải viết hoa");
+                isCreate = false;
+            }
+            if (!checkRegex("^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6})*$", jTextField7.getText())) {
+                jLabel15.setText("email phải thuộc định dạng a@example.c");
+                isCreate = false;
+            }
+            if (!checkRegex("^[0-9]{10}$", jTextField7.getText())) {
+                jLabel15.setText("số điện thoại gồm 10 số");
+                isCreate = false;
+            }
+            if(isCreate==false)
+            {
+                String tenKH,email,sdt;
+                tenKH = jTextFieldTenKH.getText();
+                sdt = jTextFieldSDT.getText();
+                email = jTextFieldMail.getText();               
+                KhachHang khachHang = new KhachHang(daokh.getAll().size()+1,tenKH,jRadioButtonToChuc.isEnabled(), email, sdt);
+                daokh.insert(khachHang);
+                gd_QLHD.updateTable();
+            }
+        } catch (Exception e)
+        {
+           
         }
     }
     void insertSanPhamToDatabase()
@@ -65,6 +89,7 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
         hopDong.getSanPhams().add(sanPham);
         daosp.insert(sanPham);
     }
+
     void createSanPham()
     {
         try 
@@ -85,7 +110,7 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
             }
             if (soLuong <= 0)
                    {
-                jLabel15.setText("Gía trị tài khoản phải là số không âm!");
+                jLabel17.setText("Gía trị tài khoản phải là số không âm!");
                  isCreate = false;
             }
             if (isCreate == true) {
@@ -100,8 +125,8 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
         } 
         catch (Exception e) 
         {
-             jLabel15.setText("Gía trị tài khoản phải là số không âm!");
-             jLabel15.setText("Gía trị tài khoản phải là số không âm!");
+             jLabel16.setText("Gía trị tài khoản phải là số không âm!");
+             jLabel17.setText("Gía trị tài khoản phải là số không âm!");
         }
     }
     public boolean checkRegex(String pattern,String input)
@@ -251,11 +276,14 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
         jTextFieldTenKH = new javax.swing.JTextField();
-        jTextFieldEmail = new javax.swing.JTextField();
-        jTextFieldToChuc = new javax.swing.JTextField();
+        jTextFieldSDT = new javax.swing.JTextField();
+        jTextFieldMail = new javax.swing.JTextField();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jRadioButtonToChuc = new javax.swing.JRadioButton();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
 
         jPanel8.setPreferredSize(new java.awt.Dimension(379, 50));
 
@@ -576,7 +604,7 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
                 .addGroup(body_body_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton1))
-                .addGap(18, 75, Short.MAX_VALUE)
+                .addGap(18, 89, Short.MAX_VALUE)
                 .addComponent(jLabel8)
                 .addGap(27, 27, 27)
                 .addGroup(body_body_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -643,6 +671,12 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
             }
         });
 
+        jLabel18.setForeground(new java.awt.Color(255, 0, 0));
+
+        jLabel19.setForeground(new java.awt.Color(255, 0, 0));
+
+        jLabel20.setForeground(new java.awt.Color(255, 0, 0));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -650,20 +684,29 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel12)
-                    .addComponent(jLabel13)
-                    .addComponent(jLabel14)
-                    .addComponent(jLabel6)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jTextFieldToChuc, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
-                        .addComponent(jRadioButtonToChuc, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jTextFieldEmail)
-                        .addComponent(jTextFieldTenKH))
-                    .addComponent(jButton6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(65, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel20)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel19)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel12)
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel14)
+                            .addComponent(jLabel6)
+                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel18))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jTextFieldMail, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
+                                .addComponent(jRadioButtonToChuc, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jTextFieldSDT)
+                                .addComponent(jTextFieldTenKH))
+                            .addComponent(jButton6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addContainerGap(65, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -672,15 +715,21 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jTextFieldTenKH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(jTextFieldToChuc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jTextFieldMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel19)
+                .addGap(3, 3, 3)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel13)
-                    .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addComponent(jTextFieldSDT, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(1, 1, 1)
+                .addComponent(jLabel20)
+                .addGap(1, 1, 1)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel14)
                     .addComponent(jRadioButtonToChuc))
@@ -688,7 +737,7 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton5)
                     .addComponent(jButton6))
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addContainerGap(152, Short.MAX_VALUE))
         );
 
         body_body_2.add(jPanel1, "taoKH");
@@ -804,7 +853,7 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextFieldMaKHActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        createKhachHang();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
    CardLayout cardLayout;
@@ -839,7 +888,10 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -858,11 +910,11 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
-    private javax.swing.JTextField jTextFieldEmail;
     private javax.swing.JTextField jTextFieldGiaHD;
     private javax.swing.JTextField jTextFieldMaKH;
+    private javax.swing.JTextField jTextFieldMail;
+    private javax.swing.JTextField jTextFieldSDT;
     private javax.swing.JTextField jTextFieldTenHD;
     private javax.swing.JTextField jTextFieldTenKH;
-    private javax.swing.JTextField jTextFieldToChuc;
     // End of variables declaration//GEN-END:variables
 }

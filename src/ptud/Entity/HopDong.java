@@ -33,12 +33,8 @@ public class HopDong {
 
     public void setSoLuongSanPham() 
     {
-        int count =0;
-       for(SanPham sanPham : sanPhams)
-       {
-           count++;
-       }
-       soLuongSanPham = count;
+       
+       soLuongSanPham =  sanPhams.size();
     }
    private int soLuongSanPham;
    ArrayList<SanPham> sanPhams = new ArrayList<>();
