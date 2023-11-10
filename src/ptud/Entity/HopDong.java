@@ -82,7 +82,11 @@ public class HopDong {
     }
 
     public void setTrangThai(String trangThai) {
-        this.trangThai = "Chờ xác nhận";
+        this.trangThai = trangThai;
+    }
+      public void xacNhanHopDong(String trangThai) 
+    {
+        this.trangThai = trangThai;
     }
 
     String generateMaHD() {
@@ -177,7 +181,7 @@ public class HopDong {
         return trangThai;
     }
 
-    public HopDong(String tenHD, LocalDate ngayBatDau, LocalDate ngayKetThucDuKien, double donGia, String maKH) {
+    public HopDong(String tenHD, LocalDate ngayBatDau, LocalDate ngayKetThucDuKien, double donGia, String maKH,String trangThai) {
         super();
         this.setNgayBatDau(ngayBatDau);
         this.setNgayKetThucDuKien(ngayKetThucDuKien);
@@ -200,7 +204,7 @@ public class HopDong {
         }
     }
 
-    public HopDong(String maHD, String tenHD, LocalDate ngayBatDau, LocalDate ngayKetThucDuKien, double donGia, String maKH) {
+    public HopDong(String maHD, String tenHD, LocalDate ngayBatDau, LocalDate ngayKetThucDuKien, double donGia, String maKH,String trangThai) {
         super();
         this.setNgayBatDau(ngayBatDau);
         this.setNgayKetThucDuKien(ngayKetThucDuKien);
