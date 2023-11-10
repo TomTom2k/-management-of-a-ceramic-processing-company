@@ -375,7 +375,7 @@ public class GD_QLHD extends javax.swing.JPanel {
       int index = hopDongTable.getSelectedRow();
       String maHD = hopDongModel.getValueAt(index,0).toString();
       HopDong hopDong = daoHongDong.get(maHD);
-      gD_ChiTietHopDong.receiveHopDong(hopDong );
+      gD_ChiTietHopDong.receiveHopDong(hopDong,this );
      
 // TODO add your handling code here:
     }//GEN-LAST:event_hopDongTableMouseClicked
