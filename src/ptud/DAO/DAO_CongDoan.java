@@ -228,7 +228,7 @@ public class DAO_CongDoan implements DAOInterface<CongDoan> {
         // let code to insert CongDoan t into database, and insert CongDoanTienQuyet too
         try {
             // Insert CongDoan t into database
-            String query = "INSERT INTO CongDoan (maCD, maSP, maBP, tenCD, donGia, trangThai, soLuongChuanBiToiThieu) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String query = "INSERT INTO CongDoan (maCD, maSP, maBP, tenCD, donGia, trangThai, soLuongChuanBiToiThieu, soLuongChuanBi, soLuongHoanThanh) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(query);
             
             // Set the values of the parameters
@@ -239,7 +239,8 @@ public class DAO_CongDoan implements DAOInterface<CongDoan> {
             statement.setDouble(5, t.getDonGia());
             statement.setBoolean(6, t.isTrangThai());
             statement.setInt(7, t.getSoLuongChuanBiToiThieu());
-            
+            statement.setInt(8, t.getSoLuongChuanBi()); 
+            statement.setInt(9, t.getSoLuongHoanThanh()); 
             // Execute the query
             int rowsAffected = statement.executeUpdate();
           
@@ -268,7 +269,7 @@ public class DAO_CongDoan implements DAOInterface<CongDoan> {
         // let code to update CongDoan t to database
         try {
             // Update CongDoan t in the database
-            String query = "UPDATE CongDoan SET maSP = ?, maBP = ?, tenCD = ?, donGia = ?, trangThai = ?, soLuongChuanBiToiThieu = ? WHERE maCD = ?";
+            String query = "UPDATE CongDoan SET maSP = ?, maBP = ?, tenCD = ?, donGia = ?, trangThai = ?, soLuongChuanBiToiThieu = ?, soLuongChuanBi = ?, soLuongHoanThanh = ?  WHERE maCD = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             
             // Set the values of the parameters
@@ -278,8 +279,9 @@ public class DAO_CongDoan implements DAOInterface<CongDoan> {
             statement.setDouble(4, t.getDonGia());
             statement.setBoolean(5, t.isTrangThai());
             statement.setInt(6, t.getSoLuongChuanBiToiThieu());
-            statement.setString(7, t.getMaCD());
-            
+            statement.setInt(7, t.getSoLuongChuanBi());
+            statement.setInt(8, t.getSoLuongHoanThanh());
+            statement.setString(9, t.getMaCD());
             // Execute the query
             int rowsAffected = statement.executeUpdate();
           
@@ -313,17 +315,28 @@ public class DAO_CongDoan implements DAOInterface<CongDoan> {
     public boolean deleteById(String id) {
         //let code to delete CongDoan t from database
         try {
-            // Create a PreparedStatement to delete the data  
+            // CREATE TABLE CongDoanTienQuyet (
+            //     maCDTQ VARCHAR(20),
+            //     maCD VARCHAR(20),
+            //     PRIMARY KEY (maCD, maCDTQ),
+            //     FOREIGN KEY (maCDTQ) REFERENCES CongDoan(maCD),
+            //     FOREIGN KEY (maCD) REFERENCES CongDoan(maCD)
+            // );
+            // first Delete all records CongDoanTienQuyet has maCDTQ == id
+            String deleteQuery = "DELETE FROM CongDoanTienQuyet WHERE maCDTQ = ?";
+            PreparedStatement deleteStatement = connection.prepareStatement(deleteQuery);
+            deleteStatement.setString(1, id);
+            deleteStatement.executeUpdate();
+            // second Delete all records CongDoanTienQuyet has maCD == id
+            deleteQuery = "DELETE FROM CongDoanTienQuyet WHERE maCD = ?";
+            deleteStatement = connection.prepareStatement(deleteQuery);
+            deleteStatement.setString(1, id);
+            deleteStatement.executeUpdate();
+
             String query = "DELETE FROM CongDoan WHERE maCD = ?";
             PreparedStatement statement = connection.prepareStatement(query);
-            
-            // Set the value of the parameter
             statement.setString(1, id);
-            
-            // Execute the query
             int rowsAffected = statement.executeUpdate();
-          
-            // Check if the delete was successful
             if (rowsAffected > 0) {
                 return true;
             }
