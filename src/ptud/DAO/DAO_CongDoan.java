@@ -341,6 +341,8 @@ public class DAO_CongDoan implements DAOInterface<CongDoan> {
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 return resultSet.getString("maCD");
+            } else {
+                return maSP+"00"; 
             }
         } catch (SQLException e) {
             e.printStackTrace();

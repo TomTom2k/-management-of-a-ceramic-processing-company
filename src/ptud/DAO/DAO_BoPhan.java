@@ -52,7 +52,7 @@ public class DAO_BoPhan implements DAOInterface<BoPhan> {
                 String tenBP = resultSet.getString("tenBP");
                 BoPhan boPhan = new BoPhan(maBP, tenBP);
                 dsBoPhan.add(boPhan);
-
+                
         
             }
         } catch (SQLException e) {
