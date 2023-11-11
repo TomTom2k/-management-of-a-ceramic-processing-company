@@ -45,7 +45,7 @@ public class DAO_HopDong implements DAOInterface<HopDong> {
                 String maKH = resultSet.getString("maKH");
                 double donGia = resultSet.getDouble("donGia");
                 String trangThai = resultSet.getString("trangThai");
-                hopDong = new HopDong(tenHD, ngayBatDau, ngayKetThuc, donGia,maKH,trangThai);   
+                hopDong = new HopDong(id,tenHD, ngayBatDau, ngayKetThuc, donGia,maKH,trangThai);   
                 hopDong.setMaHD(id);
             }           
             // log the info to the output to check the result            

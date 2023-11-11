@@ -37,13 +37,11 @@ public class DAO_KhachHang implements DAOInterface<KhachHang>
             if (resultSet.next()) 
             {
                 
-                String tenHD = resultSet.getString("tenHD");
-                LocalDate ngayBatDau = resultSet.getDate("ngayBatDau").toLocalDate();
-                LocalDate ngayKetThuc = resultSet.getDate("ngayKetThucDukien").toLocalDate();
-                String maKH = resultSet.getString("maKH");
-                double donGia = resultSet.getDouble("donGia");
-                String trangThai = resultSet.getString("trangThai");
-                khachHang = new KhachHang();
+                String tenKH = resultSet.getString("tenKH");
+                boolean isToChuc =  resultSet.getBoolean("toChuc");
+                String email = resultSet.getString("email");
+                String sdt = resultSet.getString("dienThoai"); 
+                khachHang = new KhachHang(id, tenKH, isToChuc, email, sdt);
                 
             }           
             // log the info to the output to check the result            
