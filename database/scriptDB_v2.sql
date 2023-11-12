@@ -178,10 +178,12 @@ CREATE TABLE PhieuChamCongCongNhan (
 	maPCCCN VARCHAR(20) PRIMARY KEY,
 	maCTPC VARCHAR(20), 
 	ngayChamCong DATE,
+	vang BIT,
     soLuongCD INT,
     soLuongCDTangCa INT,
-    tienPhat FLOAT(10),
     noiDungPhat NVARCHAR(255),
+	tienCong FLOAT(10),
+    tienPhat FLOAT(10),
 	tienThuong FLOAT(10),
 	FOREIGN KEY (maCTPC) REFERENCES ChiTietPhanCong(maCTPC)
 );
