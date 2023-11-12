@@ -180,7 +180,7 @@ CREATE TABLE PhieuChamCongCongNhan (
 	ngayChamCong DATE,
 	vang BIT,
     soLuongCD INT,
-    soLuongCDTangCa INT,
+    soLuongCDTangCa INT,	
     noiDungPhat NVARCHAR(255),
 	tienCong FLOAT(10),
     tienPhat FLOAT(10),

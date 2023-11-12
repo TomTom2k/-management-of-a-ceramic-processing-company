@@ -5,6 +5,7 @@
 package ptud.Entity;
 
 import java.time.LocalDate;
+import java.util.Date;
 
 /**
  *
@@ -13,10 +14,11 @@ import java.time.LocalDate;
 public class PhieuChamCongCongNhan {
     private String maCN;
     private LocalDate ngay;
+    private boolean vang;
     private int soLuongSanPham;
     private String maCTPC;
     private String noiDungPhat;
-    private double tongTienCD;
+    private double tienCong;
     private double tienThuong;
     private double tienPhat;
     private int soLuongSanPhamTangCa;
@@ -24,16 +26,25 @@ public class PhieuChamCongCongNhan {
     public PhieuChamCongCongNhan() {
     }
 
-    public PhieuChamCongCongNhan(String maCN, LocalDate ngay, int soLuongSanPham, String maCTPC, String noiDungPhat, double tongTienCD, double tienThuong, double tienPhat, int soLuongSanPhamTangCa) {
+    public PhieuChamCongCongNhan(String maCN, LocalDate ngay, boolean vang, int soLuongSanPham, String maCTPC, String noiDungPhat, double tongTienCD, double tienThuong, double tienPhat, int soLuongSanPhamTangCa) {
         this.maCN = maCN;
         this.ngay = ngay;
+        this.vang = vang;
         this.soLuongSanPham = soLuongSanPham;
         this.maCTPC = maCTPC;
         this.noiDungPhat = noiDungPhat;
-        this.tongTienCD = tongTienCD;
+        this.tienCong = tienCong;
         this.tienThuong = tienThuong;
         this.tienPhat = tienPhat;
         this.soLuongSanPhamTangCa = soLuongSanPhamTangCa;
+    }
+
+    public boolean isVang() {
+        return vang;
+    }
+
+    public void setVang(boolean vang) {
+        this.vang = vang;
     }
 
     public String getMaCN() {
@@ -76,12 +87,12 @@ public class PhieuChamCongCongNhan {
         this.noiDungPhat = noiDungPhat;
     }
 
-    public double getTongTienCD() {
-        return tongTienCD;
+    public double getTienCong() {
+        return tienCong;
     }
 
-    public void setTongTienCD(double tongTienCD) {
-        this.tongTienCD = tongTienCD;
+    public void setTienCong(double tienCong) {
+        this.tienCong = tienCong;
     }
 
     public double getTienThuong() {
