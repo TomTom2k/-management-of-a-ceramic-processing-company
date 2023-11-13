@@ -7,6 +7,9 @@ package ptud.Entity;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import ptud.DAO.DAO_CongDoan;
+import ptud.DAO.DAO_SanPham;
+
 /**
  *  
  * @author KHANH PC
@@ -63,7 +66,24 @@ public class CongDoan {
 
     public int getSoLuongChuanBi() {
         int soLuongChuanBi = 0;
-        // xử lý tính toán 
+
+        DAO_CongDoan dao = DAO_CongDoan.getInstance();
+        if( dao.getDsCDTQ(maCD).isEmpty() ) {
+            // nếu không có cđtq, số lượng chuẩn bị là slsp
+            String maSP = dao.get(maCD).getMaSP(); 
+            SanPham sp = DAO_SanPham.getInstance().get(maSP);
+            soLuongChuanBi=sp.getSoLuong(); 
+        } else {
+            // Lấy số lượng hoàn thành nhỏ nhất của công đoạn tiên quyết làm số lượng chuẩn bị
+            ArrayList<CongDoan> dsCDTQ = dao.getDsCDTQ(maCD);
+            int sum = 99999;
+            for (CongDoan cd : dsCDTQ) {
+                int slht = cd.getSoLuongHoanThanh(); 
+                sum = Math.min(sum, slht);
+            }
+            soLuongChuanBi=sum-this.getSoLuongHoanThanh(); 
+        }
+
         return soLuongChuanBi;
     }
 
@@ -74,6 +94,7 @@ public class CongDoan {
     public int getSoLuongHoanThanh() {
         int soLuongHoanThanh = 0;
         // xử lý tính toán 
+        soLuongHoanThanh = DAO_CongDoan.getInstance().getSoLuongHoanThanh(this.maCD);
         return soLuongHoanThanh;
     }
 
