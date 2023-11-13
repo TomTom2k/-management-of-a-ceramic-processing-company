@@ -12,7 +12,7 @@ import ptud.ults.ImageCus;
 
 /**
  *
- * @author TomTom
+ * @author TomTom, TranLoc
  */
 public class Layout extends javax.swing.JFrame {
 //    fun
@@ -38,8 +38,11 @@ public class Layout extends javax.swing.JFrame {
      */
     private CardLayout cardLayout;
     public static Layout instance;
-    public Layout() {
-        initComponents();
+    public Layout(int userRole) {
+        if (userRole == 1)
+            initComponents();
+        else 
+            initComponents2(userRole);
         instance = this;
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         avatarImage.setIcon(ImageCus.getScaledImageIcon("/assets/images/avataruser1.jpg", 160, 160));
@@ -285,7 +288,260 @@ public class Layout extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+      // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
+    private void initComponents2(int userRole) {
 
+        Aside = new javax.swing.JPanel();
+        avatar = new javax.swing.JPanel();
+        avatarImage = new javax.swing.JLabel();
+        menu = new javax.swing.JPanel();
+        btnQLTK = new javax.swing.JButton();
+        btnQLNS = new javax.swing.JButton();
+        btnQLHD = new javax.swing.JButton();
+        btnQLSP = new javax.swing.JButton();
+        btnTinhLuong = new javax.swing.JButton();
+        btnChamCong = new javax.swing.JButton();
+        logout = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        btnLogout = new javax.swing.JButton();
+        body = new javax.swing.JPanel();
+        gD_Main = new ptud.GUI.GD_Main();
+        gD_QLTK = new ptud.GUI.GD_QLTK();
+        gD_QLNS = new ptud.GUI.GD_QLNS();
+        gD_QLHD = new ptud.GUI.GD_QLHD();
+        gD_QLSP = new ptud.GUI.GD_QLSP();
+        gD_TinhLuong = new ptud.GUI.GD_TinhLuong();
+        gD_ChamCong = new ptud.GUI.GD_ChamCong();
+        gD_ThemNV1 = new ptud.GUI.GD_ThemNV();
+        gD_DanhGia2 = new ptud.GUI.GD_DanhGia();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new java.awt.BorderLayout(0, 100));
+
+        Aside.setBackground(new java.awt.Color(238, 250, 235));
+        Aside.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        Aside.setPreferredSize(new java.awt.Dimension(200, 300));
+        Aside.setLayout(new java.awt.BorderLayout(0, 20));
+
+        avatar.setBackground(new java.awt.Color(238, 250, 235));
+        avatar.setPreferredSize(new java.awt.Dimension(200, 200));
+
+        avatarImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/images/avataruser1.jpg"))); // NOI18N
+        avatarImage.setPreferredSize(new java.awt.Dimension(160, 160));
+
+        javax.swing.GroupLayout avatarLayout = new javax.swing.GroupLayout(avatar);
+        avatar.setLayout(avatarLayout);
+        avatarLayout.setHorizontalGroup(
+            avatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(avatarLayout.createSequentialGroup()
+                .addGap(17, 17, 17)
+                .addComponent(avatarImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(612, Short.MAX_VALUE))
+        );
+        avatarLayout.setVerticalGroup(
+            avatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(avatarLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(avatarImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
+
+        Aside.add(avatar, java.awt.BorderLayout.NORTH);
+
+        menu.setBackground(new java.awt.Color(238, 250, 235));
+        java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout(java.awt.FlowLayout.LEADING, 0, 0);
+        flowLayout1.setAlignOnBaseline(true);
+        menu.setLayout(flowLayout1);
+
+        btnQLTK.setBackground(new java.awt.Color(238, 250, 235));
+        btnQLTK.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        btnQLTK.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnQLTK.setBorderPainted(false);
+        btnQLTK.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnQLTK.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnQLTK.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnQLTK.setIconTextGap(0);
+        btnQLTK.setLabel("Danh sách tài khoản");
+        btnQLTK.setMargin(new java.awt.Insets(2, 20, 3, 20));
+        btnQLTK.setPreferredSize(new java.awt.Dimension(200, 40));
+        btnQLTK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQLTKActionPerformed(evt);
+            }
+        });
+        
+        btnQLTK.getAccessibleContext().setAccessibleDescription("");
+
+        btnQLNS.setBackground(new java.awt.Color(238, 250, 235));
+        btnQLNS.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        btnQLNS.setText("Danh sách nhân sự");
+        btnQLNS.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnQLNS.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnQLNS.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnQLNS.setIconTextGap(0);
+        btnQLNS.setMargin(new java.awt.Insets(2, 20, 3, 20));
+        btnQLNS.setPreferredSize(new java.awt.Dimension(200, 40));
+        btnQLNS.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQLNSActionPerformed(evt);
+            }
+        });
+
+
+        btnQLHD.setBackground(new java.awt.Color(238, 250, 235));
+        btnQLHD.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        btnQLHD.setText("Danh sách hợp đồng");
+        btnQLHD.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnQLHD.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnQLHD.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnQLHD.setIconTextGap(0);
+        btnQLHD.setMargin(new java.awt.Insets(2, 20, 3, 20));
+        btnQLHD.setPreferredSize(new java.awt.Dimension(200, 40));
+        btnQLHD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQLHDActionPerformed(evt);
+            }
+        });
+
+
+        btnQLSP.setBackground(new java.awt.Color(238, 250, 235));
+        btnQLSP.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        btnQLSP.setText("Danh sách sản phẩm");
+        btnQLSP.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnQLSP.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnQLSP.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnQLSP.setIconTextGap(0);
+        btnQLSP.setMargin(new java.awt.Insets(2, 20, 3, 20));
+        btnQLSP.setPreferredSize(new java.awt.Dimension(200, 40));
+        btnQLSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQLSPActionPerformed(evt);
+            }
+        });
+
+
+        btnTinhLuong.setBackground(new java.awt.Color(238, 250, 235));
+        btnTinhLuong.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        btnTinhLuong.setText("Tính lương");
+        btnTinhLuong.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnTinhLuong.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnTinhLuong.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnTinhLuong.setIconTextGap(0);
+        btnTinhLuong.setMargin(new java.awt.Insets(2, 20, 3, 20));
+        btnTinhLuong.setPreferredSize(new java.awt.Dimension(200, 40));
+        btnTinhLuong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnTinhLuongActionPerformed(evt);
+            }
+        });
+
+
+        btnChamCong.setBackground(new java.awt.Color(238, 250, 235));
+        btnChamCong.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        btnChamCong.setText("Chấm công");
+        btnChamCong.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnChamCong.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnChamCong.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnChamCong.setIconTextGap(0);
+        btnChamCong.setMargin(new java.awt.Insets(2, 20, 3, 20));
+        btnChamCong.setPreferredSize(new java.awt.Dimension(200, 40));
+        btnChamCong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnChamCongActionPerformed(evt);
+            }
+        });
+
+        switch (userRole) {
+            case 2:
+                menu.add(btnQLTK);
+                break;
+            case 3:
+                menu.add(btnQLNS);
+                break;
+            case 4:
+                menu.add(btnQLHD);
+                break;
+            case 5:
+                menu.add(btnQLSP);
+                break;
+            case 6:
+                menu.add(btnTinhLuong);
+                break;
+            case 7:
+                menu.add(btnChamCong);
+                break;
+            default:
+                throw new AssertionError();
+        }
+        Aside.add(menu, java.awt.BorderLayout.CENTER);
+
+        logout.setBackground(new java.awt.Color(238, 250, 235));
+        logout.setPreferredSize(new java.awt.Dimension(200, 100));
+
+        jPanel1.setBackground(new java.awt.Color(198, 222, 192));
+        jPanel1.setPreferredSize(new java.awt.Dimension(200, 5));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 789, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 5, Short.MAX_VALUE)
+        );
+
+        btnLogout.setBackground(new java.awt.Color(198, 222, 192));
+        btnLogout.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnLogout.setText("Đăng xuất");
+        btnLogout.setBorder(null);
+        btnLogout.setPreferredSize(new java.awt.Dimension(70, 40));
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout logoutLayout = new javax.swing.GroupLayout(logout);
+        logout.setLayout(logoutLayout);
+        logoutLayout.setHorizontalGroup(
+            logoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, logoutLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
+        );
+        logoutLayout.setVerticalGroup(
+            logoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(logoutLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
+                .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
+        );
+
+        Aside.add(logout, java.awt.BorderLayout.SOUTH);
+
+        getContentPane().add(Aside, java.awt.BorderLayout.WEST);
+
+        body.setLayout(new java.awt.CardLayout());
+        body.add(gD_Main, "main");
+        body.add(gD_QLTK, "tabTK");
+        body.add(gD_QLNS, "tabNS");
+        body.add(gD_QLHD, "tabHD");
+        body.add(gD_QLSP, "tabSP");
+        body.add(gD_TinhLuong, "tabTL");
+        body.add(gD_ChamCong, "tabCC");
+        body.add(gD_ThemNV1, "themNS");
+        body.add(gD_DanhGia2, "danhGiaNS");
+
+        getContentPane().add(body, java.awt.BorderLayout.CENTER);
+
+        pack();
+    }//
     private void btnQLTKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLTKActionPerformed
         cardLayout.show(body, "tabTK");
         activeMenuItem(btnQLTK);
@@ -350,7 +606,7 @@ public class Layout extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Layout().setVisible(true);
+//                new Layout().setVisible(true);
             }
         });
     }

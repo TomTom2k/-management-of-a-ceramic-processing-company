@@ -65,3 +65,48 @@ VALUES
 ('05112023020101', '051120230201', 'SX01', N'Kiểm tra sản phẩm', 2000.0, 1, 90, 70, 280),
 ('05112023020102', '051120230201', 'SX02', N'Đóng gói', 3000.0, 1, 90, 70, 280),
 ('05112023020103', '051120230201', 'SX03', N'Giao hàng', 700.0, 1, 90, 70, 280)
+
+--Chèn Nhân viên
+USE [QuanLyLSP]
+GO
+INSERT [dbo].[NhanVien] ([maNV], [maBP], [tenNV], [gioiTinh], [ngaySinh], [ngayBatDauLam], [CCCD], [luongCoBan], [phuCap], [trangThai], [dienThoai], [hinhAnh]) VALUES (N'21031001', N'HC03', N'Trần Văn A', 1, CAST(N'2000-10-25' AS Date), CAST(N'2021-01-01' AS Date), N'0000111122223333', 1E+07, 0, 1, N'0123456789', NULL)
+GO
+INSERT [dbo].[NhanVien] ([maNV], [maBP], [tenNV], [gioiTinh], [ngaySinh], [ngayBatDauLam], [CCCD], [luongCoBan], [phuCap], [trangThai], [dienThoai], [hinhAnh]) VALUES (N'21031002', N'HC03', N'Trần Văn B', 1, CAST(N'2000-10-25' AS Date), CAST(N'2021-01-01' AS Date), N'0000111122223333', 1E+07, 0, 1, N'0123456789', NULL)
+GO
+INSERT [dbo].[NhanVien] ([maNV], [maBP], [tenNV], [gioiTinh], [ngaySinh], [ngayBatDauLam], [CCCD], [luongCoBan], [phuCap], [trangThai], [dienThoai], [hinhAnh]) VALUES (N'21031003', N'HC03', N'Trần Văn C', 1, CAST(N'2000-10-25' AS Date), CAST(N'2021-01-01' AS Date), N'0000111122223333', 1E+07, 0, 1, N'0123456789', NULL)
+GO
+INSERT [dbo].[NhanVien] ([maNV], [maBP], [tenNV], [gioiTinh], [ngaySinh], [ngayBatDauLam], [CCCD], [luongCoBan], [phuCap], [trangThai], [dienThoai], [hinhAnh]) VALUES (N'21031004', N'HC03', N'Trần Văn D', 1, CAST(N'2000-10-25' AS Date), CAST(N'2021-01-01' AS Date), N'0000111122223333', 1E+07, 0, 1, N'0123456789', NULL)
+GO
+INSERT [dbo].[NhanVien] ([maNV], [maBP], [tenNV], [gioiTinh], [ngaySinh], [ngayBatDauLam], [CCCD], [luongCoBan], [phuCap], [trangThai], [dienThoai], [hinhAnh]) VALUES (N'21031005', N'HC03', N'Trần Văn E', 1, CAST(N'2000-10-25' AS Date), CAST(N'2021-01-01' AS Date), N'0000111122223333', 1E+07, 0, 1, N'0123456789', NULL)
+GO
+INSERT [dbo].[NhanVien] ([maNV], [maBP], [tenNV], [gioiTinh], [ngaySinh], [ngayBatDauLam], [CCCD], [luongCoBan], [phuCap], [trangThai], [dienThoai], [hinhAnh]) VALUES (N'21031006', N'HC03', N'Trần Văn F', 1, CAST(N'2000-10-25' AS Date), CAST(N'2021-01-01' AS Date), N'0000111122223333', 1E+07, 0, 1, N'0123456789', NULL)
+GO
+INSERT [dbo].[NhanVien] ([maNV], [maBP], [tenNV], [gioiTinh], [ngaySinh], [ngayBatDauLam], [CCCD], [luongCoBan], [phuCap], [trangThai], [dienThoai], [hinhAnh]) VALUES (N'21031007', N'HC03', N'Trần Văn G', 1, CAST(N'2000-10-25' AS Date), CAST(N'2021-01-01' AS Date), N'0000111122223333', 1E+07, 0, 1, N'0123456789', NULL)
+GO
+
+--Chèn tài khoản
+--TK001: Full quyền
+--TK002: QLTK
+--TK003: QLNS
+--TK004: Thông tin HD & SP
+--TK005 SP & CD
+--TK006: Tính lương
+--TK007: Chấm công
+--Password chung: 123456
+USE [QuanLyLSP]
+GO
+INSERT [dbo].[TaiKhoan] ([maNV], [userName], [matKhau], [vaiTro], [trangThai]) VALUES (N'21031001', N'TK001', N'8d969eef6ecad3c2', 1, 1)
+GO
+INSERT [dbo].[TaiKhoan] ([maNV], [userName], [matKhau], [vaiTro], [trangThai]) VALUES (N'21031002', N'TK002', N'8d969eef6ecad3c2', 2, 1)
+GO
+INSERT [dbo].[TaiKhoan] ([maNV], [userName], [matKhau], [vaiTro], [trangThai]) VALUES (N'21031003', N'TK003', N'8d969eef6ecad3c2', 3, 1)
+GO
+INSERT [dbo].[TaiKhoan] ([maNV], [userName], [matKhau], [vaiTro], [trangThai]) VALUES (N'21031004', N'TK004', N'8d969eef6ecad3c2', 4, 1)
+GO
+INSERT [dbo].[TaiKhoan] ([maNV], [userName], [matKhau], [vaiTro], [trangThai]) VALUES (N'21031005', N'TK005', N'8d969eef6ecad3c2', 5, 1)
+GO
+INSERT [dbo].[TaiKhoan] ([maNV], [userName], [matKhau], [vaiTro], [trangThai]) VALUES (N'21031006', N'TK006', N'8d969eef6ecad3c2', 6, 1)
+GO
+INSERT [dbo].[TaiKhoan] ([maNV], [userName], [matKhau], [vaiTro], [trangThai]) VALUES (N'21031007', N'TK007', N'8d969eef6ecad3c2', 7, 1)
+GO
+

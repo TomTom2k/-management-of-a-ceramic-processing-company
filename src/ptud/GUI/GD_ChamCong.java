@@ -9,6 +9,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import ptud.DAO.DAO_PhieuChamCongCongNhan;
 import ptud.DAO.DAO_PhieuChamCongNhanVien;
+import ptud.DAO.DAO_TaiKhoan;
 
 /**
  *
@@ -432,11 +433,10 @@ public class GD_ChamCong extends javax.swing.JPanel {
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
-//        System.out.print("HellO");
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-        
+
     }//GEN-LAST:event_jButton3MouseClicked
 
 

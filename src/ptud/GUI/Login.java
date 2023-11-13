@@ -10,18 +10,23 @@ import java.awt.Font;
 import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
+import ptud.DAO.DAO_TaiKhoan;
 import ptud.GUI.*;
 
 /**
  *
- * @author DELL
+ * @author TranLoc
  */
 public class Login extends javax.swing.JFrame {
 
     /**
      * Creates new form SplashScreen
      */
+    DAO_TaiKhoan tk = new DAO_TaiKhoan();
     public Login() {
         initComponents();
     }
@@ -66,6 +71,11 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setText("CÔNG TY GỐM SỨ TỨ VƯƠNG");
 
         jPasswordField1.setText("jPasswordField1");
+        jPasswordField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jPasswordField1FocusGained(evt);
+            }
+        });
         jPasswordField1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPasswordField1MouseClicked(evt);
@@ -201,7 +211,14 @@ public class Login extends javax.swing.JFrame {
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
         this.setVisible(false);
-        Layout layout = new Layout();
+        int userRole = 1;
+        try {
+            userRole = tk.getUserRole(jTextField1.getText(), jPasswordField1.getText());
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println(userRole);
+        Layout layout = new Layout(userRole);
         layout.setVisible(true);
     }//GEN-LAST:event_jButton1MouseClicked
 
@@ -221,6 +238,11 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         jPasswordField1.setText("");
     }//GEN-LAST:event_jPasswordField1MouseClicked
+
+    private void jPasswordField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField1FocusGained
+        // TODO add your handling code here:
+        jPasswordField1.setText("");
+    }//GEN-LAST:event_jPasswordField1FocusGained
 
     /**
      * @param args the command line arguments
