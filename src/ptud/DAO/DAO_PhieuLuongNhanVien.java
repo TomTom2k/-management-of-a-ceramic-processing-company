@@ -45,7 +45,7 @@ public class DAO_PhieuLuongNhanVien implements DAOInterface<PhieuLuongNhanVien> 
             
             // log the info to the output to check the result
             System.out.println("PhieuLuongNhanVien: " + phieuLuongNhanVien.toString());
-            connection.close();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -75,8 +75,7 @@ public class DAO_PhieuLuongNhanVien implements DAOInterface<PhieuLuongNhanVien> 
 
             // log the info to the output to check the result
             System.out.println("PhieuLuongNhanViens: " + phieuLuongNhanViens.toString());
-            
-            connection.close();
+ 
         } catch (SQLException e) {
             e.printStackTrace();
         }

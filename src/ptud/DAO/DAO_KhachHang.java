@@ -46,8 +46,6 @@ public class DAO_KhachHang implements DAOInterface<KhachHang>
                 khachHang = new KhachHang();
                 
             }           
-            // log the info to the output to check the result            
-            connection.close();
         } 
         catch (SQLException e) 
         {
@@ -75,8 +73,6 @@ public class DAO_KhachHang implements DAOInterface<KhachHang>
                 khachHangs.add(khachHang);
             } 
 
-            // log the info to the output to check the result                     
-            connection.close();
         } catch (SQLException e) 
         {
             e.printStackTrace();

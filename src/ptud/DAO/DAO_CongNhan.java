@@ -44,8 +44,6 @@ public class DAO_CongNhan implements DAOInterface<CongNhan> {
                 boolean choPhanCong = resultSet.getBoolean("choPhanCong");
                 congNhan = new CongNhan(maCN, ten, gioiTinh, ngaySinh, ngayBatDauLam, cccd, dienThoai, trangThai, avatar, choPhanCong);
             }
-
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -77,7 +75,6 @@ public class DAO_CongNhan implements DAOInterface<CongNhan> {
                 dsCongNhan.add(congNhan);
             }
 
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

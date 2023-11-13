@@ -8,6 +8,7 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import ptud.Connection.ConnectDB;
 import ptud.ults.ImageCus;
 
 /**
@@ -16,19 +17,20 @@ import ptud.ults.ImageCus;
  */
 public class Layout extends javax.swing.JFrame {
 //    fun
+
     private void activeMenuItem(JButton button) {
         Color color = new Color(238, 250, 235);
-        Color colorActive = new Color(198,222,192);
+        Color colorActive = new Color(198, 222, 192);
         btnQLTK.setBackground(color);
         btnQLNS.setBackground(color);
         btnQLHD.setBackground(color);
         btnQLSP.setBackground(color);
         btnTinhLuong.setBackground(color);
-        btnChamCong.setBackground(color); 
-     
+        btnChamCong.setBackground(color);
+
         button.setBackground(colorActive);
     }
-    
+
     public void showLayout(String name) {
         cardLayout.show(body, name);
     }
@@ -38,12 +40,13 @@ public class Layout extends javax.swing.JFrame {
      */
     private CardLayout cardLayout;
     public static Layout instance;
+
     public Layout() {
         initComponents();
         instance = this;
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         avatarImage.setIcon(ImageCus.getScaledImageIcon("/assets/images/avataruser1.jpg", 160, 160));
-        cardLayout = (CardLayout)(body.getLayout());
+        cardLayout = (CardLayout) (body.getLayout());
     }
 
     /**
@@ -302,8 +305,8 @@ public class Layout extends javax.swing.JFrame {
     }//GEN-LAST:event_btnQLHDActionPerformed
 
     private void btnQLSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLSPActionPerformed
-         cardLayout.show(body, "tabSP");
-         activeMenuItem(btnQLSP);
+        cardLayout.show(body, "tabSP");
+        activeMenuItem(btnQLSP);
     }//GEN-LAST:event_btnQLSPActionPerformed
 
     private void btnTinhLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTinhLuongActionPerformed
@@ -353,6 +356,18 @@ public class Layout extends javax.swing.JFrame {
                 new Layout().setVisible(true);
             }
         });
+
+        if (ConnectDB.connectDatabase()) {
+            System.out.println("Đã kết nối đến cơ sở dữ liệu.");
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new Layout().setVisible(true);
+                }
+            });
+        } else {
+            System.out.println("Chưa kết nối đến cơ sở dữ liệu.");
+            // Thực hiện xử lý khi kết nối chưa được thiết lập
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -9,30 +9,37 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import ptud.Connection.ConnectDB;
 import ptud.GUI.*;
+
 /**
  *
  * @author TomTom, TranLoc
  */
- 
-
 public class Main {
+
     public static void main(String[] args) {
-       begin();
+        begin();
     }
-    public static Connection connection = null; 
+    public static Connection connection = null;
+
     public static void begin() {
-        ConnectDB.connectDatabase();
-        connection = ConnectDB.getConnection(); 
-        
-        SplashScreen sp = new SplashScreen();
-        sp.setVisible(true);
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(SplashScreen.class.getName()).log(Level.SEVERE, null, ex);
+        boolean isConnected = ConnectDB.connectDatabase(); // Thực hiện kết nối và lấy kết quả
+        if (isConnected) {
+            // Kết nối thành công, hiển thị giao diện người dùng
+            System.out.println("Đã kết nối đến cơ sở dữ liệu.");
+            SplashScreen sp = new SplashScreen();
+            sp.setVisible(true);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(SplashScreen.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            sp.setVisible(false);
+            new Login().setVisible(true);
+        } else {
+            // Xử lý khi kết nối không thành công
+             System.out.println("Chưa kết nối đến cơ sở dữ liệu.");
+            // Thực hiện các xử lý khác tùy theo yêu cầu của bạn
         }
-        sp.setVisible(false);
-        new Login().setVisible(true);
     }
 
 }

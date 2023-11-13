@@ -40,9 +40,7 @@ public class DAO_SanPham implements DAOInterface<SanPham>
                 double donGia = resultSet.getFloat("donGia");
                 sanPham = new SanPham(id, tenSP, soLuong, donGia, soLuong);
                 
-            }           
-            // log the info to the output to check the result            
-            connection.close();
+            } 
         } 
         catch (SQLException e) 
         {
@@ -68,9 +66,6 @@ public class DAO_SanPham implements DAOInterface<SanPham>
                 SanPham sanPham = new SanPham(maSP, tenSP, soLuong, donGia, soLuong);              
                 sanPhams.add(sanPham);
             } 
-
-            // log the info to the output to check the result                     
-            connection.close();
         } catch (SQLException e) 
         {
             e.printStackTrace();

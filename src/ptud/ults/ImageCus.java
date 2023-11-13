@@ -19,7 +19,6 @@ import javax.imageio.ImageIO;
 public class ImageCus {
     public static ImageIcon getScaledImageIcon(String imagePath, int width, int height) {
         BufferedImage img = null;
-        System.out.println(imagePath);
         try {
             InputStream is = ImageCus.class.getResourceAsStream(imagePath);
             if (is == null) {

@@ -559,13 +559,6 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="ptud.GUI.GD_QLNS" name="gD_QLNS">
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-              <CardConstraints cardName="tabNS"/>
-            </Constraint>
-          </Constraints>
-        </Component>
         <Component class="ptud.GUI.GD_QLHD" name="gD_QLHD">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">

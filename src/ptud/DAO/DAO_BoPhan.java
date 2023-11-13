@@ -7,6 +7,7 @@ import ptud.Entity.BoPhan;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import ptud.Connection.ConnectDB;
 import static ptud.Main.connection;
 
 /*
@@ -23,6 +24,8 @@ public class DAO_BoPhan implements DAOInterface<BoPhan> {
     public BoPhan get(String id) {
         BoPhan boPhan = null;
         try {
+            ConnectDB.getInstance();
+            java.sql.Connection connection = ConnectDB.getConnection();
             String query = "SELECT * FROM BoPhan WHERE maBP = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, id);
@@ -33,7 +36,6 @@ public class DAO_BoPhan implements DAOInterface<BoPhan> {
                 boPhan = new BoPhan(id, tenBP);
             }
 
-            connection.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -44,6 +46,8 @@ public class DAO_BoPhan implements DAOInterface<BoPhan> {
     public ArrayList<BoPhan> getAll() {
         ArrayList<BoPhan> dsBoPhan = new ArrayList<BoPhan>();
         try {
+            ConnectDB.getInstance();
+            java.sql.Connection connection = ConnectDB.getConnection();
             String query = "SELECT * FROM BoPhan";
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
@@ -52,8 +56,6 @@ public class DAO_BoPhan implements DAOInterface<BoPhan> {
                 String tenBP = resultSet.getString("tenBP");
                 BoPhan boPhan = new BoPhan(maBP, tenBP);
                 dsBoPhan.add(boPhan);
-
-                connection.close();
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -65,6 +67,8 @@ public class DAO_BoPhan implements DAOInterface<BoPhan> {
     @Override
     public boolean insert(BoPhan boPhan) {
         try {
+            ConnectDB.getInstance();
+            java.sql.Connection connection = ConnectDB.getConnection();
             String query = "INSERT INTO BoPhan (maBP, tenBP) VALUES (?, ?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, boPhan.getMaBP());
@@ -83,6 +87,8 @@ public class DAO_BoPhan implements DAOInterface<BoPhan> {
     @Override
     public boolean update(BoPhan boPhan) {
         try {
+            ConnectDB.getInstance();
+            java.sql.Connection connection = ConnectDB.getConnection();
             String query = "UPDATE BoPhan SET tenBP = ? WHERE maBP = ?";
             PreparedStatement statement = connection.prepareStatement(query);
 
@@ -102,6 +108,8 @@ public class DAO_BoPhan implements DAOInterface<BoPhan> {
     @Override
     public boolean deleteById(String id) {
         try {
+            ConnectDB.getInstance();
+            java.sql.Connection connection = ConnectDB.getConnection();
             String query = "DELETE FROM SanPham WHERE maBP = ?";
             PreparedStatement statement = connection.prepareStatement(query);
 
