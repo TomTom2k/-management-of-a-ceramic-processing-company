@@ -8,6 +8,7 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import ptud.Connection.ConnectDB;
 import ptud.ults.ImageCus;
 
 /**
@@ -16,22 +17,32 @@ import ptud.ults.ImageCus;
  */
 public class Layout extends javax.swing.JFrame {
 //    fun
+
     private void activeMenuItem(JButton button) {
         Color color = new Color(238, 250, 235);
-        Color colorActive = new Color(198,222,192);
+        Color colorActive = new Color(198, 222, 192);
         btnQLTK.setBackground(color);
         btnQLNS.setBackground(color);
         btnQLHD.setBackground(color);
         btnQLSP.setBackground(color);
         btnTinhLuong.setBackground(color);
-        btnChamCong.setBackground(color); 
-     
+        btnChamCong.setBackground(color);
+
         button.setBackground(colorActive);
     }
-    
+
     public void showLayout(String name) {
         cardLayout.show(body, name);
     }
+    public void showChiTietNV(String maNV) {
+    	showLayout("xemChiTietNS");
+    	gD_XemChiTietNS.updateData(maNV, "nv");
+    }
+    public void showChiTietCN(String maCN) {
+    	showLayout("xemChiTietNS");
+    	gD_XemChiTietNS.updateData(maCN, "cn");
+    }
+    
 
     /**
      * Creates new form Layout
@@ -46,7 +57,7 @@ public class Layout extends javax.swing.JFrame {
         instance = this;
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         avatarImage.setIcon(ImageCus.getScaledImageIcon("/assets/images/avataruser1.jpg", 160, 160));
-        cardLayout = (CardLayout)(body.getLayout());
+        cardLayout = (CardLayout) (body.getLayout());
     }
 
     /**
@@ -79,8 +90,9 @@ public class Layout extends javax.swing.JFrame {
         gD_QLSP = new ptud.GUI.GD_QLSP();
         gD_TinhLuong = new ptud.GUI.GD_TinhLuong();
         gD_ChamCong = new ptud.GUI.GD_ChamCong();
-        gD_ThemNV1 = new ptud.GUI.GD_ThemNV();
+        gD_ThemNV1 = new ptud.GUI.GD_ThemNS();
         gD_DanhGia2 = new ptud.GUI.GD_DanhGia();
+        gD_XemChiTietNS = new ptud.GUI.GD_XemChiTietNS();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.BorderLayout(0, 100));
@@ -283,6 +295,7 @@ public class Layout extends javax.swing.JFrame {
         body.add(gD_ChamCong, "tabCC");
         body.add(gD_ThemNV1, "themNS");
         body.add(gD_DanhGia2, "danhGiaNS");
+        body.add(gD_XemChiTietNS, "xemChiTietNS");
 
         getContentPane().add(body, java.awt.BorderLayout.CENTER);
 
@@ -558,8 +571,8 @@ public class Layout extends javax.swing.JFrame {
     }//GEN-LAST:event_btnQLHDActionPerformed
 
     private void btnQLSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLSPActionPerformed
-         cardLayout.show(body, "tabSP");
-         activeMenuItem(btnQLSP);
+        cardLayout.show(body, "tabSP");
+        activeMenuItem(btnQLSP);
     }//GEN-LAST:event_btnQLSPActionPerformed
 
     private void btnTinhLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTinhLuongActionPerformed
@@ -632,7 +645,8 @@ public class Layout extends javax.swing.JFrame {
     private ptud.GUI.GD_QLNS gD_QLNS;
     private ptud.GUI.GD_QLSP gD_QLSP;
     private ptud.GUI.GD_QLTK gD_QLTK;
-    private ptud.GUI.GD_ThemNV gD_ThemNV1;
+    private ptud.GUI.GD_ThemNS gD_ThemNV1;
+    private ptud.GUI.GD_XemChiTietNS gD_XemChiTietNS;
     private ptud.GUI.GD_TinhLuong gD_TinhLuong;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel logout;

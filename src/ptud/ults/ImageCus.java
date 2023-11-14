@@ -6,6 +6,7 @@ package ptud.ults;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -19,7 +20,6 @@ import javax.imageio.ImageIO;
 public class ImageCus {
     public static ImageIcon getScaledImageIcon(String imagePath, int width, int height) {
         BufferedImage img = null;
-        System.out.println(imagePath);
         try {
             InputStream is = ImageCus.class.getResourceAsStream(imagePath);
             if (is == null) {
@@ -35,4 +35,17 @@ public class ImageCus {
         return new ImageIcon(dimg);
     }
 
+    public static ImageIcon getScaledImageIconByte(byte[] imageData, int width, int height) {
+        BufferedImage img = null;
+        try {
+            InputStream is = new ByteArrayInputStream(imageData);
+            img = ImageIO.read(is);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;  // Handle the exception appropriately
+        }
+
+        Image dimg = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+        return new ImageIcon(dimg);
+    }
 }

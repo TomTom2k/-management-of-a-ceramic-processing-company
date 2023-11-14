@@ -1,6 +1,11 @@
-
---CREATE DATABASE QuanLyLSP
---use QuanLyLSP
+use master
+go
+DROP DATABASE QuanLyLSP
+go
+CREATE DATABASE QuanLyLSP
+go
+use QuanLyLSP
+go
 
 CREATE TABLE BoPhan (
 	maBP VARCHAR(20) PRIMARY KEY, 
@@ -69,6 +74,7 @@ CREATE TABLE CongNhan (
     CCCD VARCHAR(30),
     trangThai BIT,
     choPhanCong BIT,
+	dienThoai VARCHAR(20),
     hinhAnh VARBINARY(MAX), 
 	FOREIGN KEY (maBP) REFERENCES BoPhan(maBP)
 );

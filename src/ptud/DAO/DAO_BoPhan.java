@@ -7,6 +7,7 @@ import ptud.Entity.BoPhan;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import ptud.Connection.ConnectDB;
 import static ptud.Main.connection;
 
 /*
@@ -18,11 +19,16 @@ import static ptud.Main.connection;
  * @author TomTom
  */
 public class DAO_BoPhan implements DAOInterface<BoPhan> {
+    public static DAO_BoPhan getInstance() {
+        return new DAO_BoPhan();
+    }
 
     @Override
     public BoPhan get(String id) {
         BoPhan boPhan = null;
         try {
+            ConnectDB.getInstance();
+            java.sql.Connection connection = ConnectDB.getConnection();
             String query = "SELECT * FROM BoPhan WHERE maBP = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, id);
@@ -32,8 +38,6 @@ public class DAO_BoPhan implements DAOInterface<BoPhan> {
                 String tenBP = resultSet.getString("tenBP");
                 boPhan = new BoPhan(id, tenBP);
             }
-
-    
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -44,6 +48,8 @@ public class DAO_BoPhan implements DAOInterface<BoPhan> {
     public ArrayList<BoPhan> getAll() {
         ArrayList<BoPhan> dsBoPhan = new ArrayList<BoPhan>();
         try {
+            ConnectDB.getInstance();
+            java.sql.Connection connection = ConnectDB.getConnection();
             String query = "SELECT * FROM BoPhan";
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
@@ -52,8 +58,6 @@ public class DAO_BoPhan implements DAOInterface<BoPhan> {
                 String tenBP = resultSet.getString("tenBP");
                 BoPhan boPhan = new BoPhan(maBP, tenBP);
                 dsBoPhan.add(boPhan);
-                
-        
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -65,6 +69,8 @@ public class DAO_BoPhan implements DAOInterface<BoPhan> {
     @Override
     public boolean insert(BoPhan boPhan) {
         try {
+            ConnectDB.getInstance();
+            java.sql.Connection connection = ConnectDB.getConnection();
             String query = "INSERT INTO BoPhan (maBP, tenBP) VALUES (?, ?)";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, boPhan.getMaBP());
@@ -83,6 +89,8 @@ public class DAO_BoPhan implements DAOInterface<BoPhan> {
     @Override
     public boolean update(BoPhan boPhan) {
         try {
+            ConnectDB.getInstance();
+            java.sql.Connection connection = ConnectDB.getConnection();
             String query = "UPDATE BoPhan SET tenBP = ? WHERE maBP = ?";
             PreparedStatement statement = connection.prepareStatement(query);
 
@@ -102,6 +110,8 @@ public class DAO_BoPhan implements DAOInterface<BoPhan> {
     @Override
     public boolean deleteById(String id) {
         try {
+            ConnectDB.getInstance();
+            java.sql.Connection connection = ConnectDB.getConnection();
             String query = "DELETE FROM SanPham WHERE maBP = ?";
             PreparedStatement statement = connection.prepareStatement(query);
 
@@ -115,6 +125,33 @@ public class DAO_BoPhan implements DAOInterface<BoPhan> {
             e.printStackTrace();
         }
         return false;
+    }
+    
+    
+    public ArrayList<BoPhan> filter(String prefix) {
+        ArrayList<BoPhan> filteredList = new ArrayList<>();
+        try {
+            ConnectDB.getInstance();
+            java.sql.Connection connection = ConnectDB.getConnection();
+            
+            // Sử dụng LIKE để lọc các bộ phận bắt đầu bằng "HC" hoặc "SX"
+            String query = "SELECT * FROM BoPhan WHERE maBP LIKE ? OR maBP LIKE ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, prefix + "%");
+            statement.setString(2, prefix + "%");
+            
+            ResultSet resultSet = statement.executeQuery();
+            
+            while (resultSet.next()) {
+                String maBP = resultSet.getString("maBP");
+                String tenBP = resultSet.getString("tenBP");
+                BoPhan boPhan = new BoPhan(maBP, tenBP);
+                filteredList.add(boPhan);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return filteredList;
     }
 
 }

@@ -42,9 +42,6 @@ public class DAO_PhieuLuongNhanVien implements DAOInterface<PhieuLuongNhanVien> 
                 
                 phieuLuongNhanVien = new PhieuLuongNhanVien(maPL, thang, nam, maNV, phat);
             }
-            
-            // log the info to the output to check the result
-            System.out.println("PhieuLuongNhanVien: " + phieuLuongNhanVien.toString());
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -71,10 +68,6 @@ public class DAO_PhieuLuongNhanVien implements DAOInterface<PhieuLuongNhanVien> 
                 PhieuLuongNhanVien phieuLuongNhanVien = new PhieuLuongNhanVien(maPL, thang, nam, maNV, phat);
                 phieuLuongNhanViens.add(phieuLuongNhanVien);
             }
-
-            // log the info to the output to check the result
-            System.out.println("PhieuLuongNhanViens: " + phieuLuongNhanViens.toString());
-            
         } catch (SQLException e) {
             e.printStackTrace();
         }

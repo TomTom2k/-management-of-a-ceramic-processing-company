@@ -80,6 +80,35 @@ public class DAO_ChiTietPhanCong implements DAOInterface<ChiTietPhanCong>{
         return chiTietPhanCongs;
     }
 
+    public ArrayList<ChiTietPhanCong> getAllByNgay(LocalDate ngay ) { 
+        
+        ArrayList<ChiTietPhanCong> chiTietPhanCongs = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM ChiTietPhanCong WHERE ngay = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setDate(1, Date.valueOf(ngay));
+            ResultSet resultSet = statement.executeQuery();
+            
+            while (resultSet.next()) {
+                String maCTPC = resultSet.getString("maCTPC");
+                String maCD = resultSet.getString("maCD");
+                String maCN = resultSet.getString("maCN");
+                LocalDate ngay1 = resultSet.getDate("ngay").toLocalDate();
+                int soLuongCDGiao = resultSet.getInt("soLuongCDGiao");
+                
+                ChiTietPhanCong chiTietPhanCong = new ChiTietPhanCong(maCTPC, maCD, maCN, ngay1, soLuongCDGiao);
+                chiTietPhanCongs.add(chiTietPhanCong);
+            }
+            
+            resultSet.close();
+            statement.close();
+            return chiTietPhanCongs; 
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<ChiTietPhanCong>(); 
+    }
+
     @Override
     public boolean insert(ChiTietPhanCong t) {
         // let code to get insert ChiTietPhanCong t from database
@@ -144,6 +173,34 @@ public class DAO_ChiTietPhanCong implements DAOInterface<ChiTietPhanCong>{
         }
 
         return false;
+    }
+
+    public void updateChoPhanCong(String maCN, boolean trangThai) {
+        String updateQuery = "UPDATE CongNhan SET choPhanCong = ? WHERE maCN = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(updateQuery)) {
+            pstmt.setBoolean(1, trangThai);
+            pstmt.setString(2, maCN);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getSoLuongCongDoanDuocGiaoHomNay(String maCD) {
+        String query = "SELECT SUM(soLuongCDGiao) FROM ChiTietPhanCong WHERE maCD = ? AND ngay = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+            pstmt.setString(1, maCD);
+            pstmt.setDate(2, Date.valueOf(LocalDate.now()));
+            ResultSet resultSet = pstmt.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            } else {
+                return 0;
+            }
+        }    catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
     
 }

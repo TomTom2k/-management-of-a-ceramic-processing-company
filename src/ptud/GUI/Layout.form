@@ -18,7 +18,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,4,42,0,0,15,96"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,4,114,0,0,24,-100"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBorderLayout">
@@ -559,27 +559,6 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="ptud.GUI.GD_QLNS" name="gD_QLNS">
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-              <CardConstraints cardName="tabNS"/>
-            </Constraint>
-          </Constraints>
-        </Component>
-        <Component class="ptud.GUI.GD_QLHD" name="gD_QLHD">
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-              <CardConstraints cardName="tabHD"/>
-            </Constraint>
-          </Constraints>
-        </Component>
-        <Component class="ptud.GUI.GD_QLSP" name="gD_QLSP">
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-              <CardConstraints cardName="tabSP"/>
-            </Constraint>
-          </Constraints>
-        </Component>
         <Component class="ptud.GUI.GD_TinhLuong" name="gD_TinhLuong">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
@@ -594,17 +573,17 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="ptud.GUI.GD_ThemNV" name="gD_ThemNV1">
+        <Component class="ptud.GUI.GD_ThemNS" name="gD_ThemNV">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
               <CardConstraints cardName="themNS"/>
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="ptud.GUI.GD_DanhGia" name="gD_DanhGia2">
+        <Component class="ptud.GUI.GD_XemChiTietNS" name="gD_XemChiTietNS">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-              <CardConstraints cardName="danhGiaNS"/>
+              <CardConstraints cardName="xemChiTiet"/>
             </Constraint>
           </Constraints>
         </Component>
