@@ -518,6 +518,7 @@
                       </Properties>
                       <Events>
                         <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableSanPhamMouseReleased"/>
+                        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTableSanPhamKeyReleased"/>
                       </Events>
                     </Component>
                   </SubComponents>
@@ -669,7 +670,7 @@
                               <Editor/>
                               <Renderer/>
                             </Column>
-                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                            <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                               <Title/>
                               <Editor/>
                               <Renderer/>
@@ -685,6 +686,7 @@
                       </Properties>
                       <Events>
                         <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableCongDoanMouseReleased"/>
+                        <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTableCongDoanKeyReleased"/>
                       </Events>
                     </Component>
                   </SubComponents>
@@ -814,11 +816,11 @@
                           <EmptySpace min="-2" pref="135" max="-2" attributes="0"/>
                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jComboBoxMaHopDong3" min="-2" pref="88" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                          <Component id="jComboBoxBoPhan" min="-2" pref="148" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                           <Component id="jLabel8" min="-2" pref="65" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jComboBoxMaHopDong2" min="-2" pref="88" max="-2" attributes="0"/>
+                          <Component id="jComboBoxSanPham" min="-2" pref="164" max="-2" attributes="0"/>
                           <EmptySpace max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
@@ -839,8 +841,8 @@
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jComboBoxMaHopDong2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="jComboBoxMaHopDong3" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jComboBoxSanPham" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jComboBoxBoPhan" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
                                   <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
@@ -857,25 +859,17 @@
                     <Property name="text" type="java.lang.String" value="B&#x1ed9; ph&#x1ead;n"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBoxMaHopDong2">
+                <Component class="javax.swing.JComboBox" name="jComboBoxSanPham">
                   <Properties>
                     <Property name="editable" type="boolean" value="true"/>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="9">
+                      <StringArray count="1">
                         <StringItem index="0" value="T&#x1ea5;t c&#x1ea3;"/>
-                        <StringItem index="1" value="DATABASE"/>
-                        <StringItem index="2" value="SQL"/>
-                        <StringItem index="3" value="SYSTEM DESIGN"/>
-                        <StringItem index="4" value="MYSQL"/>
-                        <StringItem index="5" value="ORACLE"/>
-                        <StringItem index="6" value="WEB DESIGN"/>
-                        <StringItem index="7" value="DESKTOP APPLICATION"/>
-                        <StringItem index="8" value="GRAPHICS"/>
                       </StringArray>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxMaHopDong2ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxSanPhamActionPerformed"/>
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -923,15 +917,15 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTable" name="jTable5">
+                        <Component class="javax.swing.JTable" name="jTableCongDoan1">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                               <Table columnCount="5" rowCount="4">
-                                <Column editable="true" title="M&#xe3; c&#xf4;ng &#x111;o&#x1ea1;n" type="java.lang.Object"/>
-                                <Column editable="true" title="T&#xea;n c&#xf4;ng &#x111;o&#x1ea1;n" type="java.lang.Object"/>
-                                <Column editable="true" title="B&#x1ed9; ph&#x1ead;n" type="java.lang.Object"/>
-                                <Column editable="true" title="S&#x1ed1; l&#x1b0;&#x1ee3;ng chu&#x1ea9;n b&#x1ecb;" type="java.lang.Object"/>
-                                <Column editable="true" title="S&#x1ed1; l&#x1b0;&#x1ee3;ng ho&#xe0;n th&#xe0;nh" type="java.lang.Object"/>
+                                <Column editable="false" title="M&#xe3; c&#xf4;ng &#x111;o&#x1ea1;n" type="java.lang.Object"/>
+                                <Column editable="false" title="T&#xea;n c&#xf4;ng &#x111;o&#x1ea1;n" type="java.lang.Object"/>
+                                <Column editable="false" title="B&#x1ed9; ph&#x1ead;n" type="java.lang.Object"/>
+                                <Column editable="false" title="S&#x1ed1; l&#x1b0;&#x1ee3;ng chu&#x1ea9;n b&#x1ecb;" type="java.lang.Object"/>
+                                <Column editable="false" title="S&#x1ed1; l&#x1b0;&#x1ee3;ng ho&#xe0;n th&#xe0;nh" type="java.lang.Object"/>
                               </Table>
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -952,21 +946,29 @@
                                   <Renderer/>
                                 </Column>
                                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title value="S&#x1ed1; l&#x1b0;&#x1ee3;ng chu&#x1ea9;n b&#x1ecb;"/>
+                                  <Title/>
                                   <Editor/>
                                   <Renderer/>
                                 </Column>
                                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title value="S&#x1ed1; l&#x1b0;&#x1ee3;ng ho&#xe0;n th&#xe0;nh"/>
+                                  <Title/>
                                   <Editor/>
                                   <Renderer/>
                                 </Column>
                               </TableColumnModel>
                             </Property>
+                            <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
+                              <JTableSelectionModel selectionMode="0"/>
+                            </Property>
                             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableCongDoan1MouseReleased"/>
+                            <EventHandler event="propertyChange" listener="java.beans.PropertyChangeListener" parameters="java.beans.PropertyChangeEvent" handler="jTableCongDoan1PropertyChange"/>
+                            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTableCongDoan1KeyReleased"/>
+                          </Events>
                         </Component>
                       </SubComponents>
                     </Container>
@@ -992,8 +994,10 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jButton8" min="-2" pref="108" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="192" max="-2" attributes="0"/>
+                                      <Component id="jButtonNhapSoLuong" min="-2" pref="125" max="-2" attributes="0"/>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Component id="jButtonPhanCong" min="-2" pref="108" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="146" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -1005,7 +1009,10 @@
                               <EmptySpace pref="8" max="32767" attributes="0"/>
                               <Component id="jScrollPane4" min="-2" pref="222" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                              <Component id="jButton8" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jButtonPhanCong" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jButtonNhapSoLuong" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1018,10 +1025,10 @@
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
-                        <Component class="javax.swing.JTable" name="jTable4">
+                        <Component class="javax.swing.JTable" name="jTableCongNhan">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="3" rowCount="4">
+                              <Table columnCount="3" rowCount="0">
                                 <Column editable="false" title="M&#xe3; c&#xf4;ng nh&#xe2;n" type="java.lang.Object"/>
                                 <Column editable="false" title="T&#xea;n c&#xf4;ng nh&#xe2;n" type="java.lang.Object"/>
                                 <Column editable="true" title="S&#x1ed1; l&#x1b0;&#x1ee3;ng giao" type="java.lang.Integer"/>
@@ -1046,6 +1053,10 @@
                                 </Column>
                               </TableColumnModel>
                             </Property>
+                            <Property name="enabled" type="boolean" value="false"/>
+                            <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
+                              <JTableSelectionModel selectionMode="0"/>
+                            </Property>
                             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                             </Property>
@@ -1053,35 +1064,39 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="javax.swing.JButton" name="jButton8">
+                    <Component class="javax.swing.JButton" name="jButtonPhanCong">
                       <Properties>
                         <Property name="text" type="java.lang.String" value="Ph&#xe2;n c&#xf4;ng"/>
+                        <Property name="enabled" type="boolean" value="false"/>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton8ActionPerformed"/>
+                        <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonPhanCongMouseReleased"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonPhanCongActionPerformed"/>
+                      </Events>
+                    </Component>
+                    <Component class="javax.swing.JButton" name="jButtonNhapSoLuong">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Nh&#x1ead;p s&#x1ed1; l&#x1b0;&#x1ee3;ng"/>
+                        <Property name="enabled" type="boolean" value="false"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonNhapSoLuongMouseReleased"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonNhapSoLuongActionPerformed"/>
                       </Events>
                     </Component>
                   </SubComponents>
                 </Container>
-                <Component class="javax.swing.JComboBox" name="jComboBoxMaHopDong3">
+                <Component class="javax.swing.JComboBox" name="jComboBoxBoPhan">
                   <Properties>
                     <Property name="editable" type="boolean" value="true"/>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="9">
+                      <StringArray count="1">
                         <StringItem index="0" value="T&#x1ea5;t c&#x1ea3;"/>
-                        <StringItem index="1" value="DATABASE"/>
-                        <StringItem index="2" value="SQL"/>
-                        <StringItem index="3" value="SYSTEM DESIGN"/>
-                        <StringItem index="4" value="MYSQL"/>
-                        <StringItem index="5" value="ORACLE"/>
-                        <StringItem index="6" value="WEB DESIGN"/>
-                        <StringItem index="7" value="DESKTOP APPLICATION"/>
-                        <StringItem index="8" value="GRAPHICS"/>
                       </StringArray>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxMaHopDong3ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxBoPhanActionPerformed"/>
                   </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
@@ -1188,13 +1203,13 @@
 
                   <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                   <SubComponents>
-                    <Component class="javax.swing.JTable" name="jTable6">
+                    <Component class="javax.swing.JTable" name="jTableCTPC">
                       <Properties>
                         <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                           <Table columnCount="7" rowCount="4">
-                            <Column editable="false" title="M&#xe3; c&#xf4;ng nh&#xe2;n" type="java.lang.Object"/>
-                            <Column editable="false" title="T&#xea;n c&#xf4;ng nh&#xe2;n" type="java.lang.Object"/>
-                            <Column editable="true" title="B&#x1ed9; ph&#x1ead;n" type="java.lang.Integer"/>
+                            <Column editable="true" title="M&#xe3; c&#xf4;ng &#x111;o&#x1ea1;n" type="java.lang.Object"/>
+                            <Column editable="true" title="T&#xea;n c&#xf4;ng &#x111;o&#x1ea1;n" type="java.lang.Object"/>
+                            <Column editable="true" title="B&#x1ed9; ph&#x1ead;n" type="java.lang.Object"/>
                             <Column editable="true" title="M&#xe3; s&#x1ea3;n ph&#x1ea9;m" type="java.lang.Object"/>
                             <Column editable="true" title="C&#xf4;ng &#x111;o&#x1ea1;n" type="java.lang.Object"/>
                             <Column editable="true" title="S&#x1ed1; l&#x1b0;&#x1ee3;ng &#x111;&#x1b0;&#x1ee3;c giao" type="java.lang.Object"/>
@@ -1240,10 +1255,17 @@
                             </Column>
                           </TableColumnModel>
                         </Property>
+                        <Property name="selectionMode" type="int" value="0"/>
+                        <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
+                          <JTableSelectionModel selectionMode="0"/>
+                        </Property>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
                       </Properties>
+                      <Events>
+                        <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableCTPCMouseReleased"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>
@@ -1287,16 +1309,8 @@
                   <Properties>
                     <Property name="editable" type="boolean" value="true"/>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="9">
+                      <StringArray count="1">
                         <StringItem index="0" value="T&#x1ea5;t c&#x1ea3;"/>
-                        <StringItem index="1" value="DATABASE"/>
-                        <StringItem index="2" value="SQL"/>
-                        <StringItem index="3" value="SYSTEM DESIGN"/>
-                        <StringItem index="4" value="MYSQL"/>
-                        <StringItem index="5" value="ORACLE"/>
-                        <StringItem index="6" value="WEB DESIGN"/>
-                        <StringItem index="7" value="DESKTOP APPLICATION"/>
-                        <StringItem index="8" value="GRAPHICS"/>
                       </StringArray>
                     </Property>
                   </Properties>
@@ -1316,16 +1330,8 @@
                   <Properties>
                     <Property name="editable" type="boolean" value="true"/>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="9">
+                      <StringArray count="1">
                         <StringItem index="0" value="T&#x1ea5;t c&#x1ea3;"/>
-                        <StringItem index="1" value="DATABASE"/>
-                        <StringItem index="2" value="SQL"/>
-                        <StringItem index="3" value="SYSTEM DESIGN"/>
-                        <StringItem index="4" value="MYSQL"/>
-                        <StringItem index="5" value="ORACLE"/>
-                        <StringItem index="6" value="WEB DESIGN"/>
-                        <StringItem index="7" value="DESKTOP APPLICATION"/>
-                        <StringItem index="8" value="GRAPHICS"/>
                       </StringArray>
                     </Property>
                   </Properties>

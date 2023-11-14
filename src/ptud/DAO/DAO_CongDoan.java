@@ -438,4 +438,15 @@ public class DAO_CongDoan implements DAOInterface<CongDoan> {
             return sum; 
         }
     }
+
+    public void updateSoLuong( String maCD, int delta, boolean giam ) {
+        String query = "UPDATE CongDoan SET soLuongCD = soLuongCD + ? WHERE maCD = ?";
+        try (PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, delta);
+            statement.setString(2, maCD);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }   
 }

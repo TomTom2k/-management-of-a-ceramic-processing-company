@@ -7,6 +7,7 @@ package ptud.Entity;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import ptud.DAO.DAO_ChiTietPhanCong;
 import ptud.DAO.DAO_CongDoan;
 import ptud.DAO.DAO_SanPham;
 
@@ -81,8 +82,14 @@ public class CongDoan {
                 int slht = cd.getSoLuongHoanThanh(); 
                 sum = Math.min(sum, slht);
             }
-            soLuongChuanBi=sum-this.getSoLuongHoanThanh(); 
+            soLuongChuanBi=sum; 
         }
+
+        // trừ đi số lượng đã hoàn thành
+        soLuongChuanBi-=this.getSoLuongHoanThanh();
+
+        // trừ đi số lượng đã được giao trong hôm nay
+        soLuongChuanBi-=DAO_ChiTietPhanCong.getInstance().getSoLuongCongDoanDuocGiaoHomNay(this.maCD); 
 
         return soLuongChuanBi;
     }
