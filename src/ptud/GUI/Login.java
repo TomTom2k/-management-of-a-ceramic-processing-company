@@ -13,6 +13,7 @@ import java.awt.Graphics2D;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import ptud.DAO.DAO_TaiKhoan;
 import ptud.GUI.*;
@@ -29,6 +30,8 @@ public class Login extends javax.swing.JFrame {
     DAO_TaiKhoan tk = new DAO_TaiKhoan();
     public Login() {
         initComponents();
+        jTextField1.setText("TK001");
+        
     }
 
     class jPanelGradient extends JPanel {
@@ -70,7 +73,7 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("CÔNG TY GỐM SỨ TỨ VƯƠNG");
 
-        jPasswordField1.setText("jPasswordField1");
+        jPasswordField1.setText("123456");
         jPasswordField1.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jPasswordField1FocusGained(evt);
@@ -210,16 +213,22 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_jPasswordField1ActionPerformed
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
-        this.setVisible(false);
+
         int userRole = 1;
         try {
             userRole = tk.getUserRole(jTextField1.getText(), jPasswordField1.getText());
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-        System.out.println(userRole);
-        Layout layout = new Layout(userRole);
-        layout.setVisible(true);
+        if (userRole != 0) {
+            this.setVisible(false);
+            Layout layout = new Layout(userRole);
+            layout.setVisible(true);
+        }
+        else JOptionPane.showMessageDialog(this,
+                "Đăng nhập không thành công",
+                "Cảnh báo",
+                JOptionPane.INFORMATION_MESSAGE);        
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jLabel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseEntered
