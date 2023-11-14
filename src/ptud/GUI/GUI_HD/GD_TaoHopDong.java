@@ -33,22 +33,22 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
     GD_QLHD gd_QLHD;
     DefaultTableModel modelSanPham;
     HopDong hopDong;
+
     /**
      * Creates new form GD_TaoHopDong
      */
     public GD_TaoHopDong() {
         initComponents();
-        cardLayout = (CardLayout)body_body_2.getLayout();
+        cardLayout = (CardLayout) body_body_2.getLayout();
         modelSanPham = (DefaultTableModel) jTable1.getModel();
     }
-    public void receiveGD_QLHD(GD_QLHD gd_qlhd)
-    {
+
+    public void receiveGD_QLHD(GD_QLHD gd_qlhd) {
         gd_QLHD = gd_qlhd;
     }
-    void createKhachHang()
-    {
-        try 
-        {
+
+    void createKhachHang() {
+        try {
             boolean isCreate = true;
             if (!checkRegex("[A-Z]{1}", jTextFieldTenKH.getText())) {
                 jLabel21.setText("Chữ cái đầu phải viết hoa");
@@ -62,133 +62,124 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
                 jLabel23.setText("số điện thoại gồm 10 số");
                 isCreate = false;
             }
-            if(isCreate==true)
-            {
-                String tenKH,email,sdt;
+            if (isCreate == true) {
+                String tenKH, email, sdt;
                 tenKH = jTextFieldTenKH.getText();
                 sdt = jTextFieldSDT.getText();
-                email = jTextFieldMail.getText();               
-                KhachHang khachHang = new KhachHang(daokh.getAll().size()+1,tenKH,jRadioButtonToChuc.isEnabled(), email, sdt);
+                email = jTextFieldMail.getText();
+                KhachHang khachHang = new KhachHang(daokh.getAll().size() + 1, tenKH, jRadioButtonToChuc.isEnabled(), email, sdt);
                 daokh.insert(khachHang);
                 gd_QLHD.updateTable();
             }
-        } catch (Exception e)
-        {
-           
+        } catch (Exception e) {
+
         }
     }
-    void insertSanPhamToDatabase()
-    {
-        double donGia;
-        int soLuong = Integer.parseInt(jTextField8.getText());
-        donGia = Double.parseDouble(jTextField9.getText());
-        String tenSP = jTextField7.getText();
-        hopDong.setSoLuongSanPham();
-        int i = hopDong.getSoLuongSanPham() + 1;
-        SanPham sanPham = new SanPham(i, tenSP, soLuong, donGia, hopDong.getMaHD());
-        hopDong.getSanPhams().add(sanPham);
-        daosp.insert(sanPham);
+
+    void insertSanPhamToDatabase() {
+
+        for (int i = 0; i < modelSanPham.getRowCount(); i--) {
+            Object[] objects = new Object[3];
+            objects[0] = modelSanPham.getValueAt(i, 0);
+            objects[1] = modelSanPham.getValueAt(i, 1);
+            objects[2] = modelSanPham.getValueAt(i, 2);
+            changeObjectToEnity(objects, i);
+        }
     }
 
-    void createSanPham()
-    {
-        try 
-        {
+    void createSanPham() {
+        try {
             double donGia;
             int soLuong = Integer.parseInt(jTextField8.getText());
             donGia = Double.parseDouble(jTextField9.getText());
             boolean isCreate = true;
-          if(!checkRegex("^[A-Z]{1}",jTextField7.getText()))
-          {
-              jLabel15.setText("Chữ cái đầu phải viết hoa");
-              isCreate = false;
-          } 
-            if (donGia <= 0)
-                   {
-                jLabel16.setText("Gía trị tài khoản phải là số không âm!");
-                 isCreate = false;
+            if (!checkRegex("^[A-Z]{1}", jTextField7.getText())) {
+                jLabel15.setText("Chữ cái đầu phải viết hoa");
+                isCreate = false;
             }
-            if (soLuong <= 0)
-                   {
+            if (donGia <= 0) {
+                jLabel16.setText("Gía trị tài khoản phải là số không âm!");
+                isCreate = false;
+            }
+            if (soLuong <= 0) {
                 jLabel17.setText("Gía trị tài khoản phải là số không âm!");
-                 isCreate = false;
+                isCreate = false;
             }
             if (isCreate == true) {
                 try {
-                 
+
                     changeEnityToObject();
-                   
+
                 } catch (Exception e) {
                     JOptionPane.showConfirmDialog(this, "Lỗi tạo hợp đồng!");
                 }
             }
-        } 
-        catch (Exception e) 
-        {
-             jLabel16.setText("Gía trị tài khoản phải là số không âm!");
-             jLabel17.setText("Gía trị tài khoản phải là số không âm!");
+        } catch (Exception e) {
+            jLabel16.setText("Gía trị tài khoản phải là số không âm!");
+            jLabel17.setText("Gía trị tài khoản phải là số không âm!");
         }
     }
-    public boolean checkRegex(String pattern,String input)
-    {
+
+    public boolean checkRegex(String pattern, String input) {
         Pattern patternCore = Pattern.compile(pattern);
         Matcher matcher = patternCore.matcher(input);
         boolean matchFound = matcher.find();
         return matchFound;
     }
-    void createHopDong()
-    {
-        try 
-        {
-          boolean isCreate = true;
-          double giaTri = Double.parseDouble(jTextFieldGiaHD.getText());
-          // chu cai dau tenSP viet Hoa
-          if(!checkRegex("^[A-Z]{1}",jTextFieldTenHD.getText()))
-          {
-              err_tenHD.setText("Chữ cái đầu phải viết hoa");
-              isCreate = false;
-          }
-          if(!checkRegex("^[0-9]{6}$", jTextFieldMaKH.getText()))
-          {
-              err_maKH.setText("Mã khách hàng phải thuộc định dạng 6 ký tự số");
-              isCreate = false;
-                     
-          }
-          if(findKH()==false)
-          {
+
+    void createHopDong() {
+        try {
+            boolean isCreate = true;
+            double giaTri = Double.parseDouble(jTextFieldGiaHD.getText());
+            // chu cai dau tenSP viet Hoa
+            if (!checkRegex("^[A-Z]{1}", jTextFieldTenHD.getText())) {
+                err_tenHD.setText("Chữ cái đầu phải viết hoa");
+                isCreate = false;
+            }
+            if (!checkRegex("^[0-9]{6}$", jTextFieldMaKH.getText())) {
+                err_maKH.setText("Mã khách hàng phải thuộc định dạng 6 ký tự số");
+                isCreate = false;
+
+            }
+            if (findKH() == false) {
                 err_maKH.setText("Mã khách hàng không tồn tại");
                 isCreate = false;
-          } 
-          if (giaTri <= 0)
-                   {
-                err_TriGiaHD.setText("Gía trị tài khoản phải là số không âm!");
-                 isCreate = false;
-          }
-        if(isCreate == true)
-        {
-            try
-            {
-                LocalDate ngayBD =  LocalDate.ofInstant(jDateChooser3.getCalendar().toInstant(), ZoneId.systemDefault());   
-                LocalDate ngayKT =  LocalDate.ofInstant(jDateChooser4.getCalendar().toInstant(), ZoneId.systemDefault());   
-                String tenHD = jTextFieldTenHD.getText();
-                String maKH = jTextFieldMaKH.getText();               
-                hopDong = new HopDong(tenHD, ngayBD, ngayKT, giaTri, maKH,"Chờ xác nhận");
-                daohd.insert(hopDong);
-            } 
-            catch (Exception e) 
-            {
-                JOptionPane.showConfirmDialog(this,"Lỗi tạo hợp đồng!");
             }
-        }
-        } 
-      
-        catch (NumberFormatException e) 
+            if (giaTri <= 0) {
+                err_TriGiaHD.setText("Gía trị tài khoản phải là số không âm!");
+                isCreate = false;
+            }
+            LocalDate ngayBD = LocalDate.ofInstant(jDateChooser3.getCalendar().toInstant(), ZoneId.systemDefault());
+            LocalDate ngayKT = LocalDate.ofInstant(jDateChooser4.getCalendar().toInstant(), ZoneId.systemDefault());
+            if (!((ngayBD.isBefore(ngayKT))&&((ngayBD.isBefore(LocalDate.now()))||ngayBD.isEqual(LocalDate.now())))) {
+                JOptionPane.showMessageDialog(jDateChooser3, "Ngày bắt đầu phải trước ngày kết thúc!");
+                isCreate = false;
+            }
+            if (isCreate == true) {
+
+                try {
+
+                    String tenHD = jTextFieldTenHD.getText();
+                    String maKH = jTextFieldMaKH.getText();
+                    int stt = 1;
+                    for (HopDong hopDong : daohd.getAll()) {
+                        if (hopDong.getNgayBatDau().equals(ngayBD)) {
+                            stt++;
+                        }
+                    }
+                    hopDong = new HopDong(stt, tenHD, ngayBD, ngayKT, giaTri, maKH, "Chờ xác nhận");
+                    daohd.insert(hopDong);
+                } catch (Exception e) {
+                    JOptionPane.showConfirmDialog(this, "Lỗi tạo hợp đồng!");
+                }
+            }
+        } catch (NumberFormatException e) 
         {
             err_TriGiaHD.setText("Gía trị tài khoản phải là số không âm!");
         }
     }
-     void changeEnityToObject()
-    {
+
+    void changeEnityToObject() {
         String tenSP = jTextField7.getText();
         double donGia;
         int soLuong = Integer.parseInt(jTextField8.getText());
@@ -197,26 +188,33 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
         rowData[0] = tenSP;
         rowData[1] = soLuong;
         rowData[2] = donGia;
-        modelSanPham.addRow(rowData);         
-    }
-    void resetTextField()
-    {
-        err_maKH.setText("");
-        err_tenHD.setText("");
-        err_TriGiaHD.setText("");      
+        modelSanPham.addRow(rowData);
     }
 
-    boolean findKH()
-    {
-          for(KhachHang khachHang : daokh.getAll())
-              {
-                  if(khachHang.getMaKhachHang().compareToIgnoreCase(jTextFieldMaKH.getText())==0)
-                  {
-                     return true;
-                  } 
-              }
-          return false;
+    void resetTextField() {
+        err_maKH.setText("");
+        err_tenHD.setText("");
+        err_TriGiaHD.setText("");
     }
+
+    boolean findKH() {
+        for (KhachHang khachHang : daokh.getAll()) {
+            if (khachHang.getMaKhachHang().compareToIgnoreCase(jTextFieldMaKH.getText()) == 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    void changeObjectToEnity(Object[] rowData, int stt) {
+        double donGia;
+        int soLuong = Integer.parseInt(rowData[1].toString());
+        donGia = Double.parseDouble(rowData[2].toString());
+        String tenSP = rowData[0].toString();
+        SanPham sanPham = new SanPham(stt, tenSP, soLuong, donGia, hopDong.getMaHD());
+        daosp.insert(sanPham);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -778,13 +776,13 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
         heading_body_1.setLayout(heading_body_1Layout);
         heading_body_1Layout.setHorizontalGroup(
             heading_body_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, heading_body_1Layout.createSequentialGroup()
+            .addGroup(heading_body_1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(heading_body_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(body_body_2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(body_body_2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 427, Short.MAX_VALUE)
                     .addGroup(heading_body_1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 413, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 14, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         heading_body_1Layout.setVerticalGroup(
@@ -835,7 +833,7 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         resetTextField();
-        createHopDong(); 
+        createHopDong();
         insertSanPhamToDatabase();// TODO add your handling code here:
         gd_QLHD.updateTable();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -853,7 +851,7 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextFieldTenHDActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-     createSanPham();        // TODO add your handling code here:
+        createSanPham();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -891,7 +889,7 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
         createKhachHang();        // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
 
-   CardLayout cardLayout;
+    CardLayout cardLayout;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel body;
     private javax.swing.JPanel body_1;

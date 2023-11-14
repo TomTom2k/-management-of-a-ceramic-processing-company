@@ -61,8 +61,8 @@ public class HopDong {
         this.maHD = maHD;
     }
 
-    public void setMaHD() {
-        maHD = generateMaHD();
+    public void setMaHD(int stt) {
+        maHD = generateMaHD(stt);
     }
 
     public void setTenHD(String tenHD) {
@@ -89,26 +89,17 @@ public class HopDong {
         this.trangThai = trangThai;
     }
 
-    String generateMaHD() {
-        if (oldMaHD == null) {
-            maHD = generateNgayBatDau() + "01";
-            oldMaHD = maHD;
-
-        } else {
-            if (oldMaHD.substring(0, 6).compareTo(generateNgayBatDau()) == 0) {
-                int stt = Integer.parseInt(oldMaHD.substring(6, 8));
-
-                stt++;
-                if (stt <= 9) {
+    String generateMaHD(int stt) {
+        
+                if (stt <= 9) 
+                {
                     maHD = generateNgayBatDau() + "0" + stt;
-                } else {
+                } 
+                else 
+                {
                     maHD = generateNgayBatDau() + stt;
                 }
-                oldMaHD = maHD;
-            } else {
-                maHD = generateNgayBatDau() + "01";
-            }
-        }
+
         return maHD;
     }
 
@@ -140,9 +131,9 @@ public class HopDong {
         int month = ngayBatDau.getMonthValue();
         int year = ngayBatDau.getYear();
         if (year % 100 < 10) {
-            return "" + day + month + "0" + year % 100;
+            return "" + day + month + "0" + year;
         } else {
-            return "" + day + month + year % 100;
+            return "" + day +""+ month +""+ year;
         }
 
     }
@@ -157,7 +148,7 @@ public class HopDong {
 
     public String getNgayBatDauString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        return ngayKetThucDuKien.format(formatter);
+        return ngayBatDau.format(formatter);
     }
 
     public String getNgayKetThucString() {
@@ -181,14 +172,14 @@ public class HopDong {
         return trangThai;
     }
 
-    public HopDong(String tenHD, LocalDate ngayBatDau, LocalDate ngayKetThucDuKien, double donGia, String maKH,String trangThai) {
+    public HopDong(int stt, String tenHD, LocalDate ngayBatDau, LocalDate ngayKetThucDuKien, double donGia, String maKH,String trangThai) {
         super();
         this.setNgayBatDau(ngayBatDau);
         this.setNgayKetThucDuKien(ngayKetThucDuKien);
         this.setTenHD(tenHD);
         this.setTrangThai(trangThai);
         this.setDonGia(donGia);
-        this.setMaHD();
+        this.setMaHD(stt);
         this.setMaKH(maKH);
     }
 

@@ -23,7 +23,6 @@ public class Main {
     public static void begin() {
         ConnectDB.connectDatabase();
         connection = ConnectDB.getConnection(); 
-        
         SplashScreen sp = new SplashScreen();
         sp.setVisible(true);
         try {

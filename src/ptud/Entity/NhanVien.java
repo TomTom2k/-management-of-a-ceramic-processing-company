@@ -1,6 +1,8 @@
 package ptud.Entity;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import ptud.DAO.DAO_NhanVien;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -134,6 +136,33 @@ public class NhanVien {
         this.avatar = avatar;
         this.luongCoBan = luongCoBan;
         this.phuCap = phuCap;
+    }
+
+    public NhanVien(BoPhan boPhan, String ten, boolean gioiTinh, LocalDate ngaySinh, LocalDate ngayBatDauLam, String cccd, String dienThoai, boolean trangThai, byte[] avatar, double luongCoBan, double phuCap) {
+        this.maNV = genMaNV(boPhan, ngayBatDauLam, gioiTinh);
+        this.boPhan = boPhan;
+        this.ten = ten;
+        this.gioiTinh = gioiTinh;
+        this.ngaySinh = ngaySinh;
+        this.ngayBatDauLam = ngayBatDauLam;
+        this.cccd = cccd;
+        this.dienThoai = dienThoai;
+        this.trangThai = trangThai;
+        this.avatar = avatar;
+        this.luongCoBan = luongCoBan;
+        this.phuCap = phuCap;
+    }
+
+    private String genMaNV(BoPhan boPhan,LocalDate ngayBatDauLam, boolean gioiTinh) {
+        DAO_NhanVien daoNhanVien = new DAO_NhanVien().getInstance();
+        int count = daoNhanVien.countAll();
+
+        // Sử dụng DateTimeFormatter để lấy hai số cuối của năm
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy");
+        String lastTwoDigitsOfYear = ngayBatDauLam.format(formatter);
+
+        // Kết hợp mã NV với số lượng và giới tính
+        return String.format("%s%s%s%03d", boPhan.getMaBP(), lastTwoDigitsOfYear, gioiTinh?"1":0, count++) ;
     }
 
     public NhanVien() {

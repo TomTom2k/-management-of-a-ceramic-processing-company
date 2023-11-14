@@ -5,6 +5,8 @@
 package ptud.Entity;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import ptud.DAO.DAO_CongNhan;
 
 /**
  *
@@ -12,6 +14,7 @@ import java.time.LocalDate;
  */
 public class CongNhan {
     private String maCN;
+    private BoPhan boPhan;
     private String ten;
     private boolean gioiTinh;
     private LocalDate ngaySinh;
@@ -24,6 +27,10 @@ public class CongNhan {
 
     public String getMaCN() {
         return maCN;
+    }
+    
+    public BoPhan getBoPhan() {
+    	return boPhan;
     }
 
     public String getTen() {
@@ -65,6 +72,10 @@ public class CongNhan {
     public void setMaCN(String maCN) {
         this.maCN = maCN;
     }
+    
+    public void setBoPhan(BoPhan boPhan) {
+    	this.boPhan = boPhan;
+    }
 
     public void setTen(String ten) {
         this.ten = ten;
@@ -102,8 +113,9 @@ public class CongNhan {
         this.choPhanCong = choPhanCong;
     }
 
-    public CongNhan(String maCN, String ten, boolean gioiTinh, LocalDate ngaySinh, LocalDate ngayBatDauLam, String cccd, String dienThoai, boolean trangThai, byte[] avatar, boolean choPhanCong) {
+    public CongNhan(String maCN, BoPhan boPhan, String ten, boolean gioiTinh, LocalDate ngaySinh, LocalDate ngayBatDauLam, String cccd, String dienThoai, boolean trangThai, byte[] avatar, boolean choPhanCong) {
         this.maCN = maCN;
+        this.boPhan = boPhan;
         this.ten = ten;
         this.gioiTinh = gioiTinh;
         this.ngaySinh = ngaySinh;
@@ -115,12 +127,40 @@ public class CongNhan {
         this.choPhanCong = choPhanCong;
     }
 
+    public CongNhan(BoPhan boPhan, String ten, boolean gioiTinh, LocalDate ngaySinh, LocalDate ngayBatDauLam, String cccd, String dienThoai, boolean trangThai, byte[] avatar, boolean choPhanCong) {
+        this.maCN = genMaCN(boPhan, ngayBatDauLam, gioiTinh);
+        this.boPhan = boPhan;
+        this.ten = ten;
+        this.gioiTinh = gioiTinh;
+        this.ngaySinh = ngaySinh;
+        this.ngayBatDauLam = ngayBatDauLam;
+        this.cccd = cccd;
+        this.dienThoai = dienThoai;
+        this.trangThai = trangThai;
+        this.avatar = avatar;
+        this.choPhanCong = choPhanCong;
+    }
+
+    
     public CongNhan() {
+    }
+    
+    
+    private String genMaCN(BoPhan boPhan, LocalDate ngayBatDauLam, boolean gioiTinh) {
+        DAO_CongNhan daoConNhan = new DAO_CongNhan().getInstance();
+        int count = daoConNhan.countAll();
+
+        // Sử dụng DateTimeFormatter để lấy hai số cuối của năm
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yy");
+        String lastTwoDigitsOfYear = ngayBatDauLam.format(formatter);
+
+        // Kết hợp mã NV với số lượng và giới tính
+        return String.format("%s%s%s%03d", boPhan.getMaBP(),lastTwoDigitsOfYear, gioiTinh?"1":0, count++) ;
     }
 
     @Override
     public String toString() {
-        return "CongNhan{" + "maCN=" + maCN + ", ten=" + ten + ", gioiTinh=" + gioiTinh + ", ngaySinh=" + ngaySinh + ", ngayBatDauLam=" + ngayBatDauLam + ", cccd=" + cccd + ", dienThoai=" + dienThoai + ", trangThai=" + trangThai + ", avatar=" + avatar + ", choPhanCong=" + choPhanCong + '}';
+        return "CongNhan{" + "maCN=" + maCN + "boPhan" + boPhan.toString() + ", ten=" + ten + ", gioiTinh=" + gioiTinh + ", ngaySinh=" + ngaySinh + ", ngayBatDauLam=" + ngayBatDauLam + ", cccd=" + cccd + ", dienThoai=" + dienThoai + ", trangThai=" + trangThai + ", avatar=" + avatar + ", choPhanCong=" + choPhanCong + '}';
     }
 
     

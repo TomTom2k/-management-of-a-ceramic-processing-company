@@ -1,3 +1,4 @@
+
  --them value khachhang mau vao
 INSERT INTO KhachHang(maKH,tenKH,email,dienThoai,toChuc) values('230001',N'Võ Phước Hậu','vohau115@gmail.com','0899530610',0)
 INSERT INTO KhachHang(maKH,tenKH,email,dienThoai,toChuc) values('231002',N'Công ty TNHH Uy Vũ','vovuCompany@gmail.com','0899530600',1)
@@ -36,6 +37,25 @@ INSERT INTO BoPhan (maBP, tenBP) VALUES ('SX02', N'Giao hàng và Vận chuyển
 INSERT INTO BoPhan (maBP, tenBP) VALUES ('SX03', N'Lưu trữ và Logistik');
 INSERT INTO BoPhan (maBP, tenBP) VALUES ('SX04', N'đóng gói');
 INSERT INTO BoPhan (maBP, tenBP) VALUES ('SX05', N'in ấn');
+
+-- nhân viên
+-- thay lại bằng path đến assets của dự án
+INSERT INTO NhanVien (maNV, maBP, tenNV, gioiTinh, ngaySinh, ngayBatDauLam, CCCD, luongCoBan, phuCap, trangThai, dienThoai, hinhAnh)
+VALUES 
+    ('NV1810001', 'HC01', N'Lê Thị Bích', 1, '1992-08-25', '2018-03-15', '000022221111', 5000000.0, 1000000.0, 1, '0123456789', (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarNV\nv2.jpg', SINGLE_BLOB) as ImageData));
+INSERT INTO NhanVien (maNV, maBP, tenNV, gioiTinh, ngaySinh, ngayBatDauLam, CCCD, luongCoBan, phuCap, trangThai, dienThoai, hinhAnh)
+VALUES 
+    ('NV2010001', 'HC02', N'Đỗ Văn Tấn', 1, '1996-08-25', '2020-06-20', '111100002222', 7000000.0, 1000000.0, 1, '9876543210', (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarNV\nv1.jpg', SINGLE_BLOB) as ImageData));
+
+-- công nhân
+INSERT INTO CongNhan (maCN, maBP, tenCN, gioiTinh, ngaySinh, ngayBatDauLam, CCCD, trangThai, choPhanCong, dienThoai, hinhAnh)
+VALUES 
+    ('CN210001', 'SX02', N'Nguyễn Văn Bạch', 1, '1990-01-15', '2021-05-01', '222211110000', 1, 1, '1357924680', (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarCN\cn1.jpg', SINGLE_BLOB) as ImageData));
+INSERT INTO CongNhan (maCN, maBP, tenCN, gioiTinh, ngaySinh, ngayBatDauLam, CCCD, trangThai, choPhanCong, dienThoai, hinhAnh)
+VALUES 
+    ('CN200002', 'SX05', N'Đỗ Nhật Anh', 1, '1999-01-15', '2020-05-01', '111122220000', 1, 1, '2468013579', (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarCN\cn2.jpg', SINGLE_BLOB) as ImageData));
+
+
 
 -- công đoạn 
 -- Công đoạn cho sản phẩm 051120230101

@@ -41,9 +41,7 @@ public class DAO_SanPham implements DAOInterface<SanPham>
                 String maHD = resultSet.getString("maHD");
                 sanPham = new SanPham(id, tenSP, soLuong, donGia,maHD);
                 
-            }           
-            // log the info to the output to check the result            
-            
+            }          
         } 
         catch (SQLException e) 
         {
@@ -70,9 +68,6 @@ public class DAO_SanPham implements DAOInterface<SanPham>
                 SanPham sanPham = new SanPham(maSP, tenSP, soLuong, donGia,maHD);            
                 sanPhams.add(sanPham);
             } 
- 
-            // log the info to the output to check the result                     
-            
         } catch (SQLException e) 
         {
             e.printStackTrace();
