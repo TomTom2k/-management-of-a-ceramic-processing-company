@@ -1,25 +1,92 @@
 package ptud.Entity;
 
+import java.util.ArrayList;
+import ptud.DAO.DAO_CongDoan;
+
 public class SanPham 
 {
 	// Author VoPhuocHau
+  String maHD;
+  DAO_CongDoan daocd = new DAO_CongDoan();
+  ArrayList<CongDoan> congDoans = new ArrayList<>();
+
+    public String getMaHD() 
+    {
+        return maHD;
+    }
+
+    public void setMaHD(String maHD) 
+    {
+        this.maHD = maHD;
+    }
   String maSanPham;
   String tenSanPham;
   int soLuong;
   double donGia;
+
+    public ArrayList<CongDoan> getCongDoans() {
+        return congDoans;
+    }
+
+    public void updateListCongDoans() 
+    {
+       for(CongDoan congDoan : daocd.getAll())
+       {
+           if(congDoan.getMaSP().compareToIgnoreCase(this.maSanPham)==0)
+           {
+               if(!congDoans.contains(congDoan))
+               {
+                   congDoans.add(congDoan);
+               }
+           }
+       }
+    }
+
+    public int getTienDo() {
+        return tienDo;
+    }
+
+    public void setTienDo() 
+    {        
+        updateListCongDoans();
+        if(congDoans.size()!=0)
+        {
+             String max = congDoans.get(0).getMaCD();
+        this.tienDo =congDoans.get(0).getSoLuongHoanThanh(); 
+         System.out.println(congDoans.get(0).getSoLuongHoanThanh());
+         for(CongDoan congDoan :congDoans)
+         {         
+             if(congDoan.getMaCD().compareToIgnoreCase(max)>0)
+             {
+                 max = congDoan.getMaCD();
+                 this.tienDo = congDoan.getSoLuongHoanThanh();
+                   System.out.println(congDoan.getSoLuongHoanThanh());
+             }
+         }
+         this.tienDo = (int)(1.0*this.tienDo/soLuong)*100;  
+        }
+        else
+        {
+            tienDo =0;
+        }
+     
+        }
+  int tienDo;
   public String getMaSanPham() 
     {
 		return maSanPham;
 	}
-	public void setMaSanPham(String maSanPham,int stt) 
+	public void setMaSanPham(int stt) 
 	{
 		if(stt<10)
 		{
-			this.maSanPham = maSanPham+"0"+stt;
+                    String sttString = "0"+stt;
+			this.maSanPham = this.maHD+sttString;
 		}
 		else 
-		{
-			this.maSanPham = maSanPham+stt;
+		{  
+                    String sttString = ""+stt;
+                    this.maSanPham = this.maHD+stt;
 		}
 	}
 	public String getTenSanPham() {
@@ -58,12 +125,27 @@ public class SanPham
 		}
 		this.donGia = donGia;
 	}
-	public SanPham(String maSanPham, String tenSanPham, int soLuong, double donGia,int stt) 
+        public void setMaSanPham(String maSanPham)
+        {
+            this.maSanPham = maSanPham;
+        }
+	public SanPham(String maSanPham, String tenSanPham, int soLuong, double donGia,String maHD) 
 	{
 		super();
-		this.setDonGia(donGia);
-		this.setMaSanPham(maSanPham, stt);
+		this.setDonGia(donGia);               
+		this.setMaSanPham(maSanPham);
 		this.setSoLuong(soLuong);
 		this.setTenSanPham(tenSanPham);
+                this.setMaHD(maHD);
+	}
+        public SanPham(int stt, String tenSanPham, int soLuong, double donGia,String maHD) 
+	{
+		super();
+                this.setMaHD(maHD);
+		this.setDonGia(donGia);               		
+		this.setSoLuong(soLuong);
+		this.setTenSanPham(tenSanPham);
+                this.setMaSanPham(stt);
+                
 	}
 }

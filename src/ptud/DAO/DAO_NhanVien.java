@@ -31,7 +31,7 @@ public class DAO_NhanVien implements DAOInterface<NhanVien> {
         try {
             ConnectDB.getInstance();
             java.sql.Connection connection = ConnectDB.getConnection();
-            
+
             String query = "SELECT * FROM NhanVien WHERE maNV = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, id);
@@ -65,7 +65,7 @@ public class DAO_NhanVien implements DAOInterface<NhanVien> {
         try {
             ConnectDB.getInstance();
             java.sql.Connection connection = ConnectDB.getConnection();
-            
+
             String query = "SELECT * FROM NhanVien";
             PreparedStatement statement = connection.prepareStatement(query);
 
@@ -99,7 +99,7 @@ public class DAO_NhanVien implements DAOInterface<NhanVien> {
     @Override
     public boolean insert(NhanVien nhanVien) {
         ConnectDB.getInstance();
-            java.sql.Connection connection = ConnectDB.getConnection();
+        java.sql.Connection connection = ConnectDB.getConnection();
         try {
             String sql = "INSERT INTO NhanVien\n"
                     + "           ([maNV]\n"
@@ -153,7 +153,7 @@ public class DAO_NhanVien implements DAOInterface<NhanVien> {
 
     @Override
     public boolean update(NhanVien nhanVien) {
-        
+
         try {
             ConnectDB.getInstance();
             java.sql.Connection connection = ConnectDB.getConnection();
@@ -216,4 +216,24 @@ public class DAO_NhanVien implements DAOInterface<NhanVien> {
         return false;
     }
 
+//    đếm số lượng nhân viên
+    public int countAll() {
+        int count = 0;
+        try {
+            ConnectDB.getInstance();
+            java.sql.Connection connection = ConnectDB.getConnection();
+
+            String query = "SELECT COUNT(*) AS total FROM NhanVien";
+            PreparedStatement statement = connection.prepareStatement(query);
+
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                count = resultSet.getInt("total");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
 }

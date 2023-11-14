@@ -188,7 +188,7 @@
                 <Component class="javax.swing.JButton" name="jButton5">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="c0" green="de" red="c6" type="rgb"/>
+                      <Color blue="66" green="66" red="ff" type="rgb"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="0" red="0" type="rgb"/>
@@ -325,7 +325,7 @@
                 <Component class="javax.swing.JTable" name="jTable2">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="9" rowCount="4">
+                      <Table columnCount="8" rowCount="4">
                         <Column editable="false" title="M&#xe3; CN" type="java.lang.String">
                           <Data value="2210001"/>
                           <Data value="null"/>
@@ -368,13 +368,7 @@
                           <Data value="null"/>
                           <Data value="null"/>
                         </Column>
-                        <Column editable="false" title="Ph&#x1ee5; c&#x1ea5;p" type="java.lang.Double">
-                          <Data value="500000.0"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                        </Column>
-                        <Column editable="false" title="L&#x1b0;&#x1a1;ng c&#x1a1; b&#x1ea3;ng" type="java.lang.Double"/>
+                        <Column editable="false" title="&#x110;&#xe3; ph&#xe2;n c&#xf4;ng" type="java.lang.String"/>
                       </Table>
                     </Property>
                     <Property name="autoResizeMode" type="int" value="1"/>
@@ -384,6 +378,9 @@
                       <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTable2MouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -542,6 +539,9 @@
                       <TableHeader reorderingAllowed="false" resizingAllowed="true"/>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblNVMouseClicked"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
@@ -611,7 +611,7 @@
                 <Component class="javax.swing.JButton" name="jButton2">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                      <Color blue="c0" green="de" red="c6" type="rgb"/>
+                      <Color blue="66" green="66" red="ff" type="rgb"/>
                     </Property>
                     <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="0" green="0" red="0" type="rgb"/>

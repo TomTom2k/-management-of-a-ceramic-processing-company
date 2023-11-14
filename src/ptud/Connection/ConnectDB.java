@@ -27,27 +27,31 @@ public class ConnectDB {
     }
 
     //Methods
-    public static boolean connectDatabase() {
-        try {
-            String url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyLSP;encrypt=true;trustServerCertificate=true;";
-            String username = "sa";
-            String password = "12345678";
-            connection = java.sql.DriverManager.getConnection(url, username, password);
-            return true; // Trả về true nếu kết nối thành công
-        } catch (java.sql.SQLException e) {
-            e.printStackTrace();
-            return false; // Trả về false nếu kết nối không thành công
-        }
-    }
-
-    public static boolean disconnectDatabase() {
-        if (connection != null) {
-            try {
-                connection.close();
-            } catch (java.sql.SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return connection != null;
-    }
+	public static void connectDatabase() {
+		try {
+			//Login by Windows Authentication
+				//String url = "jdbc:sqlserver://localhost:1433;databaseName=HotelManagement;integratedSecurity=true;";
+			
+			//Login by SQL Login
+				String url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyLSP";
+				String username = "sa";
+				String password = "12345678";
+				
+			connection = java.sql.DriverManager.getConnection(url, username, password);
+                        System.err.println("Thành công");
+		} 
+		catch (java.sql.SQLException e) {
+//                        System.out.println("Lỗi tại đây");
+			e.printStackTrace();
+		}
+	}
+	public static void disconnectDatabase() {
+		if(connection != null) {
+			try {
+				connection.close();
+			} catch (java.sql.SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

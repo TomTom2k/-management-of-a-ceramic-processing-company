@@ -5,10 +5,12 @@
 
 package ptud.GUI;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-
-import ptud.DAO.DAO_PhieuLuongNhanVien;
+import ptud.DAO.*;
+import ptud.Entity.ChiTietPhanCong;
+import ptud.Entity.CongDoan;
 import ptud.Entity.PhieuLuongNhanVien;
 
 /**
@@ -46,6 +48,7 @@ public class GD_TinhLuong extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jButtonTinhLuong = new javax.swing.JButton();
+        jButtonTinhLuong1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -119,6 +122,18 @@ public class GD_TinhLuong extends javax.swing.JPanel {
             }
         });
 
+        jButtonTinhLuong1.setText("test dao");
+        jButtonTinhLuong1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jButtonTinhLuong1MouseReleased(evt);
+            }
+        });
+        jButtonTinhLuong1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTinhLuong1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -140,6 +155,8 @@ public class GD_TinhLuong extends javax.swing.JPanel {
                         .addComponent(jYearChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(39, 39, 39)
                         .addComponent(jButtonTinhLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButtonTinhLuong1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addGap(22, 22, 22)
@@ -167,7 +184,9 @@ public class GD_TinhLuong extends javax.swing.JPanel {
                             .addComponent(jComboBoxMaHopDong3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
                         .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(jButtonTinhLuong))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButtonTinhLuong)
+                        .addComponent(jButtonTinhLuong1)))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -284,8 +303,8 @@ public class GD_TinhLuong extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jButton3)
                         .addGap(2, 2, 2)))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 537, Short.MAX_VALUE)
+                .addGap(19, 19, 19)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -344,18 +363,26 @@ public class GD_TinhLuong extends javax.swing.JPanel {
     private void jButtonTinhLuongMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonTinhLuongMouseReleased
         // TODO add your handling code here:
         
-        // test DAO insert phieuluongnhanvien
-        DAO_PhieuLuongNhanVien dao = DAO_PhieuLuongNhanVien.getInstance(); 
-        PhieuLuongNhanVien pl1 = new PhieuLuongNhanVien("PLNV001", 30, 8, "003", 120000); 
-        ArrayList<PhieuLuongNhanVien> thanhCong =  dao.getAll(); 
-        if(thanhCong!=null){
-            JOptionPane.showMessageDialog(null, "Tinh luong thanh cong");
-        }   
-        else{
-            JOptionPane.showMessageDialog(null, "Tinh luong that bai");
-        }
-            
     }//GEN-LAST:event_jButtonTinhLuongMouseReleased
+
+    private void jButtonTinhLuong1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonTinhLuong1MouseReleased
+        // TODO add your handling code here:
+        DAO_CongDoan dao = DAO_CongDoan.getInstance(); 
+        
+        ArrayList<CongDoan> isInserted = dao.getAllByTrangThai(false); 
+        if (!isInserted.isEmpty()) {
+            for (int i = 0; i < isInserted.size(); i++) {
+                System.out.println(isInserted.get(i).toString());
+            }
+        } else {
+            System.out.println("Failed to deleteById ChiTietPhanCong!");
+        }
+       
+    }//GEN-LAST:event_jButtonTinhLuong1MouseReleased
+
+    private void jButtonTinhLuong1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTinhLuong1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonTinhLuong1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -364,6 +391,7 @@ public class GD_TinhLuong extends javax.swing.JPanel {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButtonTinhLuong;
+    private javax.swing.JButton jButtonTinhLuong1;
     private javax.swing.JComboBox<String> jComboBoxMaHopDong3;
     private javax.swing.JComboBox<String> jComboBoxMaHopDong4;
     private javax.swing.JLabel jLabel2;

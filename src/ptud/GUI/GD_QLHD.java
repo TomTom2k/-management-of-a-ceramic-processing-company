@@ -5,7 +5,14 @@
 package ptud.GUI;
 
 import java.awt.CardLayout;
+import java.lang.invoke.MethodHandles;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import ptud.DAO.DAO_HopDong;
+import ptud.DAO.DAO_KhachHang;
+import ptud.Entity.HopDong;
+import ptud.Entity.KhachHang;
 import ptud.GUI.GUI_HD.GD_ChiTietHopDong;
 import ptud.ults.ImageCus;
 
@@ -15,15 +22,103 @@ import ptud.ults.ImageCus;
  */
 public class GD_QLHD extends javax.swing.JPanel {
 
+    DAO_HopDong daoHongDong = new DAO_HopDong();
+    DAO_KhachHang daoKhachHang = new DAO_KhachHang();
+    DefaultTableModel hopDongModel;
+    DefaultTableModel khacHangModel;
+      String[]  firstHopDongRow;
     /**
      * Creates new form GD_HD
      */
-    public GD_QLHD() {
+    public GD_QLHD() 
+    {
         initComponents();
-         cardLayout = (CardLayout)(rightSide.getLayout());
-        
+        cardLayout = (CardLayout) (rightSide.getLayout());
+        hopDongModel = (DefaultTableModel) hopDongTable.getModel();
+        khacHangModel = (DefaultTableModel) khachHangTable.getModel();
+        updateTable();
+        gD_TaoHopDong.receiveGD_QLHD(this);
+        if(jTabbedPane1.getSelectedIndex()==0)
+         {
+              jComboBox1.addItem("Mã HD");
+              jComboBox1.addItem("Mã Khách Hàng");
+         }
+        else
+        {
+              jComboBox1.addItem("Mã Khách hàng");  
+              jComboBox1.addItem("Tên Khách hàng");    
+        }
+     
     }
-
+    public void updateTable()
+    {
+        deleleTable(hopDongModel);
+        deleleTable(khacHangModel);
+        fillHopDongTable();
+        fillKhachHangTable();
+    }
+    int deleleTable(DefaultTableModel model)
+    {
+        int rowIndex = model.getRowCount();
+        for(int i = 0; i< rowIndex;i++)
+        {
+            if(model.getRowCount()==0)
+            {
+                return 1;
+            }
+            else
+            {
+              model.removeRow(0);
+            }          
+        }
+        return 0;
+    }
+    void fillHopDongTable()
+    {
+       for(HopDong hopDong : daoHongDong.getAll())
+       {
+           changeEnityHD(hopDong);
+       }
+    }
+    void fillKhachHangTable()
+    {
+       for(KhachHang khachHang : daoKhachHang.getAll())
+       {
+           changeEnityKH(khachHang);
+       }
+    }
+    void changeEnityHD(HopDong hopDong)
+    {
+        Object[] rowData = new Object[6];
+        rowData[0] = hopDong.getMaHD();
+        rowData[1] = hopDong.getTenHD();
+        rowData[2] = hopDong.getNgayBatDauString();
+        rowData[3] = hopDong.getNgayKetThucString();
+        rowData[4] = hopDong.getDonGiaString();
+        rowData[5] = hopDong.getTrangThai();
+        hopDongModel.addRow(rowData);         
+    }
+    void changeEnityKH(KhachHang khachHang)
+    {
+        Object[] rowData = new Object[5];
+        rowData[0] = khachHang.getMaKhachHang();
+        rowData[1] = khachHang.getTenKhachHang();
+        rowData[2] = khachHang.getEmail();
+        rowData[3] = khachHang.getSdt();
+        rowData[4] = khachHang.isToChuc();
+        khacHangModel.addRow(rowData);         
+    }
+    HopDong changeObjectToEnity(Object[] rowData)
+    {
+        HopDong hopDong = new HopDong();
+        hopDong.setMaHD(rowData[0].toString());
+        hopDong.setTenHD(rowData[1].toString());
+        hopDong.setNgayBatDau(rowData[2].toString());
+        hopDong.setNgayKetThuc( rowData[3].toString());
+        hopDong.setDonGia(rowData[4].toString());
+        hopDong.setTrangThai(rowData[5].toString());
+        return hopDong;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -35,8 +130,8 @@ public class GD_QLHD extends javax.swing.JPanel {
 
         gD_ChiTietHopDong2 = new ptud.GUI.GUI_HD.GD_ChiTietHopDong();
         rightSide = new javax.swing.JPanel();
-        gD_ChiTietHopDong3 = new ptud.GUI.GUI_HD.GD_ChiTietHopDong();
-        gD_TaoHopDong2 = new ptud.GUI.GUI_HD.GD_TaoHopDong();
+        gD_ChiTietHopDong = new ptud.GUI.GUI_HD.GD_ChiTietHopDong();
+        gD_TaoHopDong = new ptud.GUI.GUI_HD.GD_TaoHopDong();
         body = new javax.swing.JPanel();
         heading = new javax.swing.JPanel();
         heading_2 = new javax.swing.JPanel();
@@ -65,8 +160,8 @@ public class GD_QLHD extends javax.swing.JPanel {
         rightSide.setForeground(new java.awt.Color(255, 255, 255));
         rightSide.setPreferredSize(new java.awt.Dimension(300, 600));
         rightSide.setLayout(new java.awt.CardLayout());
-        rightSide.add(gD_ChiTietHopDong3, "CTHD");
-        rightSide.add(gD_TaoHopDong2, "THD");
+        rightSide.add(gD_ChiTietHopDong, "CTHD");
+        rightSide.add(gD_TaoHopDong, "THD");
 
         body.setBackground(new java.awt.Color(255, 255, 255));
         body.setLayout(new java.awt.BorderLayout());
@@ -87,7 +182,11 @@ public class GD_QLHD extends javax.swing.JPanel {
 
         jLabel2.setText("Tìm kiếm theo:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         timButton.setBackground(new java.awt.Color(198, 222, 192));
         timButton.setToolTipText("");
@@ -168,6 +267,11 @@ public class GD_QLHD extends javax.swing.JPanel {
         body_1.setBackground(new java.awt.Color(255, 255, 255));
 
         jTabbedPane1.setBackground(new java.awt.Color(255, 255, 255));
+        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MouseClicked(evt);
+            }
+        });
 
         hopDong_Panel.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -175,22 +279,35 @@ public class GD_QLHD extends javax.swing.JPanel {
 
         hopDongTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Mã hợp đồng", "Tên hợp đồng", "Ngày bắt đầu", "Ngày kết thúc", "Trị giá hợp đồng", "Trạng thái"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        hopDongTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                hopDongTableMouseClicked(evt);
+            }
+        });
         hopDongScroll.setViewportView(hopDongTable);
 
         javax.swing.GroupLayout hopDong_PanelLayout = new javax.swing.GroupLayout(hopDong_Panel);
         hopDong_Panel.setLayout(hopDong_PanelLayout);
         hopDong_PanelLayout.setHorizontalGroup(
             hopDong_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(hopDongScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 964, Short.MAX_VALUE)
+            .addGroup(hopDong_PanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(hopDongScroll, javax.swing.GroupLayout.DEFAULT_SIZE, 952, Short.MAX_VALUE)
+                .addContainerGap())
         );
         hopDong_PanelLayout.setVerticalGroup(
             hopDong_PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,7 +333,15 @@ public class GD_QLHD extends javax.swing.JPanel {
             new String [] {
                 "Mã Khách Hàng", "Tên Khách hàng", "email", "số điện thoại", "Tổ chức"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         khachHangScroll.setViewportView(khachHangTable);
 
         javax.swing.GroupLayout khachHang_PanelLayout = new javax.swing.GroupLayout(khachHang_Panel);
@@ -269,7 +394,67 @@ public class GD_QLHD extends javax.swing.JPanel {
     }//GEN-LAST:event_jTextField1ActionPerformed
 
     private void timButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_timButtonActionPerformed
-        // TODO add your handling code here:
+       if(jTabbedPane1.getSelectedIndex()==0)
+       {
+        if(jComboBox1.getSelectedIndex()==0)
+           {
+               String id = jTextField1.getText();
+               if(daoHongDong.get(id)==null)
+               {
+                   JOptionPane.showMessageDialog(this,"Không tìm thấy hợp đồng!");
+               }
+               else
+               {
+                   deleleTable(hopDongModel);
+                   changeEnityHD(daoHongDong.get(id));
+               }
+           }
+             else if(jTextField1.getText().equals(""))
+             {
+                 updateTable();
+             }
+           else
+           {
+              String id = jTextField1.getText();
+              deleleTable(hopDongModel);
+              for(HopDong hopDong : daoHongDong.getAll())
+               if(hopDong.getMaKH().compareToIgnoreCase(id) ==0)
+               {                                    
+                   changeEnityHD(hopDong);
+               }  
+           }
+       }
+       else
+       {
+          if(jComboBox1.getSelectedIndex()==0)
+           {
+               String id = jTextField1.getText();
+               if(daoKhachHang.get(id)==null)
+               {
+                   JOptionPane.showMessageDialog(this,"Không tìm thấy khách hàng!");
+               }
+               else
+               {
+                   deleleTable(khacHangModel);
+                   changeEnityKH(daoKhachHang.get(id));
+               }
+           }
+          else if(jTextField1.getText().equals(""))
+             {
+                 updateTable();
+             }
+           else
+           {
+               String id = jTextField1.getText();
+               deleleTable(khacHangModel);
+               for(KhachHang khachHang : daoKhachHang.getAll())
+               if(khachHang.getTenKhachHang().contains(id))
+               {                                    
+                   changeEnityKH(khachHang);
+               }  
+           }  
+       }
+// TODO add your handling code here:
     }//GEN-LAST:event_timButtonActionPerformed
 
     private void taoHopDongButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_taoHopDongButtonActionPerformed
@@ -285,6 +470,35 @@ public class GD_QLHD extends javax.swing.JPanel {
         isCTHD *=-1;
      
     }//GEN-LAST:event_taoHopDongButtonActionPerformed
+
+    private void hopDongTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hopDongTableMouseClicked
+      int index = hopDongTable.getSelectedRow();
+      String maHD = hopDongModel.getValueAt(index,0).toString();
+      HopDong hopDong = daoHongDong.get(maHD);
+      gD_ChiTietHopDong.receiveHopDong(hopDong,this );
+     
+// TODO add your handling code here:
+    }//GEN-LAST:event_hopDongTableMouseClicked
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+       jComboBox1.removeAllItems();
+       updateTable();
+        if(jTabbedPane1.getSelectedIndex()==0)
+         {
+              jComboBox1.addItem("Mã HD");
+              jComboBox1.addItem("Mã Khách Hàng");
+         }
+        else
+        {
+              jComboBox1.addItem("Mã Khách hàng");  
+              jComboBox1.addItem("Tên Khách hàng");    
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTabbedPane1MouseClicked
    /**
      * Creates new form Layout
      */
@@ -293,9 +507,9 @@ public class GD_QLHD extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel body;
     private javax.swing.JPanel body_1;
+    private ptud.GUI.GUI_HD.GD_ChiTietHopDong gD_ChiTietHopDong;
     private ptud.GUI.GUI_HD.GD_ChiTietHopDong gD_ChiTietHopDong2;
-    private ptud.GUI.GUI_HD.GD_ChiTietHopDong gD_ChiTietHopDong3;
-    private ptud.GUI.GUI_HD.GD_TaoHopDong gD_TaoHopDong2;
+    private ptud.GUI.GUI_HD.GD_TaoHopDong gD_TaoHopDong;
     private javax.swing.JPanel heading;
     private javax.swing.JPanel heading_1;
     private javax.swing.JPanel heading_2;

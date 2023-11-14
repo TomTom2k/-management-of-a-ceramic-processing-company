@@ -37,13 +37,11 @@ public class DAO_KhachHang implements DAOInterface<KhachHang>
             if (resultSet.next()) 
             {
                 
-                String tenHD = resultSet.getString("tenHD");
-                LocalDate ngayBatDau = resultSet.getDate("ngayBatDau").toLocalDate();
-                LocalDate ngayKetThuc = resultSet.getDate("ngayKetThucDukien").toLocalDate();
-                String maKH = resultSet.getString("maKH");
-                double donGia = resultSet.getDouble("donGia");
-                String trangThai = resultSet.getString("trangThai");
-                khachHang = new KhachHang();
+                String tenKH = resultSet.getString("tenKH");
+                boolean isToChuc =  resultSet.getBoolean("toChuc");
+                String email = resultSet.getString("email");
+                String sdt = resultSet.getString("dienThoai"); 
+                khachHang = new KhachHang(id, tenKH, isToChuc, email, sdt);
                 
             }           
         } 
@@ -72,7 +70,6 @@ public class DAO_KhachHang implements DAOInterface<KhachHang>
                 KhachHang khachHang = new KhachHang(maKH, tenKH, isToChuc, email, sdt);
                 khachHangs.add(khachHang);
             } 
-
         } catch (SQLException e) 
         {
             e.printStackTrace();
@@ -86,7 +83,7 @@ public class DAO_KhachHang implements DAOInterface<KhachHang>
         //let code to insert khachHang to database sqlserver 
         try {
             // Create a PreparedStatement to insert the data  
-            String query = "INSERT INTO KhachHang (maKH, tenKH,toChuc, email, dienThoai) VALUES (?, ?, ?, ?, ?,)";
+            String query = "INSERT INTO KhachHang (maKH, tenKH,toChuc, email, dienThoai) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(query);           
             // Set the values of the parameters
             statement.setString(1, khachHang.getMaKhachHang());
