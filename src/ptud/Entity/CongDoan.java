@@ -71,8 +71,7 @@ public class CongDoan {
         DAO_CongDoan dao = DAO_CongDoan.getInstance();
         if( dao.getDsCDTQ(maCD).isEmpty() ) {
             // nếu không có cđtq, số lượng chuẩn bị là slsp
-            String maSP = dao.get(maCD).getMaSP(); 
-            SanPham sp = DAO_SanPham.getInstance().get(maSP);
+            SanPham sp = DAO_SanPham.getInstance().get(this.maSP);
             soLuongChuanBi=sp.getSoLuong(); 
         } else {
             // Lấy số lượng hoàn thành nhỏ nhất của công đoạn tiên quyết làm số lượng chuẩn bị
