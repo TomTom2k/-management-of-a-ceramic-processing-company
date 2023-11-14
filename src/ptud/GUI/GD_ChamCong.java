@@ -5,14 +5,19 @@
 package ptud.GUI;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import ptud.DAO.DAO_PhieuChamCongCongNhan;
 import ptud.DAO.DAO_PhieuChamCongNhanVien;
+import ptud.DAO.DAO_TaiKhoan;
+import ptud.Entity.TaiKhoan;
 
 /**
  *
- * @author TomTom
+ * @author TomTom, TranLoc
  */
 public class GD_ChamCong extends javax.swing.JPanel {
 
@@ -21,6 +26,7 @@ public class GD_ChamCong extends javax.swing.JPanel {
      */
     public GD_ChamCong() {
         initComponents();
+        jTextField2.setText(LocalDate.now().toString());
     }
     DAO_PhieuChamCongCongNhan DAO_PCCCN = new DAO_PhieuChamCongCongNhan();
     DAO_PhieuChamCongNhanVien DAO_PCCNV = new DAO_PhieuChamCongNhanVien();
@@ -71,33 +77,33 @@ public class GD_ChamCong extends javax.swing.JPanel {
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã nhân viên", "Tên nhân viên", "Vắng", "Đi trễ", "Tiền phạt", "Nội dung phạt"
+                "Mã công nhân", "Tên công nhân", "Vắng", "Công đoạn", "Số lượng", "Tiền phạt", "Nội dung phạt"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -107,7 +113,7 @@ public class GD_ChamCong extends javax.swing.JPanel {
         jTable3.setRowHeight(30);
         jScrollPane3.setViewportView(jTable3);
         if (jTable3.getColumnModel().getColumnCount() > 0) {
-            jTable3.getColumnModel().getColumn(4).setResizable(false);
+            jTable3.getColumnModel().getColumn(5).setResizable(false);
         }
 
         jLabel5.setText("Tìm kiếm:");
@@ -432,11 +438,19 @@ public class GD_ChamCong extends javax.swing.JPanel {
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
-//        System.out.print("HellO");
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
-        
+////        ArrayList<TaiKhoan> ds = new DAO_TaiKhoan.getAll();
+//        DAO_TaiKhoan tk = new DAO_TaiKhoan();
+//        try {
+//            ArrayList<TaiKhoan> ds = tk.getAll();
+//            for (TaiKhoan tkk: ds) {
+//                System.out.println(tkk.getUserName() + " " + tkk.getMaNV());
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(GD_ChamCong.class.getName()).log(Level.SEVERE, null, ex);
+//        }
     }//GEN-LAST:event_jButton3MouseClicked
 
 

@@ -6,6 +6,18 @@ package ptud.GUI;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import ptud.DAO.DAO_NhanVien;
+import ptud.DAO.DAO_TaiKhoan;
+import ptud.Entity.NhanVien;
+import ptud.Entity.TaiKhoan;
 
 /**
  *
@@ -18,6 +30,211 @@ public class GD_QLTK extends javax.swing.JPanel {
      */
     public GD_QLTK() {
         initComponents();
+        try {
+            loadDataTable();
+        } catch (SQLException ex) {
+            Logger.getLogger(GD_QLTK.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void loadDataTable() throws SQLException {
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        model.setRowCount(0);
+        DAO_TaiKhoan tk = new DAO_TaiKhoan();
+        ArrayList<TaiKhoan> ds = tk.getAll();
+        int stt = 1;
+        for (TaiKhoan tkk : ds) {
+            model.addRow(new Object[]{stt, tkk.getMaNV(), tkk.getUserName(), tkk.getMatKhat()});
+            stt = stt + 1;
+        }
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        jTable1.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+    }
+
+    public void loadDetailDataAcount() {
+        try {
+            DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+            int index = jTable1.getSelectedRow();
+            String maNV = model.getValueAt(index, 1).toString();
+            String userName = model.getValueAt(index, 2).toString();
+            String passWord = model.getValueAt(index, 3).toString();
+
+            DAO_TaiKhoan tk = new DAO_TaiKhoan();
+            jTextField3.setText(maNV);
+            jTextField1.setText(userName);
+            jTextField2.setText(passWord);
+
+            int userRole = tk.getUserRoleByUserName(userName);
+            switch (userRole) {
+                case 1:
+                    jcb1.setSelected(true);
+                    jcb2.setSelected(true);
+                    jcb3.setSelected(true);
+                    jcb4.setSelected(true);
+                    jcb6.setSelected(true);
+                    jcb5.setSelected(true);
+                    break;
+                case 2:
+                    jcb1.setSelected(true);
+                    jcb2.setSelected(false);
+                    jcb3.setSelected(false);
+                    jcb4.setSelected(false);
+                    jcb6.setSelected(false);
+                    jcb5.setSelected(false);
+                    break;
+                case 3:
+                    jcb1.setSelected(false);
+                    jcb2.setSelected(true);
+                    jcb3.setSelected(false);
+                    jcb4.setSelected(false);
+                    jcb6.setSelected(false);
+                    jcb5.setSelected(false);
+                    break;
+                case 4:
+                    jcb1.setSelected(false);
+                    jcb2.setSelected(false);
+                    jcb3.setSelected(true);
+                    jcb4.setSelected(false);
+                    jcb6.setSelected(false);
+                    jcb5.setSelected(false);
+                    break;
+                case 5:
+                    jcb1.setSelected(false);
+                    jcb2.setSelected(false);
+                    jcb3.setSelected(false);
+                    jcb4.setSelected(true);
+                    jcb6.setSelected(false);
+                    jcb5.setSelected(false);
+                    break;
+                case 6:
+                    jcb1.setSelected(false);
+                    jcb2.setSelected(false);
+                    jcb3.setSelected(false);
+                    jcb4.setSelected(false);
+                    jcb6.setSelected(false);
+                    jcb5.setSelected(true);
+                    break;
+                case 7:
+                    jcb1.setSelected(false);
+                    jcb2.setSelected(false);
+                    jcb3.setSelected(false);
+                    jcb4.setSelected(false);
+                    jcb6.setSelected(true);
+                    jcb5.setSelected(false);
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(GD_QLTK.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void updateTaiKhoan() {
+        try {
+            int row = jTable1.getSelectedRow();
+            String oldPassWord = jTable1.getValueAt(row, 3).toString();
+            String newPassWord = jTextField2.getText().toString();
+            String curPassWord;
+            if (oldPassWord.equals(newPassWord)) {
+                curPassWord = oldPassWord;
+            } else {
+                curPassWord = DAO_TaiKhoan.hashPassword(newPassWord, 16);
+            }
+            int userRole = 0, cnt = 0;
+            if (jcb1.isSelected()) {
+                cnt++;
+                userRole = 2;
+            }
+            if (jcb2.isSelected()) {
+                cnt++;
+                userRole = 3;
+            }
+            if (jcb3.isSelected()) {
+                cnt++;
+                userRole = 4;
+            }
+            if (jcb4.isSelected()) {
+                cnt++;
+                userRole = 5;
+            }
+            if (jcb5.isSelected()) {
+                cnt++;
+                userRole = 6;
+            }
+            if (jcb6.isSelected()) {
+                cnt++;
+                userRole = 7;
+            }
+            if (cnt == 6) {
+                userRole = 1;
+            }
+            TaiKhoan tk = new TaiKhoan(jTextField1.getText(), jTable1.getValueAt(row, 1).toString(), curPassWord, userRole, true);
+            DAO_TaiKhoan.updateTaiKhoan(tk);
+            loadDataTable();
+        } catch (SQLException ex) {
+            Logger.getLogger(GD_QLTK.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void createTaiKhoan() {
+        String maNV = jTextField3.getText().toString();
+        String userName = jTextField1.getText().toString();
+        String passWord = jTextField2.getText().toString();
+        if (maNV.isEmpty() || userName.isEmpty() || passWord.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Nhập thông tin tài khoản chưa đầy đủ!",
+                    "Cảnh báo",
+                    JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        DAO_NhanVien daoNV = new DAO_NhanVien();
+        NhanVien NV = daoNV.get(maNV);
+        if (NV == null) {
+            JOptionPane.showMessageDialog(this,
+                    "Mã Nhân viên không tồn tại",
+                    "Cảnh báo",
+                    JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        int userRole = 0, cnt = 0;
+        if (jcb1.isSelected()) {
+            cnt++;
+            userRole = 2;
+        }
+        if (jcb2.isSelected()) {
+            cnt++;
+            userRole = 3;
+        }
+        if (jcb3.isSelected()) {
+            cnt++;
+            userRole = 4;
+        }
+        if (jcb4.isSelected()) {
+            cnt++;
+            userRole = 5;
+        }
+        if (jcb5.isSelected()) {
+            cnt++;
+            userRole = 6;
+        }
+        if (jcb6.isSelected()) {
+            cnt++;
+            userRole = 7;
+        }
+        if (cnt == 6) {
+            userRole = 1;
+        }
+        if (cnt > 1) {
+            JOptionPane.showMessageDialog(this,
+                    "Chưa hỗ trợ tài khoản nhiều công việc!",
+                    "Cảnh báo",
+                    JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        TaiKhoan tk = new TaiKhoan(userName, maNV, passWord, userRole, true);
+        DAO_TaiKhoan.createTaiKhoan(tk);      
     }
 
     /**
@@ -46,12 +263,12 @@ public class GD_QLTK extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jTextField3 = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox6 = new javax.swing.JCheckBox();
-        jCheckBox7 = new javax.swing.JCheckBox();
-        jCheckBox8 = new javax.swing.JCheckBox();
-        jCheckBox9 = new javax.swing.JCheckBox();
-        jCheckBox10 = new javax.swing.JCheckBox();
+        jcb1 = new javax.swing.JCheckBox();
+        jcb2 = new javax.swing.JCheckBox();
+        jcb3 = new javax.swing.JCheckBox();
+        jcb4 = new javax.swing.JCheckBox();
+        jcb6 = new javax.swing.JCheckBox();
+        jcb5 = new javax.swing.JCheckBox();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -111,7 +328,7 @@ public class GD_QLTK extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "STT", "Tên đăng nhập", "Mật khẩu", "Tên nhân viên"
+                "STT", "Mã nhân viên", "Tên đăng nhập", "Mật khẩu"
             }
         ) {
             Class[] types = new Class [] {
@@ -126,6 +343,11 @@ public class GD_QLTK extends javax.swing.JPanel {
         jTable1.setMinimumSize(new java.awt.Dimension(60, 500));
         jTable1.setPreferredSize(new java.awt.Dimension(300, 500));
         jTable1.setRowHeight(30);
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -137,7 +359,7 @@ public class GD_QLTK extends javax.swing.JPanel {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
@@ -173,23 +395,20 @@ public class GD_QLTK extends javax.swing.JPanel {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel3.setText("Tên đăng nhập:");
 
-        jTextField1.setText("jTextField1");
         jTextField1.setPreferredSize(new java.awt.Dimension(120, 22));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel5.setText("Mật khẩu:");
+        jLabel5.setText("Mật khẩu(Hasshed):");
         jLabel5.setToolTipText("");
 
-        jTextField2.setText("jTextField1");
         jTextField2.setPreferredSize(new java.awt.Dimension(120, 22));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel6.setText("Tên nhân viên:");
+        jLabel6.setText("Mã nhân viên :");
         jLabel6.setToolTipText("");
 
-        jTextField3.setText("jTextField1");
         jTextField3.setPreferredSize(new java.awt.Dimension(120, 22));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -197,51 +416,51 @@ public class GD_QLTK extends javax.swing.JPanel {
         jLabel7.setText("Chức năng hệ thống:");
         jLabel7.setToolTipText("");
 
-        jCheckBox1.setBackground(new java.awt.Color(255, 255, 255));
-        jCheckBox1.setText("Quản lý tài khoản");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        jcb1.setBackground(new java.awt.Color(255, 255, 255));
+        jcb1.setText("Quản lý tài khoản");
+        jcb1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                jcb1ActionPerformed(evt);
             }
         });
 
-        jCheckBox6.setBackground(new java.awt.Color(255, 255, 255));
-        jCheckBox6.setText("Quản lý nhân sự");
-        jCheckBox6.addActionListener(new java.awt.event.ActionListener() {
+        jcb2.setBackground(new java.awt.Color(255, 255, 255));
+        jcb2.setText("Quản lý nhân sự");
+        jcb2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox6ActionPerformed(evt);
+                jcb2ActionPerformed(evt);
             }
         });
 
-        jCheckBox7.setBackground(new java.awt.Color(255, 255, 255));
-        jCheckBox7.setText("Thông tin hợp đồng & sản phẩm");
-        jCheckBox7.addActionListener(new java.awt.event.ActionListener() {
+        jcb3.setBackground(new java.awt.Color(255, 255, 255));
+        jcb3.setText("Thông tin hợp đồng & sản phẩm");
+        jcb3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox7ActionPerformed(evt);
+                jcb3ActionPerformed(evt);
             }
         });
 
-        jCheckBox8.setBackground(new java.awt.Color(255, 255, 255));
-        jCheckBox8.setText("Quản lý quy trình sản xuất");
-        jCheckBox8.addActionListener(new java.awt.event.ActionListener() {
+        jcb4.setBackground(new java.awt.Color(255, 255, 255));
+        jcb4.setText("Quản lý quy trình sản xuất");
+        jcb4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox8ActionPerformed(evt);
+                jcb4ActionPerformed(evt);
             }
         });
 
-        jCheckBox9.setBackground(new java.awt.Color(255, 255, 255));
-        jCheckBox9.setText("Chấm công");
-        jCheckBox9.addActionListener(new java.awt.event.ActionListener() {
+        jcb6.setBackground(new java.awt.Color(255, 255, 255));
+        jcb6.setText("Chấm công");
+        jcb6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox9ActionPerformed(evt);
+                jcb6ActionPerformed(evt);
             }
         });
 
-        jCheckBox10.setBackground(new java.awt.Color(255, 255, 255));
-        jCheckBox10.setText("Tính lương");
-        jCheckBox10.addActionListener(new java.awt.event.ActionListener() {
+        jcb5.setBackground(new java.awt.Color(255, 255, 255));
+        jcb5.setText("Tính lương");
+        jcb5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox10ActionPerformed(evt);
+                jcb5ActionPerformed(evt);
             }
         });
 
@@ -250,29 +469,35 @@ public class GD_QLTK extends javax.swing.JPanel {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(40, 40, 40)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
-                    .addComponent(jCheckBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jCheckBox6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jCheckBox7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jCheckBox8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jCheckBox9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jCheckBox10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(276, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jcb6, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(40, 40, 40)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
+                            .addComponent(jTextField3, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
+                            .addComponent(jcb1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jcb2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jcb3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jcb4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jcb5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addContainerGap(276, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(44, 44, 44)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -280,31 +505,32 @@ public class GD_QLTK extends javax.swing.JPanel {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(27, 27, 27)
-                        .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jcb1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jcb2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox7, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jcb3, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox8, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jcb4, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox9, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jcb5, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox10, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jcb6, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(75, Short.MAX_VALUE))
         );
 
         jButton1.setText("Tạo mới");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -312,6 +538,11 @@ public class GD_QLTK extends javax.swing.JPanel {
         });
 
         jButton2.setText("Cập nhật");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -319,6 +550,11 @@ public class GD_QLTK extends javax.swing.JPanel {
         });
 
         jButton3.setText("Xóa tài khoản");
+        jButton3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton3MouseClicked(evt);
+            }
+        });
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -329,18 +565,17 @@ public class GD_QLTK extends javax.swing.JPanel {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
+            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, 1012, Short.MAX_VALUE)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(65, 65, 65)
-                .addComponent(jButton2)
-                .addGap(53, 53, 53)
-                .addComponent(jButton3)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jButton1)
+                        .addGap(67, 67, 67)
+                        .addComponent(jButton2)
+                        .addGap(51, 51, 51)
+                        .addComponent(jButton3)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -366,7 +601,7 @@ public class GD_QLTK extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1006, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 2018, Short.MAX_VALUE))
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -379,29 +614,29 @@ public class GD_QLTK extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+    private void jcb1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcb1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    }//GEN-LAST:event_jcb1ActionPerformed
 
-    private void jCheckBox6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox6ActionPerformed
+    private void jcb2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcb2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox6ActionPerformed
+    }//GEN-LAST:event_jcb2ActionPerformed
 
-    private void jCheckBox7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox7ActionPerformed
+    private void jcb3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcb3ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox7ActionPerformed
+    }//GEN-LAST:event_jcb3ActionPerformed
 
-    private void jCheckBox8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox8ActionPerformed
+    private void jcb4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcb4ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox8ActionPerformed
+    }//GEN-LAST:event_jcb4ActionPerformed
 
-    private void jCheckBox9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox9ActionPerformed
+    private void jcb6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcb6ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox9ActionPerformed
+    }//GEN-LAST:event_jcb6ActionPerformed
 
-    private void jCheckBox10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox10ActionPerformed
+    private void jcb5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcb5ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox10ActionPerformed
+    }//GEN-LAST:event_jcb5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
@@ -415,17 +650,45 @@ public class GD_QLTK extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        try {
+            createTaiKhoan();
+            loadDataTable();
+        } catch (SQLException ex) {
+            Logger.getLogger(GD_QLTK.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        // TODO add your handling code here:
+        loadDetailDataAcount();
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        try {
+            // TODO add your handling code here:
+            updateTaiKhoan();
+            loadDataTable();
+        } catch (SQLException ex) {
+            Logger.getLogger(GD_QLTK.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton2MouseClicked
+
+    private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        try {
+            // TODO add your handling code here:
+            DAO_TaiKhoan.deleteTaiKhoanByID(jTextField3.getText().toString());
+            loadDataTable();
+        } catch (SQLException ex) {
+            Logger.getLogger(GD_QLTK.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton3MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox10;
-    private javax.swing.JCheckBox jCheckBox6;
-    private javax.swing.JCheckBox jCheckBox7;
-    private javax.swing.JCheckBox jCheckBox8;
-    private javax.swing.JCheckBox jCheckBox9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -443,5 +706,11 @@ public class GD_QLTK extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
+    private javax.swing.JCheckBox jcb1;
+    private javax.swing.JCheckBox jcb2;
+    private javax.swing.JCheckBox jcb3;
+    private javax.swing.JCheckBox jcb4;
+    private javax.swing.JCheckBox jcb5;
+    private javax.swing.JCheckBox jcb6;
     // End of variables declaration//GEN-END:variables
 }
