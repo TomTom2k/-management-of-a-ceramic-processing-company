@@ -325,7 +325,7 @@ public class Layout extends javax.swing.JFrame {
         gD_QLSP = new ptud.GUI.GD_QLSP();
         gD_TinhLuong = new ptud.GUI.GD_TinhLuong();
         gD_ChamCong = new ptud.GUI.GD_ChamCong();
-        gD_ThemNV1 = new ptud.GUI.GD_ThemNV();
+        // gD_ThemNV1 = new ptud.GUI.GD_ThemNV();
         gD_DanhGia2 = new ptud.GUI.GD_DanhGia();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
