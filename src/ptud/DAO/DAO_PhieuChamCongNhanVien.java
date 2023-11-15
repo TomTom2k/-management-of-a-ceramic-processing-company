@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.sql.Date;
+import java.util.ArrayList;
 import ptud.Connection.ConnectDB;
 import ptud.Entity.PhieuChamCongHanhChinh;
 import static ptud.Main.connection;
@@ -84,5 +85,32 @@ public class DAO_PhieuChamCongNhanVien {
             return resultSet.getFloat("tongGio");
         }
         return 0;
+    }
+    public static ArrayList<Object[]> getDanhSachThongTinChamCongByIDBoPhan(String maBoPhan) {
+        ArrayList<Object[]> ds = new ArrayList<Object[]>();
+        try {
+
+            String query = "select maNV, tenNV\n"
+                    + "from NhanVien\n"
+                    + "where maBP = ?";
+            PreparedStatement statement;
+            statement = connection.prepareStatement(query);
+            statement.setString(1, maBoPhan);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Object[] thongTinChamCong = new Object[6];
+                thongTinChamCong[0] = resultSet.getString("maNV");
+                thongTinChamCong[1] = resultSet.getString("tenNV");
+                thongTinChamCong[2] = false;
+                thongTinChamCong[3] = false;
+                thongTinChamCong[4] = 0;
+                thongTinChamCong[5] = "";
+                ds.add(thongTinChamCong);
+            }
+
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(DAO_PhieuChamCongNhanVien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        return ds;
     }
 }
