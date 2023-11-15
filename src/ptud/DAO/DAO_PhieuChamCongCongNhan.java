@@ -166,14 +166,16 @@ public class DAO_PhieuChamCongCongNhan {
             statement.setString(1, maBoPhan);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Object[] thongTinChamCong = new Object[7];
+                Object[] thongTinChamCong = new Object[9];
                 thongTinChamCong[0] = resultSet.getString("maCN");
                 thongTinChamCong[1] = resultSet.getString("tenCN");
                 thongTinChamCong[2] = false;
                 thongTinChamCong[3] = resultSet.getString("tenCD");
                 thongTinChamCong[4] = resultSet.getInt("soLuongCDGiao");
                 thongTinChamCong[5] = 0;
-                thongTinChamCong[6] = "";
+                thongTinChamCong[6] = 0;
+                thongTinChamCong[7] = 0;
+                thongTinChamCong[8] = "";
                 ds.add(thongTinChamCong);  
             }
         } catch (SQLException ex) {
@@ -182,4 +184,30 @@ public class DAO_PhieuChamCongCongNhan {
         return ds;
     }
 
+    public static Object[] getThongTinChamCongByMaCongNhan(String maCN) {
+        Object[] thongTinChamCong = new Object[5];
+        try {
+            String query = "select cd.maBP, cn.maCN, cn.tenCN, cd.tenCD, c.soLuongCDGiao\n"
+                    + "from [dbo].[ChiTietPhanCong] c\n"
+                    + "join [dbo].[CongNhan] cn on c.maCN = cn.maCN\n"
+                    + "join [dbo].[CongDoan] cd on c.maCD = cd.maCD\n"
+                    + "where cn.maCN = ?";
+            PreparedStatement statement;
+            statement = connection.prepareStatement(query);
+            statement.setString(1, maCN);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+
+                thongTinChamCong[0] = resultSet.getString("maBP");
+                thongTinChamCong[1] = resultSet.getString("maCN");
+                thongTinChamCong[2] = resultSet.getString("tenCN");
+                thongTinChamCong[3] = resultSet.getString("tenCD");
+                thongTinChamCong[4] = resultSet.getInt("soLuongCDGiao");
+
+}
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_PhieuChamCongCongNhan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return thongTinChamCong;
+    }
 }
