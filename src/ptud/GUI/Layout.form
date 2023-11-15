@@ -552,31 +552,10 @@
             </Constraint>
           </Constraints>
         </Component>
-        <Component class="ptud.GUI.GD_QLTK" name="gD_QLTK">
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-              <CardConstraints cardName="tabTK"/>
-            </Constraint>
-          </Constraints>
-        </Component>
         <Component class="ptud.GUI.GD_TinhLuong" name="gD_TinhLuong">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
               <CardConstraints cardName="tabTL"/>
-            </Constraint>
-          </Constraints>
-        </Component>
-        <Component class="ptud.GUI.GD_ChamCong" name="gD_ChamCong">
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-              <CardConstraints cardName="tabCC"/>
-            </Constraint>
-          </Constraints>
-        </Component>
-        <Component class="ptud.GUI.GD_ThemNS" name="gD_ThemNV">
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignCardLayout" value="org.netbeans.modules.form.compat2.layouts.DesignCardLayout$CardConstraintsDescription">
-              <CardConstraints cardName="themNS"/>
             </Constraint>
           </Constraints>
         </Component>
