@@ -12,6 +12,7 @@ import java.util.function.ObjDoubleConsumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JCheckBox;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import ptud.DAO.DAO_BoPhan;
@@ -68,13 +69,21 @@ public class GD_ChamCong extends javax.swing.JPanel {
 
         for (Object[] row : dataChamCongCN) {
             model.addRow(row);
-//            TableColumn col = jTable.getColumnModel().getColumn(0);
-//            col.setCellEditor(new SpinnerEditor(values));
         }
     }
 
     public void loadDataTable2() {
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0);
+        String tenBoPhan = jComboBox2.getSelectedItem().toString();
 
+        String maBoPhan = DAO_BoPhan.getMaBoPhanByTenBoPhan(tenBoPhan);
+        ArrayList<Object[]> dataChamCongNV
+                = DAO_PhieuChamCongNhanVien.getDanhSachThongTinChamCongByIDBoPhan(maBoPhan);
+
+        for (Object[] row : dataChamCongNV) {
+            model.addRow(row);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -125,36 +134,36 @@ public class GD_ChamCong extends javax.swing.JPanel {
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã công nhân", "Tên công nhân", "Vắng", "Công đoạn", "Số lượng", "Tiền phạt", "Nội dung phạt"
+                "Mã công nhân", "Tên công nhân", "Vắng", "Công đoạn", "Số lượng", "Số lượng tăng ca", "Tiền thưởng", "Tiền phạt", "Nội dung phạt"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class, java.lang.Integer.class, java.lang.Float.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, false, true, true, true
+                false, false, true, false, true, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -180,6 +189,8 @@ public class GD_ChamCong extends javax.swing.JPanel {
             jTable3.getColumnModel().getColumn(4).setResizable(false);
             jTable3.getColumnModel().getColumn(5).setResizable(false);
             jTable3.getColumnModel().getColumn(6).setResizable(false);
+            jTable3.getColumnModel().getColumn(7).setResizable(false);
+            jTable3.getColumnModel().getColumn(8).setResizable(false);
         }
 
         jLabel5.setText("Tìm kiếm:");
@@ -337,6 +348,17 @@ public class GD_ChamCong extends javax.swing.JPanel {
         });
 
         jLabel4.setText("Phòng ban:");
+
+        jComboBox2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBox2MouseClicked(evt);
+            }
+        });
+        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox2ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Tìm");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
@@ -502,8 +524,6 @@ public class GD_ChamCong extends javax.swing.JPanel {
 
     private void jTextField3FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField3FocusLost
         // TODO add your handling code here:
-        jTextField3.setText("Mã công đoạn, mã SP, mã CN...");
-
     }//GEN-LAST:event_jTextField3FocusLost
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
@@ -534,8 +554,10 @@ public class GD_ChamCong extends javax.swing.JPanel {
                 boolean isSelected = (Boolean) value;
                 if (isSelected) {
                     jTable3.setValueAt(0, row, col + 2);
-                    jTable3.setValueAt(0, row, col+3);
-                    jTable3.setValueAt("", row, col+4);
+                    jTable3.setValueAt(0, row, col + 3);
+                    jTable3.setValueAt(0, row, col + 4);
+                    jTable3.setValueAt(0, row, col + 5);
+                    jTable3.setValueAt("", row, col+6);
 
                 } else {
                     String maCN = jTable3.getValueAt(row, 0).toString();
@@ -544,14 +566,43 @@ public class GD_ChamCong extends javax.swing.JPanel {
                 }
                 
             }
-//            jTable3.getValueAt(row, col+1)
         }
     }//GEN-LAST:event_jTable3MouseClicked
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
         // TODO add your handling code here:
-//        String maCN = jTextfield3.get
+        String maCN = jTextField3.getText();
+        if (maCN.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                    "Mã công nhân trống!",
+                    "Cảnh báo",
+                    JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        Object[] thongTinChamCong = DAO_PhieuChamCongCongNhan.getThongTinChamCongByMaCongNhan(maCN);
+        Object[] rowdata = new Object[9];
+        DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
+        model.setRowCount(0);
+        rowdata[0] = thongTinChamCong[1];
+        rowdata[1] = thongTinChamCong[2];
+        rowdata[2] = false;
+        rowdata[3] = thongTinChamCong[3];
+        rowdata[4] = thongTinChamCong[4];
+        rowdata[5] = 0;
+        rowdata[6] = 0;
+        rowdata[7] = 0;
+        rowdata[8] = "";
+        model.addRow(rowdata);
     }//GEN-LAST:event_jButton5MouseClicked
+
+    private void jComboBox2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox2MouseClicked
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+        loadDataTable2();
+    }//GEN-LAST:event_jComboBox2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
