@@ -46,31 +46,31 @@ public class DAO_CongNhan implements DAOInterface<CongNhan> {
     @Override
     public ArrayList<CongNhan> getAll() {
         ArrayList<CongNhan> dsCongNhan = new ArrayList<>();
-        try {
-            String query = "SELECT * FROM CongNhan";
-            PreparedStatement statement = connection.prepareStatement(query);
-
-            ResultSet resultSet = statement.executeQuery();
-
-            while (resultSet.next()) {
-                String maCN = resultSet.getString("maCN");
-                BoPhan boPhan = new DAO_BoPhan().get(resultSet.getString("maBP"));
-                String ten = resultSet.getString("tenCN");
-                boolean gioiTinh = resultSet.getBoolean("gioiTinh");
-                LocalDate ngaySinh = resultSet.getDate("ngaySinh").toLocalDate();
-                LocalDate ngayBatDauLam = resultSet.getDate("ngayBatDauLam").toLocalDate();
-                String cccd = resultSet.getString("CCCD");
-                String dienThoai = resultSet.getString("dienThoai");
-                boolean trangThai = resultSet.getBoolean("trangThai");
-                byte[] avatar = resultSet.getBytes("hinhAnh");
-                boolean choPhanCong = resultSet.getBoolean("choPhanCong");
-                CongNhan congNhan = new CongNhan(maCN, boPhan, ten, gioiTinh, ngaySinh, ngayBatDauLam, cccd, dienThoai, trangThai, avatar, choPhanCong);
-
-                dsCongNhan.add(congNhan);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            String query = "SELECT * FROM CongNhan";
+//            PreparedStatement statement = connection.prepareStatement(query);
+//
+//            ResultSet resultSet = statement.executeQuery();
+//
+//            while (resultSet.next()) {
+//                String maCN = resultSet.getString("maCN");
+//                BoPhan boPhan = new DAO_BoPhan().get(resultSet.getString("maBP"));
+//                String ten = resultSet.getString("tenCN");
+//                boolean gioiTinh = resultSet.getBoolean("gioiTinh");
+//                LocalDate ngaySinh = resultSet.getDate("ngaySinh").toLocalDate();
+//                LocalDate ngayBatDauLam = resultSet.getDate("ngayBatDauLam").toLocalDate();
+//                String cccd = resultSet.getString("CCCD");
+//                String dienThoai = resultSet.getString("dienThoai");
+//                boolean trangThai = resultSet.getBoolean("trangThai");
+//                byte[] avatar = resultSet.getBytes("hinhAnh");
+//                boolean choPhanCong = resultSet.getBoolean("choPhanCong");
+//                CongNhan congNhan = new CongNhan(maCN, boPhan, ten, gioiTinh, ngaySinh, ngayBatDauLam, cccd, dienThoai, trangThai, avatar, choPhanCong);
+//
+//                dsCongNhan.add(congNhan);
+//            }
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
         return dsCongNhan;
     }
 
