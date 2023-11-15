@@ -17,10 +17,12 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import ptud.DAO.DAO_BoPhan;
 import ptud.DAO.DAO_ChiTietPhanCong;
+import ptud.DAO.DAO_NhanVien;
 import ptud.DAO.DAO_PhieuChamCongCongNhan;
 import ptud.DAO.DAO_PhieuChamCongNhanVien;
 import ptud.DAO.DAO_TaiKhoan;
 import ptud.Entity.BoPhan;
+import ptud.Entity.NhanVien;
 import ptud.Entity.TaiKhoan;
 
 /**
@@ -317,15 +319,27 @@ public class GD_ChamCong extends javax.swing.JPanel {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
         jTable2.setRowHeight(30);
         jScrollPane2.setViewportView(jTable2);
+        if (jTable2.getColumnModel().getColumnCount() > 0) {
+            jTable2.getColumnModel().getColumn(0).setResizable(false);
+            jTable2.getColumnModel().getColumn(1).setResizable(false);
+            jTable2.getColumnModel().getColumn(4).setResizable(false);
+        }
 
         jButton2.setText("Chấm công");
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -361,6 +375,11 @@ public class GD_ChamCong extends javax.swing.JPanel {
         });
 
         jButton4.setText("Tìm");
+        jButton4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton4MouseClicked(evt);
+            }
+        });
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -603,6 +622,23 @@ public class GD_ChamCong extends javax.swing.JPanel {
         // TODO add your handling code here:
         loadDataTable2();
     }//GEN-LAST:event_jComboBox2ActionPerformed
+
+    private void jButton4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton4MouseClicked
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0);
+        String maNV = jTextField1.getText();
+        DAO_NhanVien daoNV = new DAO_NhanVien();
+        NhanVien nv = daoNV.get(maNV);
+        Object[] rowdata = new Object[6];
+        rowdata[0] = maNV;
+        rowdata[1] = nv.getTen();
+        rowdata[2] = false;
+        rowdata[3] = false;
+        rowdata[4] = 0;
+        rowdata[5] = "";
+        model.addRow(rowdata);
+    }//GEN-LAST:event_jButton4MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
