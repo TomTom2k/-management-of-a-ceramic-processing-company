@@ -502,7 +502,7 @@ public class GD_ChiTietHopDong extends javax.swing.JPanel {
         jPanel10.setBackground(new java.awt.Color(255, 255, 255));
 
         huyButton.setBackground(new java.awt.Color(198, 222, 192));
-        huyButton.setText("hủy hợp đồng");
+        huyButton.setText("Hủy hợp đồng");
         huyButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 huyButtonActionPerformed(evt);
