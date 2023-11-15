@@ -151,8 +151,21 @@ public class GD_ChiTietHopDong extends javax.swing.JPanel {
         jDateChooser1.setVisible(false);
         double ngayChenhLechTong = timNgayChenhlech(hopDong.getNgayBatDau(),hopDong.getNgayKetThucDuKien());
         double ngayConLai = timNgayChenhlech(hopDong.getNgayBatDau(),LocalDate.now());
+        
         double percent = 100*ngayConLai/ngayChenhLechTong;
+        System.out.println(ngayChenhLechTong+"ngayConLai"+ ngayConLai);
         thoiGianProgessBar.setValue((int)percent);
+        int sum = 0;
+        int sumMax = 0;
+        for(SanPham sanPham: hopDong.getSanPhams())
+        {
+            sanPham.setTienDo();
+            sum += sanPham.getTienDo();
+            sumMax +=100;
+        }
+        tienDoProgessBar.setMaximum(sumMax);
+        tienDoProgessBar.setValue(sum);
+        
     }
    public int timNgayChenhlech(LocalDate dateStart,LocalDate dateEnd)
     {
@@ -167,8 +180,9 @@ public class GD_ChiTietHopDong extends javax.swing.JPanel {
             for(int i = 1;i<yearChenhLech;i++)
             {
                 ngayChenhLech += LocalDate.of( i +dateStart.getYear(),12,31).getDayOfYear();
+                ngayChenhLech++;
             }
-            ngayChenhLech += ( LocalDate.of(dateStart.getYear(),12,31).getDayOfYear() - dateStart.getDayOfYear());
+            ngayChenhLech += ( LocalDate.of(dateStart.getYear(),12,31).getDayOfYear() - dateStart.getDayOfYear())+1;
             ngayChenhLech += (dateEnd.getDayOfYear()-LocalDate.of(dateEnd.getYear(), 1, 1).getDayOfYear());
               return ngayChenhLech;
         } 
@@ -734,6 +748,7 @@ public class GD_ChiTietHopDong extends javax.swing.JPanel {
         triGiamaHDTextField.setEditable(true);
         ngayKTmaHDTextField.setEditable(true);
         jDateChooser1.setEnabled(true);
+        jDateChooser1.setVisible(true);
         xacNhanButton.setText("Xác nhận");
         xacNhanButton.setEnabled(true);
         xacNhanButton.setVisible(true);
