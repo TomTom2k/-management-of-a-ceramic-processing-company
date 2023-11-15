@@ -222,5 +222,17 @@ public class DAO_ChiTietPhanCong implements DAOInterface<ChiTietPhanCong>{
         return 0;
     }
 
+    public void updateSoLuongGiaoHomNayByMaCN(String maCN, int soLuong) {
+        try {
+            String query = "UPDATE ChiTietPhanCong SET soLuongCDGiao = ? WHERE maCN = ? AND ngay = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, soLuong);
+            statement.setString(2, maCN);
+            statement.setDate(3, java.sql.Date.valueOf(LocalDate.now()));
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_ChiTietPhanCong.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
 
