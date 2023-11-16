@@ -46,38 +46,41 @@ public class DAO_CongNhan implements DAOInterface<CongNhan> {
     @Override
     public ArrayList<CongNhan> getAll() {
         ArrayList<CongNhan> dsCongNhan = new ArrayList<>();
-       try {
-           String query = "SELECT * FROM CongNhan";
-           PreparedStatement statement = connection.prepareStatement(query);
+        try {
+            String query = "SELECT * FROM CongNhan WHERE trangThai = 1";
+            PreparedStatement statement = connection.prepareStatement(query);
+
 
            ResultSet resultSet = statement.executeQuery();
 
-           while (resultSet.next()) {
-               String maCN = resultSet.getString("maCN");
-               BoPhan boPhan = new DAO_BoPhan().get(resultSet.getString("maBP"));
-               String ten = resultSet.getString("tenCN");
-               boolean gioiTinh = resultSet.getBoolean("gioiTinh");
-               LocalDate ngaySinh = resultSet.getDate("ngaySinh").toLocalDate();
-               LocalDate ngayBatDauLam = resultSet.getDate("ngayBatDauLam").toLocalDate();
-               String cccd = resultSet.getString("CCCD");
-               String dienThoai = resultSet.getString("dienThoai");
-               boolean trangThai = resultSet.getBoolean("trangThai");
-               byte[] avatar = resultSet.getBytes("hinhAnh");
-               boolean choPhanCong = resultSet.getBoolean("choPhanCong");
-               CongNhan congNhan = new CongNhan(maCN, boPhan, ten, gioiTinh, ngaySinh, ngayBatDauLam, cccd, dienThoai, trangThai, avatar, choPhanCong);
 
-               dsCongNhan.add(congNhan);
-           }
-       } catch (SQLException e) {
-           e.printStackTrace();
-       }
+            while (resultSet.next()) {
+                String maCN = resultSet.getString("maCN");
+                BoPhan boPhan = new DAO_BoPhan().get(resultSet.getString("maBP"));
+                String ten = resultSet.getString("tenCN");
+                boolean gioiTinh = resultSet.getBoolean("gioiTinh");
+                LocalDate ngaySinh = resultSet.getDate("ngaySinh").toLocalDate();
+                LocalDate ngayBatDauLam = resultSet.getDate("ngayBatDauLam").toLocalDate();
+                String cccd = resultSet.getString("CCCD");
+                String dienThoai = resultSet.getString("dienThoai");
+                boolean trangThai = resultSet.getBoolean("trangThai");
+                byte[] avatar = resultSet.getBytes("hinhAnh");
+                boolean choPhanCong = resultSet.getBoolean("choPhanCong");
+                CongNhan congNhan = new CongNhan(maCN, boPhan, ten, gioiTinh, ngaySinh, ngayBatDauLam, cccd, dienThoai, trangThai, avatar, choPhanCong);
+
+                dsCongNhan.add(congNhan);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return dsCongNhan;
     }
 
     @Override
     public boolean insert(CongNhan congNhan) {
         try {
-            String sql = "INSERT INTO CongNhan (maCN, maBP, tenCN, gioiTinh, ngaySinh, ngayBatDauLam, CCCD, dienThoai, trangThai, hinhAnh, choPhanCong) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO CongNhan (maCN, maBP, tenCN, gioiTinh, ngaySinh, ngayBatDauLam, CCCD, dienThoai, trangThai, hinhAnh, choPhanCong) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, congNhan.getMaCN());
             statement.setString(2, congNhan.getBoPhan().getMaBP()); // Điều chỉnh tên cột maBP tùy thuộc vào cơ sở dữ liệu của bạn
@@ -115,7 +118,7 @@ public class DAO_CongNhan implements DAOInterface<CongNhan> {
             statement.setBytes(9, congNhan.getAvatar());
             statement.setBoolean(10, congNhan.isChoPhanCong());
             statement.setString(11, congNhan.getMaCN());
-
+          
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {
@@ -156,5 +159,58 @@ public class DAO_CongNhan implements DAOInterface<CongNhan> {
             e.printStackTrace();
         }
         return count;
+    }
+     
+     public ArrayList<CongNhan> search(String searchText, String searchCriteria) {
+        ArrayList<CongNhan> dsCongNhan = new ArrayList<>();
+        try {
+            String query = "";
+            PreparedStatement statement = null;
+
+            // Xây dựng câu truy vấn dựa trên tiêu chí tìm kiếm
+            switch (searchCriteria) {
+                case "Mã CN":
+                    query = "SELECT * FROM CongNhan WHERE maCN LIKE ? AND trangThai = 1";
+                    break;
+                case "Tên công nhân":
+                    query = "SELECT * FROM CongNhan WHERE tenCN LIKE ? AND trangThai = 1";
+                    break;
+                case "Số điện thoại":
+                    query = "SELECT * FROM CongNhan WHERE dienThoai LIKE ? AND trangThai = 1";
+                    break;
+                // Thêm các trường hợp khác nếu cần
+                default:
+                    // Không hỗ trợ tiêu chí tìm kiếm
+                    return dsCongNhan;
+            }
+
+            statement = connection.prepareStatement(query);
+            statement.setString(1, "%" + searchText + "%");
+
+            ResultSet resultSet = statement.executeQuery();
+            System.out.println("từ khóa: " + searchText);
+            System.out.println("Query: " + query);
+            
+            while (resultSet.next()) {
+                String maCN = resultSet.getString("maCN");
+                BoPhan boPhan = new DAO_BoPhan().get(resultSet.getString("maBP"));
+                String ten = resultSet.getString("tenCN");
+                boolean gioiTinh = resultSet.getBoolean("gioiTinh");
+                LocalDate ngaySinh = resultSet.getDate("ngaySinh").toLocalDate();
+                LocalDate ngayBatDauLam = resultSet.getDate("ngayBatDauLam").toLocalDate();
+                String cccd = resultSet.getString("CCCD");
+                String dienThoai = resultSet.getString("dienThoai");
+                boolean trangThai = resultSet.getBoolean("trangThai");
+                byte[] avatar = resultSet.getBytes("hinhAnh");
+                boolean choPhanCong = resultSet.getBoolean("choPhanCong");
+                CongNhan congNhan = new CongNhan(maCN, boPhan, ten, gioiTinh, ngaySinh, ngayBatDauLam, cccd, dienThoai, trangThai, avatar, choPhanCong);
+
+                dsCongNhan.add(congNhan);
+            }
+            System.out.println("Kết quả: " + dsCongNhan.toString());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return dsCongNhan;
     }
 }

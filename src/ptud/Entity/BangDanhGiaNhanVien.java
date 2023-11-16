@@ -9,7 +9,8 @@ package ptud.Entity;
  * @author TomTom
  */
 public class BangDanhGiaNhanVien {
-    private String maBDG;
+
+    private String id;
     private NhanVien nhanVien;
     private int nam;
     private float diemChuyenCan;
@@ -18,8 +19,8 @@ public class BangDanhGiaNhanVien {
     private float diemHieuSuat;
     private char bac;
 
-    public String getMaBDG() {
-        return maBDG;
+    public String getId() {
+        return id;
     }
 
     public NhanVien getNhanVien() {
@@ -50,8 +51,8 @@ public class BangDanhGiaNhanVien {
         return bac;
     }
 
-    public void setMaBDG(String maBDG) {
-        this.maBDG = maBDG;
+    public void setId(String maBDGid) {
+        this.id = id;
     }
 
     public void setNhanVien(NhanVien thanhVien) {
@@ -77,34 +78,29 @@ public class BangDanhGiaNhanVien {
     public void setDiemHieuSuat(float diemHieuSuat) {
         this.diemHieuSuat = diemHieuSuat;
     }
-    
+
+    public float tinhTongDiem() {
+        return this.diemChuyenCan + this.diemHieuSuat + this.diemThaiDo + this.diemChuyenMon;
+    }
+
     public void tinhBac() {
-        float tong = this.diemChuyenCan + this.diemHieuSuat + this.diemThaiDo + this.diemChuyenMon;
-        if(tong < 20)   
+        float tong = tinhTongDiem();
+        if (tong < 20) {
             this.bac = 'D';
-        else if(tong <25)
+        } else if (tong < 25) {
             this.bac = 'C';
-        else if(tong <35)
+        } else if (tong < 35) {
             this.bac = 'B';
-        else 
+        } else {
             this.bac = 'A';
+        }
     }
 
     public BangDanhGiaNhanVien() {
     }
 
-    public BangDanhGiaNhanVien(String maBDG, NhanVien nhanVien, int nam, float diemChuyenCan, float diemchuyenMon, float diemThaiDo, float diemHieuSuat) {
-        this.maBDG = maBDG;
-        this.nhanVien = nhanVien;
-        this.nam = nam;
-        this.diemChuyenCan = diemChuyenCan;
-        this.diemChuyenMon = diemchuyenMon;
-        this.diemThaiDo = diemThaiDo;
-        this.diemHieuSuat = diemHieuSuat;
-    }
-
-    public BangDanhGiaNhanVien(String maBDG, NhanVien nhanVien, int nam, float diemChuyenCan, float diemChuyenMon, float diemThaiDo, float diemHieuSuat, char bac) {
-        this.maBDG = maBDG;
+    public BangDanhGiaNhanVien(String id, NhanVien nhanVien, int nam, float diemChuyenCan, float diemChuyenMon, float diemThaiDo, float diemHieuSuat, char bac) {
+        this.id = id;
         this.nhanVien = nhanVien;
         this.nam = nam;
         this.diemChuyenCan = diemChuyenCan;
@@ -113,13 +109,36 @@ public class BangDanhGiaNhanVien {
         this.diemHieuSuat = diemHieuSuat;
         this.bac = bac;
     }
-    
-    
+
+    public BangDanhGiaNhanVien(NhanVien nhanVien, int nam, float diemChuyenCan, float diemChuyenMon, float diemThaiDo, float diemHieuSuat, char bac) {
+        this.id = genMaBDG(nhanVien.getMaNV(), nam);
+        this.nhanVien = nhanVien;
+        this.nam = nam;
+        this.diemChuyenCan = diemChuyenCan;
+        this.diemChuyenMon = diemChuyenMon;
+        this.diemThaiDo = diemThaiDo;
+        this.diemHieuSuat = diemHieuSuat;
+        this.bac = bac;
+    }
+
+    public BangDanhGiaNhanVien(NhanVien nhanVien, int nam, float diemChuyenCan, float diemChuyenMon, float diemThaiDo, float diemHieuSuat) {
+        this.id = genMaBDG(nhanVien.getMaNV(), nam);
+        this.nhanVien = nhanVien;
+        this.nam = nam;
+        this.diemChuyenCan = diemChuyenCan;
+        this.diemChuyenMon = diemChuyenMon;
+        this.diemThaiDo = diemThaiDo;
+        this.diemHieuSuat = diemHieuSuat;
+        tinhBac();
+    }
+
+    private String genMaBDG(String maNhanVien, int nam) {
+        return maNhanVien + nam;
+    }
 
     @Override
     public String toString() {
-        return "BangDanhGia{" + "maBDG=" + maBDG + ", nhanVien=" + nhanVien + ", nam=" + nam + ", diemChuyenCan=" + diemChuyenCan + ", diemchuyenMon=" + diemChuyenMon + ", diemThaiDo=" + diemThaiDo + ", diemHieuSuat=" + diemHieuSuat + ", bac=" + bac + '}';
+        return "BangDanhGia{" + "id=" + id + ", nhanVien=" + nhanVien + ", nam=" + nam + ", diemChuyenCan=" + diemChuyenCan + ", diemchuyenMon=" + diemChuyenMon + ", diemThaiDo=" + diemThaiDo + ", diemHieuSuat=" + diemHieuSuat + ", bac=" + bac + '}';
     }
-    
-    
+
 }

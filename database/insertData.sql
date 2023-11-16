@@ -42,18 +42,31 @@ INSERT INTO BoPhan (maBP, tenBP) VALUES ('SX05', N'in ấn');
 -- thay lại bằng path đến assets của dự án
 INSERT INTO NhanVien (maNV, maBP, tenNV, gioiTinh, ngaySinh, ngayBatDauLam, CCCD, luongCoBan, phuCap, trangThai, dienThoai, hinhAnh)
 VALUES 
+    ('HC01181001', 'HC01', N'Lê Thị Bích', 1, '1992-08-25', '2018-03-15', '000022221111', 5000000.0, 1000000.0, 1, '0123456789', (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarNV\nv2.jpg', SINGLE_BLOB) as ImageData));
+INSERT INTO NhanVien (maNV, maBP, tenNV, gioiTinh, ngaySinh, ngayBatDauLam, CCCD, luongCoBan, phuCap, trangThai, dienThoai, hinhAnh)
+VALUES 
+    ('HC02201002', 'HC02', N'Đỗ Văn Tấn', 0, '1996-08-25', '2020-06-20', '111100002222', 7000000.0, 1000000.0, 1, '9876543210', (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarNV\nv1.jpg', SINGLE_BLOB) as ImageData));
+INSERT INTO NhanVien (maNV, maBP, tenNV, gioiTinh, ngaySinh, ngayBatDauLam, CCCD, luongCoBan, phuCap, trangThai, dienThoai, hinhAnh)
+VALUES 
+    ('HC01181003', 'HC01', N'Lê Tấn Đào', 0, '1992-08-25', '2018-03-15', '000022221111', 5000000.0, 1000000.0, 1, '0123456789', (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarNV\nv2.jpg', SINGLE_BLOB) as ImageData));
+INSERT INTO NhanVien (maNV, maBP, tenNV, gioiTinh, ngaySinh, ngayBatDauLam, CCCD, luongCoBan, phuCap, trangThai, dienThoai, hinhAnh)
+VALUES 
+    ('HC02201004', 'HC02', N'Nguyễn Bá Toàn', 0, '1996-08-25', '2020-06-20', '111100002222', 7000000.0, 1000000.0, 1, '9876543210', (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarNV\nv1.jpg', SINGLE_BLOB) as ImageData));
+INSERT INTO NhanVien (maNV, maBP, tenNV, gioiTinh, ngaySinh, ngayBatDauLam, CCCD, luongCoBan, phuCap, trangThai, dienThoai, hinhAnh)
+VALUES 
+    ('HC01181005', 'HC01', N'Đỗ Thị Tuyết Ngân', 1, '1992-08-25', '2018-03-15', '000022221111', 5000000.0, 1000000.0, 1, '0123456789', (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarNV\nv2.jpg', SINGLE_BLOB) as ImageData));
+INSERT INTO NhanVien (maNV, maBP, tenNV, gioiTinh, ngaySinh, ngayBatDauLam, CCCD, luongCoBan, phuCap, trangThai, dienThoai, hinhAnh)
+VALUES 
+    ('HC02201006', 'HC02', N'Mai Thị Tuyết', 1, '1999-08-25', '2020-06-20', '111100002222', 7000000.0, 1000000.0, 1, '9876543210', (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarNV\nv1.jpg', SINGLE_BLOB) as ImageData));
+INSERT INTO NhanVien (maNV, maBP, tenNV, gioiTinh, ngaySinh, ngayBatDauLam, CCCD, luongCoBan, phuCap, trangThai, dienThoai, hinhAnh)
+VALUES 
+    ('HC02201007', 'HC02', N'Trần Thị Tố My', 1, '1999-08-25', '2020-06-20', '111100002222', 7000000.0, 1000000.0, 1, '9876543210', (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarNV\nv1.jpg', SINGLE_BLOB) as ImageData));
+=======
     ('NV1810001', 'HC01', N'Lê Thị Bích', 1, '1992-08-25', '2018-03-15', '000022221111', 5000000.0, 1000000.0, 1, '0123456789', (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarNV\nv2.jpg', SINGLE_BLOB) as ImageData));
 INSERT INTO NhanVien (maNV, maBP, tenNV, gioiTinh, ngaySinh, ngayBatDauLam, CCCD, luongCoBan, phuCap, trangThai, dienThoai, hinhAnh)
 VALUES 
     ('NV2010001', 'HC02', N'Đỗ Văn Tấn', 1, '1996-08-25', '2020-06-20', '111100002222', 7000000.0, 1000000.0, 1, '9876543210', (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarNV\nv1.jpg', SINGLE_BLOB) as ImageData));
-
--- công nhân
-INSERT INTO CongNhan (maCN, maBP, tenCN, gioiTinh, ngaySinh, ngayBatDauLam, CCCD, trangThai, choPhanCong, dienThoai, hinhAnh)
-VALUES 
-    ('CN210001', 'SX02', N'Nguyễn Văn Bạch', 1, '1990-01-15', '2021-05-01', '222211110000', 1, 1, '1357924680', (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarCN\cn1.jpg', SINGLE_BLOB) as ImageData));
-INSERT INTO CongNhan (maCN, maBP, tenCN, gioiTinh, ngaySinh, ngayBatDauLam, CCCD, trangThai, choPhanCong, dienThoai, hinhAnh)
-VALUES 
-    ('CN200002', 'SX05', N'Đỗ Nhật Anh', 1, '1999-01-15', '2020-05-01', '111122220000', 1, 1, '2468013579', (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarCN\cn2.jpg', SINGLE_BLOB) as ImageData));
+>
 
 
 
@@ -86,23 +99,6 @@ VALUES
 ('05112023020102', '051120230201', 'SX02', N'Đóng gói', 3000.0, 1, 90, 70, 280),
 ('05112023020103', '051120230201', 'SX03', N'Giao hàng', 700.0, 1, 90, 70, 280)
 
---Chèn Nhân viên
-USE [QuanLyLSP]
-GO
-INSERT [dbo].[NhanVien] ([maNV], [maBP], [tenNV], [gioiTinh], [ngaySinh], [ngayBatDauLam], [CCCD], [luongCoBan], [phuCap], [trangThai], [dienThoai], [hinhAnh]) VALUES (N'21031001', N'HC03', N'Trần Văn A', 1, CAST(N'2000-10-25' AS Date), CAST(N'2021-01-01' AS Date), N'0000111122223333', 1E+07, 0, 1, N'0123456789', NULL)
-GO
-INSERT [dbo].[NhanVien] ([maNV], [maBP], [tenNV], [gioiTinh], [ngaySinh], [ngayBatDauLam], [CCCD], [luongCoBan], [phuCap], [trangThai], [dienThoai], [hinhAnh]) VALUES (N'21031002', N'HC03', N'Trần Văn B', 1, CAST(N'2000-10-25' AS Date), CAST(N'2021-01-01' AS Date), N'0000111122223333', 1E+07, 0, 1, N'0123456789', NULL)
-GO
-INSERT [dbo].[NhanVien] ([maNV], [maBP], [tenNV], [gioiTinh], [ngaySinh], [ngayBatDauLam], [CCCD], [luongCoBan], [phuCap], [trangThai], [dienThoai], [hinhAnh]) VALUES (N'21031003', N'HC03', N'Trần Văn C', 1, CAST(N'2000-10-25' AS Date), CAST(N'2021-01-01' AS Date), N'0000111122223333', 1E+07, 0, 1, N'0123456789', NULL)
-GO
-INSERT [dbo].[NhanVien] ([maNV], [maBP], [tenNV], [gioiTinh], [ngaySinh], [ngayBatDauLam], [CCCD], [luongCoBan], [phuCap], [trangThai], [dienThoai], [hinhAnh]) VALUES (N'21031004', N'HC03', N'Trần Văn D', 1, CAST(N'2000-10-25' AS Date), CAST(N'2021-01-01' AS Date), N'0000111122223333', 1E+07, 0, 1, N'0123456789', NULL)
-GO
-INSERT [dbo].[NhanVien] ([maNV], [maBP], [tenNV], [gioiTinh], [ngaySinh], [ngayBatDauLam], [CCCD], [luongCoBan], [phuCap], [trangThai], [dienThoai], [hinhAnh]) VALUES (N'21031005', N'HC03', N'Trần Văn E', 1, CAST(N'2000-10-25' AS Date), CAST(N'2021-01-01' AS Date), N'0000111122223333', 1E+07, 0, 1, N'0123456789', NULL)
-GO
-INSERT [dbo].[NhanVien] ([maNV], [maBP], [tenNV], [gioiTinh], [ngaySinh], [ngayBatDauLam], [CCCD], [luongCoBan], [phuCap], [trangThai], [dienThoai], [hinhAnh]) VALUES (N'21031006', N'HC03', N'Trần Văn F', 1, CAST(N'2000-10-25' AS Date), CAST(N'2021-01-01' AS Date), N'0000111122223333', 1E+07, 0, 1, N'0123456789', NULL)
-GO
-INSERT [dbo].[NhanVien] ([maNV], [maBP], [tenNV], [gioiTinh], [ngaySinh], [ngayBatDauLam], [CCCD], [luongCoBan], [phuCap], [trangThai], [dienThoai], [hinhAnh]) VALUES (N'21031007', N'HC03', N'Trần Văn G', 1, CAST(N'2000-10-25' AS Date), CAST(N'2021-01-01' AS Date), N'0000111122223333', 1E+07, 0, 1, N'0123456789', NULL)
-GO
 
 --Chèn tài khoản
 --TK001: Full quyền
@@ -115,18 +111,18 @@ GO
 --Password chung: 123456
 USE [QuanLyLSP]
 GO
-INSERT [dbo].[TaiKhoan] ([maNV], [userName], [matKhau], [vaiTro], [trangThai]) VALUES (N'21031001', N'TK001', N'8d969eef6ecad3c2', 1, 1)
+INSERT [dbo].[TaiKhoan] ([maNV], [userName], [matKhau], [vaiTro], [trangThai]) VALUES (N'HC01181001', N'TK001', N'8d969eef6ecad3c2', 1, 1)
 GO
-INSERT [dbo].[TaiKhoan] ([maNV], [userName], [matKhau], [vaiTro], [trangThai]) VALUES (N'21031002', N'TK002', N'8d969eef6ecad3c2', 2, 1)
+INSERT [dbo].[TaiKhoan] ([maNV], [userName], [matKhau], [vaiTro], [trangThai]) VALUES (N'HC02201002', N'TK002', N'8d969eef6ecad3c2', 2, 1)
 GO
-INSERT [dbo].[TaiKhoan] ([maNV], [userName], [matKhau], [vaiTro], [trangThai]) VALUES (N'21031003', N'TK003', N'8d969eef6ecad3c2', 3, 1)
+INSERT [dbo].[TaiKhoan] ([maNV], [userName], [matKhau], [vaiTro], [trangThai]) VALUES (N'HC01181003', N'TK003', N'8d969eef6ecad3c2', 3, 1)
 GO
-INSERT [dbo].[TaiKhoan] ([maNV], [userName], [matKhau], [vaiTro], [trangThai]) VALUES (N'21031004', N'TK004', N'8d969eef6ecad3c2', 4, 1)
+INSERT [dbo].[TaiKhoan] ([maNV], [userName], [matKhau], [vaiTro], [trangThai]) VALUES (N'HC02201004', N'TK004', N'8d969eef6ecad3c2', 4, 1)
 GO
-INSERT [dbo].[TaiKhoan] ([maNV], [userName], [matKhau], [vaiTro], [trangThai]) VALUES (N'21031005', N'TK005', N'8d969eef6ecad3c2', 5, 1)
+INSERT [dbo].[TaiKhoan] ([maNV], [userName], [matKhau], [vaiTro], [trangThai]) VALUES (N'HC01181005', N'TK005', N'8d969eef6ecad3c2', 5, 1)
 GO
-INSERT [dbo].[TaiKhoan] ([maNV], [userName], [matKhau], [vaiTro], [trangThai]) VALUES (N'21031006', N'TK006', N'8d969eef6ecad3c2', 6, 1)
+INSERT [dbo].[TaiKhoan] ([maNV], [userName], [matKhau], [vaiTro], [trangThai]) VALUES (N'HC02201006', N'TK006', N'8d969eef6ecad3c2', 6, 1)
 GO
-INSERT [dbo].[TaiKhoan] ([maNV], [userName], [matKhau], [vaiTro], [trangThai]) VALUES (N'21031007', N'TK007', N'8d969eef6ecad3c2', 7, 1)
+INSERT [dbo].[TaiKhoan] ([maNV], [userName], [matKhau], [vaiTro], [trangThai]) VALUES (N'HC02201007', N'TK007', N'8d969eef6ecad3c2', 7, 1)
 GO
 
