@@ -130,3 +130,4 @@ GO
 INSERT [dbo].[TaiKhoan] ([maNV], [userName], [matKhau], [vaiTro], [trangThai]) VALUES (N'21031007', N'TK007', N'8d969eef6ecad3c2', 7, 1)
 GO
 
+

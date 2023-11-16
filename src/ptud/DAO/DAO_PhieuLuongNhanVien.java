@@ -166,21 +166,61 @@ public class DAO_PhieuLuongNhanVien implements DAOInterface<PhieuLuongNhanVien> 
         }
         return false;
     }
+
+    public ArrayList<PhieuLuongNhanVien> getAllByMaPBThangNam(String maBP, int thang, int nam) {
+
+        ArrayList<PhieuLuongNhanVien> phieuLuongNhanViens = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM PhieuLuongNhanVien WHERE maNV IN (SELECT maNV FROM NhanVien WHERE maBP = ?) AND thang = ? AND nam = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, maBP);
+            statement.setInt(2, thang);
+            statement.setInt(3, nam);
+            ResultSet resultSet = statement.executeQuery();
+            
+            while (resultSet.next()) {
+                String maPL = resultSet.getString("maPL");
+                int thang1 = resultSet.getInt("thang");
+                int nam1 = resultSet.getInt("nam");
+                String maNV = resultSet.getString("maNV");
+                double phat = resultSet.getDouble("phat");
+                
+                PhieuLuongNhanVien phieuLuongNhanVien = new PhieuLuongNhanVien(maPL, thang1, nam1, maNV, phat);
+                phieuLuongNhanViens.add(phieuLuongNhanVien);
+            }
+            return phieuLuongNhanViens;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<PhieuLuongNhanVien>();
+    }
+
+    public ArrayList<PhieuLuongNhanVien> getAllByThangNam(int thang, int nam) {
+        ArrayList<PhieuLuongNhanVien> phieuLuongNhanViens = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM PhieuLuongNhanVien WHERE thang = ? AND nam = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, thang);
+            statement.setInt(2, nam);
+            ResultSet resultSet = statement.executeQuery();
+            
+            while (resultSet.next()) {
+                String maPL = resultSet.getString("maPL");
+                int thang1 = resultSet.getInt("thang");
+                int nam1 = resultSet.getInt("nam");
+                String maNV = resultSet.getString("maNV");
+                double phat = resultSet.getDouble("phat");
+                
+                PhieuLuongNhanVien phieuLuongNhanVien = new PhieuLuongNhanVien(maPL, thang1, nam1, maNV, phat);
+                phieuLuongNhanViens.add(phieuLuongNhanVien);
+            }
+            return phieuLuongNhanViens;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<PhieuLuongNhanVien>();
+    }
 }
-// this is my database
-/* 
-CREATE TABLE PhieuLuongNhanVien (
-    maPL VARCHAR(20) PRIMARY KEY,
-thang INT,
-nam INT,
-maNV VARCHAR(20),
-luong FLOAT(10),
-thuong FLOAT(10),
-    phat FLOAT(10),
-    phuCap FLOAT(10),
-soNgayLam INT,
-luongThucNhan FLOAT(10),
-FOREIGN KEY (maNV) REFERENCES NhanVien(maNV),
-*/ 
+
 
     
