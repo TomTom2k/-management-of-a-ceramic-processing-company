@@ -170,6 +170,7 @@ public class GD_QLNS extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -429,7 +430,6 @@ public class GD_QLNS extends javax.swing.JPanel {
                 jButton3ActionPerformed(evt);
             }
         });
-
         btnThoiViecNV.setBackground(new java.awt.Color(255, 102, 102));
         btnThoiViecNV.setForeground(new java.awt.Color(0, 0, 0));
         btnThoiViecNV.setText("Thôi việc nhân viên");
@@ -535,6 +535,7 @@ public class GD_QLNS extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNVMouseClicked
+
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {
             int row = tblNV.rowAtPoint(evt.getPoint());
@@ -627,6 +628,7 @@ public class GD_QLNS extends javax.swing.JPanel {
     private void btnSearch1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSearch1ActionPerformed
         // TODO add your handling code here:
     }// GEN-LAST:event_btnSearch1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane body;

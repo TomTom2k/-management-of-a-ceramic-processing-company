@@ -68,6 +68,7 @@ public class GD_ThemNS extends javax.swing.JPanel {
         }
         if (ngaySinh.isAfter(LocalDate.now().minusYears(18))) {
             JOptionPane.showMessageDialog(null, "Ngày sinh không hợp lệ. Phải lớn hơn hoặc bằng 18 tuổi.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+
             txtNgaySinh.requestFocusInWindow();
             return false;
         }

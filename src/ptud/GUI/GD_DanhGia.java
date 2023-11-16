@@ -4,6 +4,7 @@
  */
 package ptud.GUI;
 
+
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
@@ -17,6 +18,7 @@ import ptud.DAO.DAO_CongNhan;
 import ptud.DAO.DAO_NhanVien;
 import ptud.Entity.BangDanhGiaCongNhan;
 import ptud.Entity.BangDanhGiaNhanVien;
+
 import ptud.Entity.CongNhan;
 import ptud.Entity.NhanVien;
 import ptud.ults.ImageCus;
@@ -248,6 +250,7 @@ public class GD_DanhGia extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
+
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -356,6 +359,7 @@ public class GD_DanhGia extends javax.swing.JPanel {
             };
             boolean[] canEdit = new boolean [] {
                 false, false, true, true, true, true, false, false
+
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -461,6 +465,7 @@ public class GD_DanhGia extends javax.swing.JPanel {
             contentCNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(scrollTableCN)
             .addComponent(option, javax.swing.GroupLayout.DEFAULT_SIZE, 1074, Short.MAX_VALUE)
+
         );
         contentCNLayout.setVerticalGroup(
             contentCNLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -539,7 +544,6 @@ public class GD_DanhGia extends javax.swing.JPanel {
                 searchCriteriaNVActionPerformed(evt);
             }
         });
-
         btnXacNhanNV.setBackground(new java.awt.Color(198, 222, 192));
         btnXacNhanNV.setForeground(new java.awt.Color(0, 0, 0));
         btnXacNhanNV.setText("Xác nhận");
