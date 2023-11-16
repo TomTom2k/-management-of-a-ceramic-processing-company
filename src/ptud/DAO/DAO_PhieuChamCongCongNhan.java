@@ -53,7 +53,7 @@ public class DAO_PhieuChamCongCongNhan {
                 + "     VALUES\n"
                 + "           (?,?,?,?,?,?,?,?,?,?)";
         PreparedStatement statement = connection.prepareStatement(query);
-        statement.setString(1, formatID_PCCCN(PCCCN.getNgay(), PCCCN.getMaCN()));
+        statement.setString(1, PCCCN.getMaPCCCN());
         statement.setString(2, PCCCN.getMaCTPC());
         statement.setDate(3, Date.valueOf(PCCCN.getNgay()));
         statement.setBoolean(4, PCCCN.isVang());
