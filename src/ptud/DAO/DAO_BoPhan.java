@@ -24,10 +24,6 @@ public class DAO_BoPhan implements DAOInterface<BoPhan> {
         return new DAO_BoPhan();
     }
 
-    public static DAO_BoPhan getInstance() {
-        return new DAO_BoPhan();
-    }
-
     @Override
     public BoPhan get(String id) {
         BoPhan boPhan = null;
@@ -132,32 +128,6 @@ public class DAO_BoPhan implements DAOInterface<BoPhan> {
         return false;
     }
     
-    
-    public ArrayList<BoPhan> filter(String prefix) {
-        ArrayList<BoPhan> filteredList = new ArrayList<>();
-        try {
-            ConnectDB.getInstance();
-            java.sql.Connection connection = ConnectDB.getConnection();
-            
-            // Sử dụng LIKE để lọc các bộ phận bắt đầu bằng "HC" hoặc "SX"
-            String query = "SELECT * FROM BoPhan WHERE maBP LIKE ? OR maBP LIKE ?";
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setString(1, prefix + "%");
-            statement.setString(2, prefix + "%");
-            
-            ResultSet resultSet = statement.executeQuery();
-            
-            while (resultSet.next()) {
-                String maBP = resultSet.getString("maBP");
-                String tenBP = resultSet.getString("tenBP");
-                BoPhan boPhan = new BoPhan(maBP, tenBP);
-                filteredList.add(boPhan);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return filteredList;
-    }
 
     public static String getMaBoPhanByTenBoPhan(String tenBoPhan) {
         try {
