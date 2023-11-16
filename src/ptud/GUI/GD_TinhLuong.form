@@ -162,7 +162,7 @@
               <SubComponents>
                 <Component class="javax.swing.JTable" name="jTablePhieuLuongNhanVien">
                   <Properties>
-                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor" postCode="jTablePhieuLuongNhanVien.setRowHeight(30);">
                       <Table columnCount="8" rowCount="0">
                         <Column editable="true" title="M&#xe3; nh&#xe2;n vi&#xea;n" type="java.lang.Object"/>
                         <Column editable="true" title="T&#xea;n nh&#xe2;n vi&#xea;n" type="java.lang.Object"/>
@@ -430,7 +430,7 @@
               <SubComponents>
                 <Component class="javax.swing.JTable" name="jTablePhieuLuongCongNhan1">
                   <Properties>
-                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
+                    <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor" postCode="jTablePhieuLuongCongNhan1.setRowHeight(30);">
                       <Table columnCount="7" rowCount="0">
                         <Column editable="true" title="M&#xe3; c&#xf4;ng nh&#xe2;n" type="java.lang.Object"/>
                         <Column editable="true" title="T&#xea;n c&#xf4;ng nh&#xe2;n" type="java.lang.Object"/>
