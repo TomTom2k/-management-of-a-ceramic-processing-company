@@ -6,6 +6,7 @@ package ptud.GUI;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.function.ObjDoubleConsumer;
@@ -17,12 +18,16 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import ptud.DAO.DAO_BoPhan;
 import ptud.DAO.DAO_ChiTietPhanCong;
+import ptud.DAO.DAO_CongDoan;
 import ptud.DAO.DAO_NhanVien;
 import ptud.DAO.DAO_PhieuChamCongCongNhan;
 import ptud.DAO.DAO_PhieuChamCongNhanVien;
 import ptud.DAO.DAO_TaiKhoan;
 import ptud.Entity.BoPhan;
+import ptud.Entity.CongDoan;
 import ptud.Entity.NhanVien;
+import ptud.Entity.PhieuChamCongCongNhan;
+import ptud.Entity.PhieuChamCongHanhChinh;
 import ptud.Entity.TaiKhoan;
 
 /**
@@ -553,10 +558,68 @@ public class GD_ChamCong extends javax.swing.JPanel {
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        int row = model.getRowCount();
+        PhieuChamCongHanhChinh phieuChamCongHanhChinh = new PhieuChamCongHanhChinh();
+        String today = LocalDate.now().format(DateTimeFormatter.ofPattern("ddMMyyyy")).toString();
+        for (int i = 0; i < row; i++) {
+            boolean isVang = (Boolean) (jTable2.getValueAt(i, 2));
+            boolean isTre = (Boolean) (jTable2.getValueAt(i, 3));
+            
+            phieuChamCongHanhChinh.setMaPCCHC(today + model.getValueAt(i, 0).toString());
+            phieuChamCongHanhChinh.setNgay(LocalDate.now());
+            phieuChamCongHanhChinh.setMaNV(model.getValueAt(i, 0).toString());
+            phieuChamCongHanhChinh.setVang(isVang);
+            phieuChamCongHanhChinh.setDiTre(isTre);
+            phieuChamCongHanhChinh.setGioTangCa((int)model.getValueAt(i, 4));
+            phieuChamCongHanhChinh.setTienPhat((int)model.getValueAt(i, 5));
+            phieuChamCongHanhChinh.setNoiDungTienPhat((String)model.getValueAt(i, 6));
+            try {
+                DAO_PhieuChamCongNhanVien.insert(phieuChamCongHanhChinh);
+            } catch (SQLException ex) {
+                Logger.getLogger(GD_ChamCong.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        loadDataTable2();
     }//GEN-LAST:event_jButton2MouseClicked
 
     private void jButton3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton3MouseClicked
+        DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
+        int row = model.getRowCount();
+        PhieuChamCongCongNhan phieuChamCongCongNhan = new PhieuChamCongCongNhan();
+        for (int i = 0; i < row; i++) {
+            String maCN = model.getValueAt(i, 0).toString();
+            String maCTPC = DAO_ChiTietPhanCong.getMaChiTietPhanCongBymaCN(maCN);
+            
+            boolean isVang = (Boolean) (jTable3.getValueAt(i, 2));
+            String maCD = DAO_ChiTietPhanCong.getMaCongDoanBymaCTPC(maCTPC);
+            int donGiaCongDoan = (int) DAO_CongDoan.getInstance().get(maCD).getDonGia();
 
+            phieuChamCongCongNhan.setMaPCCCN("PCCCN" + maCTPC);
+            phieuChamCongCongNhan.setMaCTPC(maCTPC);
+            phieuChamCongCongNhan.setNgay(LocalDate.now());
+            phieuChamCongCongNhan.setVang(isVang);
+            phieuChamCongCongNhan.setSoLuongSanPham((int) model.getValueAt(i, 4));
+            phieuChamCongCongNhan.setSoLuongSanPhamTangCa((int) model.getValueAt(i, 5));
+            phieuChamCongCongNhan.setNoiDungPhat((String) model.getValueAt(i, 8));
+            phieuChamCongCongNhan.setTienCong((int) (phieuChamCongCongNhan.getSoLuongSanPham() + phieuChamCongCongNhan.getSoLuongSanPhamTangCa() * 1.2) * donGiaCongDoan);
+            phieuChamCongCongNhan.setTienPhat((int) model.getValueAt(i, 7));
+            phieuChamCongCongNhan.setTienThuong((int) (model.getValueAt(i, 6)));
+            try {
+                boolean kq = DAO_PhieuChamCongCongNhan.getInstance().insert(phieuChamCongCongNhan);
+//                if (kq) {
+//                    JOptionPane.showMessageDialog(this,
+//                            "Chấm công thành công",
+//                            "Thông báo",
+//                            JOptionPane.INFORMATION_MESSAGE);
+//                    loadDataTabale1();
+//                }
+            } catch (SQLException ex) {
+                Logger.getLogger(GD_ChamCong.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        loadDataTabale1();
+        
     }//GEN-LAST:event_jButton3MouseClicked
 
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
