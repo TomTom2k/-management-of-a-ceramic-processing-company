@@ -130,9 +130,10 @@ public class GD_TinhLuong extends javax.swing.JPanel {
 
     private void loadDataPhieuLuongCongNhan() throws SQLException {
         // thêm dsNhanVien vào jTablePhieuLuongNhanVien
-        int thang = jMonthChooser1.getMonth() + 1;
-        int nam = jYearChooser1.getYear();
+        int thang = jMonthChooser2.getMonth() + 1;
+        int nam = jYearChooser2.getYear();
         dsPhieuLuongCongNhan = DAO_PhieuLuongCongNhan.getInstance().getAllByThangNam(thang, nam);
+        
         DefaultTableModel model = (DefaultTableModel) jTablePhieuLuongCongNhan1.getModel();
         model.setRowCount(0);
 
