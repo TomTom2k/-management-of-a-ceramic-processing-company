@@ -328,6 +328,7 @@
                             <Column editable="true" title="T&#xea;n c&#xf4;ng &#x111;o&#x1ea1;n" type="java.lang.Object"/>
                           </Table>
                         </Property>
+                        <Property name="cellSelectionEnabled" type="boolean" value="false"/>
                         <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                           <TableColumnModel selectionModel="2">
                             <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
@@ -342,7 +343,7 @@
                             </Column>
                           </TableColumnModel>
                         </Property>
-                        <Property name="columnSelectionAllowed" type="boolean" value="true"/>
+                        <Property name="rowSelectionAllowed" type="boolean" value="true"/>
                         <Property name="selectionModel" type="javax.swing.ListSelectionModel" editor="org.netbeans.modules.form.editors2.JTableSelectionModelEditor">
                           <JTableSelectionModel selectionMode="0"/>
                         </Property>
@@ -1166,15 +1167,9 @@
                                   <Component id="jLabel11" min="-2" pref="69" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="jComboBoxCongDoan" min="-2" pref="138" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="49" max="-2" attributes="0"/>
-                                  <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jComboBoxSapXep1" min="-2" pref="112" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="jToggleButtonSort1" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace pref="180" max="32767" attributes="0"/>
+                          <EmptySpace pref="505" max="32767" attributes="0"/>
                       </Group>
                       <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
@@ -1196,17 +1191,12 @@
                                   <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jComboBoxBoPhan1" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="103" alignment="0" groupAlignment="3" attributes="0">
-                                  <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jComboBoxSapXep1" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jToggleButtonSort1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
                               <Group type="103" groupAlignment="3" attributes="0">
                                   <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jComboBoxCongDoan" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                           <Component id="jButtonSua1" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
                           <Component id="jButtonXoa1" min="-2" max="-2" attributes="0"/>
@@ -1325,6 +1315,7 @@
                     <Property name="enabled" type="boolean" value="false"/>
                   </Properties>
                   <Events>
+                    <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jButtonXoa1MouseReleased"/>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonXoa1ActionPerformed"/>
                   </Events>
                 </Component>
@@ -1363,39 +1354,6 @@
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
-                </Component>
-                <Component class="javax.swing.JLabel" name="jLabel12">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="S&#x1eaf;p x&#x1ebf;p theo:"/>
-                  </Properties>
-                </Component>
-                <Component class="javax.swing.JComboBox" name="jComboBoxSapXep1">
-                  <Properties>
-                    <Property name="editable" type="boolean" value="true"/>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="7">
-                        <StringItem index="0" value="M&#xe3; c&#xf4;ng &#x111;o&#x1ea1;n"/>
-                        <StringItem index="1" value="T&#xea;n c&#xf4;ng &#x111;o&#x1ea1;n"/>
-                        <StringItem index="2" value="B&#x1ed9; ph&#x1ead;n"/>
-                        <StringItem index="3" value="M&#xe3; s&#x1ea3;n ph&#x1ea9;m"/>
-                        <StringItem index="4" value="C&#xf4;ng &#x111;o&#x1ea1;n"/>
-                        <StringItem index="5" value="S&#x1ed1; l&#x1b0;&#x1ee3;ng &#x111;&#x1b0;&#x1ee3;c giao"/>
-                        <StringItem index="6" value="S&#x1ed1; l&#x1b0;&#x1ee3;ng ho&#xe0;n th&#xe0;nh"/>
-                      </StringArray>
-                    </Property>
-                  </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBoxSapXep1ActionPerformed"/>
-                  </Events>
-                  <AuxValues>
-                    <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-                  </AuxValues>
-                </Component>
-                <Component class="javax.swing.JToggleButton" name="jToggleButtonSort1">
-                  <Properties>
-                    <Property name="text" type="java.lang.String" value="Gi&#x1ea3;m d&#x1ea7;n"/>
-                    <Property name="toolTipText" type="java.lang.String" value=""/>
-                  </Properties>
                 </Component>
                 <Component class="javax.swing.JComboBox" name="jComboBoxBoPhan1">
                   <Properties>
