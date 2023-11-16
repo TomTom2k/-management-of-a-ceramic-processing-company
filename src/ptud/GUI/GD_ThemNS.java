@@ -603,7 +603,7 @@ public class GD_ThemNS extends javax.swing.JPanel {
                 byte[] avatar = Files.readAllBytes(path);
 
                 if (rdoCongNhan.isSelected()) {
-                    CongNhan congNhan = new CongNhan(boPhan, ten, rdoNu.isSelected(), ngaySinh, ngayBatDauLam, cccd, dienThoai, true, avatar, true);
+                    CongNhan congNhan = new CongNhan(boPhan, ten, rdoNam.isSelected(), ngaySinh, ngayBatDauLam, cccd, dienThoai, true, avatar, true);
                     DAO_CongNhan daoCongNhan = DAO_CongNhan.getInstance();
                     daoCongNhan.insert(congNhan);
                     JOptionPane.showMessageDialog(null, "Thêm công nhân thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
@@ -611,7 +611,7 @@ public class GD_ThemNS extends javax.swing.JPanel {
                 } else {
                     double luongCoBan = Double.parseDouble(txtLuongCoBan.getText());
                     double thuong = Double.parseDouble(txtThuong.getText());
-                    NhanVien nhanVien = new NhanVien(boPhan, ten, rdoNu.isSelected(), ngaySinh, ngayBatDauLam, cccd, dienThoai, true, avatar, luongCoBan, thuong);
+                    NhanVien nhanVien = new NhanVien(boPhan, ten, rdoNam.isSelected(), ngaySinh, ngayBatDauLam, cccd, dienThoai, true, avatar, luongCoBan, thuong);
                     DAO_NhanVien daoNhanVien = DAO_NhanVien.getInstance();
                     daoNhanVien.insert(nhanVien);
                     JOptionPane.showMessageDialog(null, "Thêm nhân viên thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);

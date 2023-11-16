@@ -12,18 +12,21 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static ptud.Main.connection;
+
 /**
  *
  * @author KHANH PC
  */
-
-
-public class DAO_ChiTietPhanCong implements DAOInterface<ChiTietPhanCong>{
+public class DAO_ChiTietPhanCong implements DAOInterface<ChiTietPhanCong> {
 
     public static DAO_ChiTietPhanCong getInstance() {
         return new DAO_ChiTietPhanCong();
     }
+
     @Override
     public ChiTietPhanCong get(String id) {
         // let code to get ChiTietPhanCong t from database
@@ -46,7 +49,7 @@ public class DAO_ChiTietPhanCong implements DAOInterface<ChiTietPhanCong>{
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
+
         return t;
 
     }
@@ -59,18 +62,18 @@ public class DAO_ChiTietPhanCong implements DAOInterface<ChiTietPhanCong>{
             String query = "SELECT * FROM ChiTietPhanCong";
             PreparedStatement statement = connection.prepareStatement(query);
             ResultSet resultSet = statement.executeQuery();
-            
+
             while (resultSet.next()) {
                 String maCTPC = resultSet.getString("maCTPC");
                 String maCD = resultSet.getString("maCD");
                 String maCN = resultSet.getString("maCN");
                 LocalDate ngay = resultSet.getDate("ngay").toLocalDate();
                 int soLuongCDGiao = resultSet.getInt("soLuongCDGiao");
-                
+
                 ChiTietPhanCong chiTietPhanCong = new ChiTietPhanCong(maCTPC, maCD, maCN, ngay, soLuongCDGiao);
                 chiTietPhanCongs.add(chiTietPhanCong);
             }
-            
+
             resultSet.close();
             statement.close();
         } catch (SQLException e) {
@@ -78,6 +81,35 @@ public class DAO_ChiTietPhanCong implements DAOInterface<ChiTietPhanCong>{
         }
 
         return chiTietPhanCongs;
+    }
+
+    public ArrayList<ChiTietPhanCong> getAllByNgay(LocalDate ngay) {
+
+        ArrayList<ChiTietPhanCong> chiTietPhanCongs = new ArrayList<>();
+        try {
+            String query = "SELECT * FROM ChiTietPhanCong WHERE ngay = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setDate(1, Date.valueOf(ngay));
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                String maCTPC = resultSet.getString("maCTPC");
+                String maCD = resultSet.getString("maCD");
+                String maCN = resultSet.getString("maCN");
+                LocalDate ngay1 = resultSet.getDate("ngay").toLocalDate();
+                int soLuongCDGiao = resultSet.getInt("soLuongCDGiao");
+
+                ChiTietPhanCong chiTietPhanCong = new ChiTietPhanCong(maCTPC, maCD, maCN, ngay1, soLuongCDGiao);
+                chiTietPhanCongs.add(chiTietPhanCong);
+            }
+
+            resultSet.close();
+            statement.close();
+            return chiTietPhanCongs;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<ChiTietPhanCong>();
     }
 
     @Override
@@ -91,10 +123,10 @@ public class DAO_ChiTietPhanCong implements DAOInterface<ChiTietPhanCong>{
             statement.setString(3, t.getMaCN());
             statement.setDate(4, Date.valueOf(t.getNgay()));
             statement.setInt(5, t.getSoLuongCDGiao());
-            
+
             int rowsAffected = statement.executeUpdate();
             statement.close();
-            
+
             return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -114,10 +146,9 @@ public class DAO_ChiTietPhanCong implements DAOInterface<ChiTietPhanCong>{
             statement.setDate(3, Date.valueOf(t.getNgay()));
             statement.setInt(4, t.getSoLuongCDGiao());
             statement.setString(5, t.getMaCTPC());
-            
             int rowsAffected = statement.executeUpdate();
             statement.close();
-            
+
             return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -132,12 +163,12 @@ public class DAO_ChiTietPhanCong implements DAOInterface<ChiTietPhanCong>{
         try {
             String query = "DELETE FROM ChiTietPhanCong WHERE maCTPC = ?";
             PreparedStatement statement = connection.prepareStatement(query);
-            
+
             statement.setString(1, id);
-            
+
             int rowsAffected = statement.executeUpdate();
             statement.close();
-            
+
             return rowsAffected > 0;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -145,26 +176,114 @@ public class DAO_ChiTietPhanCong implements DAOInterface<ChiTietPhanCong>{
 
         return false;
     }
-    
+
+    public void updateChoPhanCong(String maCN, boolean trangThai) {
+        String updateQuery = "UPDATE CongNhan SET choPhanCong = ? WHERE maCN = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(updateQuery)) {
+            pstmt.setBoolean(1, trangThai);
+            pstmt.setString(2, maCN);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public int getSoLuongCongDoanDuocGiaoHomNay(String maCD) {
+        String query = "SELECT SUM(soLuongCDGiao) FROM ChiTietPhanCong WHERE maCD = ? AND ngay = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+            pstmt.setString(1, maCD);
+            pstmt.setDate(2, Date.valueOf(LocalDate.now()));
+            ResultSet resultSet = pstmt.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt(1);
+            } else {
+                return 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public static int getSoLuongCongDoanGiaoByMaCongNHan(String maCN) {
+        try {
+            String query = "select soLuongCDGiao\n"
+                    + "from ChiTietPhanCong\n"
+                    + "where maCN = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, maCN);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("soLuongCDGiao");
+            }
+            return 0;
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_ChiTietPhanCong.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
+
+    public void updateSoLuongGiaoHomNayByMaCN(String maCN, int soLuong) {
+        try {
+            String query = "UPDATE ChiTietPhanCong SET soLuongCDGiao = ? WHERE maCN = ? AND ngay = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setInt(1, soLuong);
+            statement.setString(2, maCN);
+            statement.setDate(3, java.sql.Date.valueOf(LocalDate.now()));
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_ChiTietPhanCong.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void deleteHomNayByMaCN(String maCN) {
+        try {
+            String query = "DELETE FROM ChiTietPhanCong WHERE maCN = ? AND ngay = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, maCN);
+            statement.setDate(2, java.sql.Date.valueOf(LocalDate.now()));
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_ChiTietPhanCong.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static String getMaChiTietPhanCongBymaCN(String maCN) {
+        try {
+            String query = "select maCTPC\n"
+                    + "from ChiTietPhanCong\n"
+                    + "where maCN = ? and ngay = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, maCN);
+            String today = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")).toString();
+            statement.setString(2, today);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getString("maCTPC");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_ChiTietPhanCong.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "-1";
+    }
+
+    public static String getMaCongDoanBymaCTPC(String maCTPC) {
+        try {
+            String query = "select maCD\n"
+                    + "from [dbo].[ChiTietPhanCong]\n"
+                    + "where maCTPC = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, maCTPC);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getString("mcCD");
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_ChiTietPhanCong.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "-1";
+    }
 }
 
-// This is my table
-//  CREATE TABLE ChiTietPhanCong (
-// 	maCTPC VARCHAR(20),
-//     maCD VARCHAR(20),
-//     maCN VARCHAR(20),
-//     ngay DATE,
-//     soLuongCDGiao INT,
-//     PRIMARY KEY (maCTPC),
-//     FOREIGN KEY (maCD) REFERENCES CongDoan(maCD),
-//     FOREIGN KEY (maCN) REFERENCES CongNhan(maCN)
-// );
-
-// this is my code entity
-// public ChiTietPhanCong(String maCTPC, String maCD, String maCN, LocalDate ngay, int soLuongCDGiao) {
-//     this.maCTPC = maCTPC;
-//     this.maCD = maCD;
-//     this.maCN = maCN;
-//     this.ngay = ngay;
-//     this.soLuongCDGiao = soLuongCDGiao;
-// }
+   
