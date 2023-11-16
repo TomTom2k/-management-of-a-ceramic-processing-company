@@ -37,7 +37,7 @@ public class GD_XemChiTietNS extends javax.swing.JPanel {
             txtName.setText(congNhan.getTen());
             txtCccd.setText(congNhan.getCccd());
             txtDienThoai.setText(congNhan.getDienThoai());
-            txtGioiTinh.setText(congNhan.isGioiTinh() ? "Nữ" : "Nam");
+            txtGioiTinh.setText(congNhan.isGioiTinh() ? "Nam" : "Nữ");
             txtNgaySinh.setText(congNhan.getNgaySinh().toString());
             txtNgayBatDauLam.setText(congNhan.getNgayBatDauLam().toString());
 
@@ -51,7 +51,7 @@ public class GD_XemChiTietNS extends javax.swing.JPanel {
             txtName.setText(nhanVien.getTen());
             txtCccd.setText(nhanVien.getCccd());
             txtDienThoai.setText(nhanVien.getDienThoai());
-            txtGioiTinh.setText(nhanVien.isGioiTinh() ? "Nữ" : "Nam");
+            txtGioiTinh.setText(nhanVien.isGioiTinh() ? "Nam" : "Nữ");
             txtNgaySinh.setText(nhanVien.getNgaySinh().toString());
             txtNgaySinh.setText(nhanVien.getNgayBatDauLam().toString());
         }

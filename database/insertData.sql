@@ -65,9 +65,52 @@ VALUES
     ('NV1810001', 'HC01', N'Lê Thị Bích', 1, '1992-08-25', '2018-03-15', '000022221111', 5000000.0, 1000000.0, 1, '0123456789', (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarNV\nv2.jpg', SINGLE_BLOB) as ImageData));
 INSERT INTO NhanVien (maNV, maBP, tenNV, gioiTinh, ngaySinh, ngayBatDauLam, CCCD, luongCoBan, phuCap, trangThai, dienThoai, hinhAnh)
 VALUES 
+<<<<<<< HEAD
+    ('SX01051001', 'SX01', N'Nguyễn Văn Bạch', 1, '1986-01-15', '2005-05-01', '0222211110000', 1, 1, '01357924680', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarCN\cn1.jpg', SINGLE_BLOB) as ImageData)),
+    ('SX02181002', 'SX02', N'Đỗ Nhật Anh', 1, '1999-01-15', '2018-05-01', '0111122220000', 1, 1, '02468013579', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarCN\cn2.jpg', SINGLE_BLOB) as ImageData)),
+    ('SX0310003', 'SX03', N'Phạm Thị Hương', 0, '1988-02-20', '2010-06-01', '0333322220000', 1, 1, '09876543210', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarCN\cn3.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0417004', 'SX04', N'Nguyễn Thị Mai', 0, '1995-09-10', '2017-06-01', '0444411110000', 1, 1, '01234567890', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarCN\cn4.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0506005', 'SX05', N'Trần Văn Tú', 1, '1988-06-18', '2006-07-01', '0555522220000', 1, 1, '09876123450', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarCN\cn5.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0120006', 'SX01', N'Vũ Thị Lan', 0, '1997-04-05', '2020-07-01', '0666611110000', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarCN\cn6.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0221007', 'SX02', N'Hoàng Văn Hải', 1, '1994-11-12', '2021-08-01', '0777722220000', 1, 1, '09876123450', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarCN\cn7.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0322008', 'SX03', N'Nguyễn Thị Anh', 0, '1993-08-25', '2022-08-01', '0888811110000', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarCN\cn8.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0421009', 'SX04', N'Lê Văn Hoàng', 1, '1991-03-30', '2021-09-01', '0999922220000', 1, 1, '09876123450', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarCN\cn9.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0500010', 'SX05', N'Trương Thị Phương', 0, '1980-12-03', '2000-09-01', '101010101010', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarCN\cn10.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0111011', 'SX01', N'Nguyễn Văn Quang', 1, '1992-07-22', '2011-10-01', '121212121212', 1, 1, '09876123450', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarCN\cn11.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0220012', 'SX02', N'Phạm Thị Tâm', 0, '1993-05-28', '2020-10-01', '131313131313', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarCN\cn12.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0321013', 'SX03', N'Lê Thị Hương', 0, '1998-02-15', '2021-11-01', '141414141414', 1, 1, '09876123450', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarCN\cn13.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0415014', 'SX04', N'Đỗ Thị Hà', 0, '1995-10-10', '2015-11-01', '151515151515', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarCN\cn14.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0521015', 'SX05', N'Nguyễn Văn Hùng', 1, '1992-06-18', '2021-12-01', '161616161616', 1, 1, '09876123450', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarCN\cn15.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0120016', 'SX01', N'Lê Thị Lan', 0, '1997-04-05', '2020-12-01', '171717171717', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarCN\cn16.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0221017', 'SX02', N'Trần Văn Hải', 1, '1994-11-12', '2022-01-01', '181818181818', 1, 1, '09876123450', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarCN\cn17.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0320018', 'SX03', N'Phạm Thị Anh', 0, '1993-08-25', '2022-01-02', '191919191919', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarCN\cn18.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0421019', 'SX04', N'Lê Văn Hoàng', 1, '1991-03-30', '2022-01-03', '202020202020', 1, 1, '09876123450', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarCN\cn19.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0520020', 'SX05', N'Trương Thị Phương', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData));
+=======
     ('NV2010001', 'HC02', N'Đỗ Văn Tấn', 1, '1996-08-25', '2020-06-20', '111100002222', 7000000.0, 1000000.0, 1, '9876543210', (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarNV\nv1.jpg', SINGLE_BLOB) as ImageData));
 >
 
+>>>>>>> ff20db26fea391a8e4059d754c6c3f0507b7ed72
 
 
 -- công đoạn 

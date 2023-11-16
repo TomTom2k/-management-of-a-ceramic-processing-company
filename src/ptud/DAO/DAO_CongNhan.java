@@ -49,9 +49,7 @@ public class DAO_CongNhan implements DAOInterface<CongNhan> {
         try {
             String query = "SELECT * FROM CongNhan WHERE trangThai = 1";
             PreparedStatement statement = connection.prepareStatement(query);
-
-
-           ResultSet resultSet = statement.executeQuery();
+            ResultSet resultSet = statement.executeQuery();
 
 
             while (resultSet.next()) {
