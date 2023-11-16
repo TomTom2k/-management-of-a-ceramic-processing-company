@@ -19,6 +19,11 @@ public class GD_XemChiTietNS extends javax.swing.JPanel {
     /**
      * Creates new form GD_XemChiTietNS
      */
+    private void handlerBtnBack() {
+        Layout.instance.showLayout("tabNS");
+        GD_QLNS.instance.updateData();
+    }
+
     public void updateData(String id, String type) {
         System.out.println("id: " + id);
         System.out.println("type: " + type);
@@ -42,7 +47,7 @@ public class GD_XemChiTietNS extends javax.swing.JPanel {
             avtImage.setIcon(ImageCus.getScaledImageIconByte(nhanVien.getAvatar(), 260, 400));
             lblCode.setText("Mã nhân viên:");
             txtCode.setText(nhanVien.getMaNV());
-             txtBoPhan.setText(nhanVien.getBoPhan().getTenBP());
+            txtBoPhan.setText(nhanVien.getBoPhan().getTenBP());
             txtName.setText(nhanVien.getTen());
             txtCccd.setText(nhanVien.getCccd());
             txtDienThoai.setText(nhanVien.getDienThoai());
@@ -69,6 +74,7 @@ public class GD_XemChiTietNS extends javax.swing.JPanel {
 
         header = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
+        btnBack3 = new javax.swing.JButton();
         title = new javax.swing.JLabel();
         body = new javax.swing.JPanel();
         footer = new javax.swing.JPanel();
@@ -110,15 +116,32 @@ public class GD_XemChiTietNS extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(198, 222, 192));
         jPanel1.setPreferredSize(new java.awt.Dimension(100, 40));
 
+        btnBack3.setBackground(new java.awt.Color(238, 250, 235));
+        btnBack3.setForeground(new java.awt.Color(0, 0, 0));
+        btnBack3.setText("Trở về");
+        btnBack3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnBack3.setPreferredSize(new java.awt.Dimension(150, 30));
+        btnBack3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBack3MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1016, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(btnBack3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(btnBack3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         title.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -431,12 +454,20 @@ public class GD_XemChiTietNS extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtBoPhanActionPerformed
 
+    private void btnBack3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBack3MouseClicked
+        handlerBtnBack();
+    }//GEN-LAST:event_btnBack3MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel avatar;
     private javax.swing.JLabel avtImage;
     private javax.swing.JPanel boPhan;
     private javax.swing.JPanel body;
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnBack1;
+    private javax.swing.JButton btnBack2;
+    private javax.swing.JButton btnBack3;
     private javax.swing.JButton btnChinhSua;
     private javax.swing.JButton btnThoiViec;
     private javax.swing.JPanel cccd;

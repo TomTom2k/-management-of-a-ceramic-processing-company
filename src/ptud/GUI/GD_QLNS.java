@@ -5,6 +5,7 @@
 package ptud.GUI;
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 import ptud.DAO.DAO_CongNhan;
@@ -19,58 +20,156 @@ import ptud.ults.ImageCus;
  */
 public class GD_QLNS extends javax.swing.JPanel {
 
-//    thêm NV vào table
-	private void populateNhanVienTable() {
-		DefaultTableModel model = (DefaultTableModel) tblNV.getModel();
-		model.setRowCount(0); // Clear existing data
+    public static GD_QLNS instance;
+//  cập nhật lại khi mở lại tab này
 
-		DAO_NhanVien daoNhanVien = DAO_NhanVien.getInstance();
-		ArrayList<NhanVien> danhSachNhanVien = daoNhanVien.getAll();
+    public void updateData() {
+        populateNhanVienTable();
+        populatCongNhanTable();
+    }
 
-		for (NhanVien nhanVien : danhSachNhanVien) {
-			// Add each NhanVien object to the table
-			model.addRow(new Object[] { nhanVien.getMaNV(), nhanVien.getTen(), nhanVien.getNgayBatDauLam(),
-					nhanVien.getCccd(), nhanVien.getDienThoai(), nhanVien.isGioiTinh() ? "Nam" : "Nữ",
-					nhanVien.getNgaySinh(), nhanVien.getPhuCap(), nhanVien.getLuongCoBan() });
-		}
-	}
+//  thêm NV vào table
+    private void populateNhanVienTable() {
+        DefaultTableModel model = (DefaultTableModel) tblNV.getModel();
+        model.setRowCount(0); // Clear existing data
 
+        DAO_NhanVien daoNhanVien = DAO_NhanVien.getInstance();
+        ArrayList<NhanVien> danhSachNhanVien = daoNhanVien.getAll();
+
+        for (NhanVien nhanVien : danhSachNhanVien) {
+            // Add each NhanVien object to the table
+            model.addRow(new Object[]{nhanVien.getMaNV(), nhanVien.getTen(), nhanVien.getNgayBatDauLam(),
+                nhanVien.getCccd(), nhanVien.getDienThoai(), nhanVien.isGioiTinh() ? "Nam" : "Nữ",
+                nhanVien.getNgaySinh(), nhanVien.getPhuCap(), nhanVien.getLuongCoBan()});
+        }
+    }
+
+    private void handlerBtnThoiViecNV() {
+        DefaultTableModel model = (DefaultTableModel) tblNV.getModel();
+        DAO_NhanVien daoNhanVien = DAO_NhanVien.getInstance();
+        int[] selectedRows = tblNV.getSelectedRows();
+
+        if (selectedRows.length > 0) {
+            int option = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thôi việc nhân viên?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+
+            if (option == JOptionPane.YES_OPTION) {
+                // Xóa từng dòng được chọn
+                for (int i = selectedRows.length - 1; i >= 0; i--) {
+                    String maNV = (String) model.getValueAt(selectedRows[i], 0);
+                    daoNhanVien.deleteById(maNV);
+                }
+
+                // Cập nhật lại bảng sau khi xóa
+                populateNhanVienTable();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Chưa chọn nhân viên để thôi việc.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void handlerBtnSearchNV() {
+    }
 //  thêm CN vào table
-	private void populatCongNhanTable() {
-		DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-		model.setRowCount(0); // Clear existing data
 
-		DAO_CongNhan daoCongNhan = DAO_CongNhan.getInstance();
-		ArrayList<CongNhan> danhSachCongNhan = daoCongNhan.getAll();
+    private void populatCongNhanTable() {
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0); // Clear existing data
 
-		for (CongNhan congNhan : danhSachCongNhan) {
-			// Add each NhanVien object to the table
-			model.addRow(new Object[] { congNhan.getMaCN(), congNhan.getTen(), congNhan.getNgayBatDauLam(),
-					congNhan.getCccd(), congNhan.getDienThoai(), congNhan.isGioiTinh() ? "Nam" : "Nữ",
-					congNhan.getNgaySinh(), congNhan.isChoPhanCong() ? "Đã phân công" : "Chưa phân công", });
-		}
-	}
+        DAO_CongNhan daoCongNhan = DAO_CongNhan.getInstance();
+        ArrayList<CongNhan> danhSachCongNhan = daoCongNhan.getAll();
 
-	/**
-	 * Creates new form QLHD_GD
-	 */
-	public GD_QLNS() {
-		initComponents();
-		btnSearch.setIcon(ImageCus.getScaledImageIcon("/assets/icons/search.jpeg", 30, 30));
-		btnSearch1.setIcon(ImageCus.getScaledImageIcon("/assets/icons/search.jpeg", 30, 30));
+        for (CongNhan congNhan : danhSachCongNhan) {
+            // Add each NhanVien object to the table
+            model.addRow(new Object[]{congNhan.getMaCN(), congNhan.getTen(), congNhan.getNgayBatDauLam(),
+                congNhan.getCccd(), congNhan.getDienThoai(), congNhan.isGioiTinh() ? "Nam" : "Nữ",
+                congNhan.getNgaySinh(), congNhan.isChoPhanCong() ? "Đã phân công" : "Chưa phân công",});
+        }
+    }
 
-		populateNhanVienTable();
-		populatCongNhanTable();
-	}
+    private void handlerBtnThoiViecCN() {
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        DAO_CongNhan daoCongNhan = DAO_CongNhan.getInstance();
+        int[] selectedRows = jTable2.getSelectedRows();
 
-	/**
-	 * This method is called from within the constructor to initialize the form.
-	 * WARNING: Do NOT modify this code. The content of this method is always
-	 * regenerated by the Form Editor.
-	 */
-	@SuppressWarnings("unchecked")
-	// <editor-fold defaultstate="collapsed" desc="Generated
-	// <editor-fold defaultstate="collapsed" desc="Generated
+        if (selectedRows.length > 0) {
+            int option = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thôi việc công nhân?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+
+            if (option == JOptionPane.YES_OPTION) {
+                // Xóa từng dòng được chọn
+                for (int i = selectedRows.length - 1; i >= 0; i--) {
+                    String maCN = (String) model.getValueAt(selectedRows[i], 0);
+                    daoCongNhan.deleteById(maCN);
+                }
+
+                // Cập nhật lại bảng sau khi xóa
+                populatCongNhanTable();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Chưa chọn công nhân để thôi việc.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void handlerBtnSearchCN() {
+        String searchText = txtSearchCN.getText().trim();
+        String searchCriteria = (String) cboTieuChiCN.getSelectedItem();
+
+        // Kiểm tra xem searchText có rỗng hay không
+        if (searchText.isEmpty()) {
+            populatCongNhanTable();
+            return;
+        }
+
+        // Thực hiện tìm kiếm dựa trên tiêu chí
+        DAO_CongNhan daoCongNhan = DAO_CongNhan.getInstance();
+        ArrayList<CongNhan> dsKetQuaTimKiem = new ArrayList<>();
+
+        switch (searchCriteria) {
+            case "Mã CN": {
+                dsKetQuaTimKiem = daoCongNhan.search(searchText, "Mã CN");
+                break;
+            }
+            case "Tên công nhân": {
+                dsKetQuaTimKiem = daoCongNhan.search(searchText, "Tên công nhân");
+                break;
+            }
+            case "Số điện thoại": {
+                dsKetQuaTimKiem = daoCongNhan.search(searchText, "Số điện thoại");
+                break;
+            }
+            default:
+                JOptionPane.showMessageDialog(this, "Tiêu chí tìm kiếm không hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                return;
+        }
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0); // Xóa dữ liệu cũ
+
+        for (CongNhan congNhan : dsKetQuaTimKiem) {
+             model.addRow(new Object[]{congNhan.getMaCN(), congNhan.getTen(), congNhan.getNgayBatDauLam(),
+                congNhan.getCccd(), congNhan.getDienThoai(), congNhan.isGioiTinh() ? "Nam" : "Nữ",
+                congNhan.getNgaySinh(), congNhan.isChoPhanCong() ? "Đã phân công" : "Chưa phân công",});
+        }
+    }
+
+    /**
+     * Creates new form QLHD_GD
+     */
+    public GD_QLNS() {
+        instance = this;
+        initComponents();
+        btnSearchNV.setIcon(ImageCus.getScaledImageIcon("/assets/icons/search.jpeg", 30, 30));
+        btnSearchCN.setIcon(ImageCus.getScaledImageIcon("/assets/icons/search.jpeg", 30, 30));
+
+        updateData();
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -81,12 +180,12 @@ public class GD_QLNS extends javax.swing.JPanel {
         dsCn = new javax.swing.JPanel();
         option1 = new javax.swing.JPanel();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnThoiViecCN = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         search1 = new javax.swing.JPanel();
-        jTextField2 = new javax.swing.JTextField();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        btnSearch1 = new javax.swing.JButton();
+        btnSearchCN = new javax.swing.JButton();
+        txtSearchCN = new javax.swing.JTextField();
+        cboTieuChiCN = new javax.swing.JComboBox<>();
         tableNV1 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         dsNv = new javax.swing.JPanel();
@@ -94,12 +193,12 @@ public class GD_QLNS extends javax.swing.JPanel {
         tblNV = new javax.swing.JTable();
         option = new javax.swing.JPanel();
         jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnThoiViecNV = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         search = new javax.swing.JPanel();
-        jTextField1 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        btnSearch = new javax.swing.JButton();
+        btnSearchNV = new javax.swing.JButton();
+        txtSearchNV = new javax.swing.JTextField();
+        cboTieuChiNV = new javax.swing.JComboBox<>();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -146,14 +245,14 @@ public class GD_QLNS extends javax.swing.JPanel {
             }
         });
 
-        jButton5.setBackground(new java.awt.Color(255, 102, 102));
-        jButton5.setForeground(new java.awt.Color(0, 0, 0));
-        jButton5.setText("Thôi việc công nhân");
-        jButton5.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jButton5.setPreferredSize(new java.awt.Dimension(150, 30));
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+        btnThoiViecCN.setBackground(new java.awt.Color(255, 102, 102));
+        btnThoiViecCN.setForeground(new java.awt.Color(0, 0, 0));
+        btnThoiViecCN.setText("Thôi việc công nhân");
+        btnThoiViecCN.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnThoiViecCN.setPreferredSize(new java.awt.Dimension(150, 30));
+        btnThoiViecCN.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnThoiViecCNMouseClicked(evt);
             }
         });
 
@@ -170,38 +269,24 @@ public class GD_QLNS extends javax.swing.JPanel {
 
         search1.setLayout(new java.awt.BorderLayout());
 
-        jTextField2.setText("Tìm công nhân");
-        jTextField2.setBorder(null);
-        jTextField2.setPreferredSize(new java.awt.Dimension(71, 30));
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+        btnSearchCN.setBackground(new java.awt.Color(198, 222, 192));
+        btnSearchCN.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons/search.jpeg"))); // NOI18N
+        btnSearchCN.setBorder(null);
+        btnSearchCN.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSearchCN.setPreferredSize(new java.awt.Dimension(30, 30));
+        btnSearchCN.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSearchCNMouseClicked(evt);
             }
         });
-        search1.add(jTextField2, java.awt.BorderLayout.CENTER);
 
-        jComboBox2.setBackground(new java.awt.Color(198, 222, 192));
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mã CM", "Tên công nhân", "Số điện thoại", " " }));
-        jComboBox2.setBorder(null);
-        jComboBox2.setMinimumSize(new java.awt.Dimension(100, 30));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
-            }
-        });
-        search1.add(jComboBox2, java.awt.BorderLayout.EAST);
+        txtSearchCN.setBorder(null);
+        txtSearchCN.setPreferredSize(new java.awt.Dimension(71, 30));
 
-        btnSearch1.setBackground(new java.awt.Color(198, 222, 192));
-        btnSearch1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons/search.jpeg"))); // NOI18N
-        btnSearch1.setBorder(null);
-        btnSearch1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSearch1.setPreferredSize(new java.awt.Dimension(30, 30));
-        btnSearch1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSearch1ActionPerformed(evt);
-            }
-        });
-        search1.add(btnSearch1, java.awt.BorderLayout.LINE_START);
+        cboTieuChiCN.setBackground(new java.awt.Color(198, 222, 192));
+        cboTieuChiCN.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mã CN", "Tên công nhân", "Số điện thoại", "CCCD", " " }));
+        cboTieuChiCN.setBorder(null);
+        cboTieuChiCN.setMinimumSize(new java.awt.Dimension(100, 30));
 
         javax.swing.GroupLayout option1Layout = new javax.swing.GroupLayout(option1);
         option1.setLayout(option1Layout);
@@ -210,22 +295,29 @@ public class GD_QLNS extends javax.swing.JPanel {
             .addGroup(option1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnThoiViecCN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
+                .addComponent(btnSearchCN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtSearchCN, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cboTieuChiCN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(search1, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(74, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         option1Layout.setVerticalGroup(
             option1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(option1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(option1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSearchCN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSearchCN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboTieuChiCN, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(option1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnThoiViecCN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(search1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
@@ -273,7 +365,7 @@ public class GD_QLNS extends javax.swing.JPanel {
         dsCnLayout.setHorizontalGroup(
             dsCnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(tableNV1)
-            .addComponent(option1, javax.swing.GroupLayout.DEFAULT_SIZE, 1004, Short.MAX_VALUE)
+            .addComponent(option1, javax.swing.GroupLayout.DEFAULT_SIZE, 1326, Short.MAX_VALUE)
         );
         dsCnLayout.setVerticalGroup(
             dsCnLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -316,7 +408,6 @@ public class GD_QLNS extends javax.swing.JPanel {
         });
         tblNV.setRowHeight(30);
         tblNV.setSelectionMode(javax.swing.ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-        tblNV.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         tblNV.getTableHeader().setReorderingAllowed(false);
         tblNV.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -339,14 +430,14 @@ public class GD_QLNS extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setBackground(new java.awt.Color(255, 102, 102));
-        jButton2.setForeground(new java.awt.Color(0, 0, 0));
-        jButton2.setText("Thôi việc nhân viên");
-        jButton2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jButton2.setPreferredSize(new java.awt.Dimension(150, 30));
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+        btnThoiViecNV.setBackground(new java.awt.Color(255, 102, 102));
+        btnThoiViecNV.setForeground(new java.awt.Color(0, 0, 0));
+        btnThoiViecNV.setText("Thôi việc nhân viên");
+        btnThoiViecNV.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        btnThoiViecNV.setPreferredSize(new java.awt.Dimension(150, 30));
+        btnThoiViecNV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnThoiViecNVMouseClicked(evt);
             }
         });
 
@@ -355,6 +446,11 @@ public class GD_QLNS extends javax.swing.JPanel {
         jButton1.setText("Thêm nhân viên");
         jButton1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jButton1.setPreferredSize(new java.awt.Dimension(150, 30));
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -363,38 +459,24 @@ public class GD_QLNS extends javax.swing.JPanel {
 
         search.setLayout(new java.awt.BorderLayout());
 
-        jTextField1.setText("Tìm nhân viên");
-        jTextField1.setBorder(null);
-        jTextField1.setPreferredSize(new java.awt.Dimension(71, 30));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+        btnSearchNV.setBackground(new java.awt.Color(198, 222, 192));
+        btnSearchNV.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons/search.jpeg"))); // NOI18N
+        btnSearchNV.setBorder(null);
+        btnSearchNV.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnSearchNV.setPreferredSize(new java.awt.Dimension(30, 30));
+        btnSearchNV.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSearchNVMouseClicked(evt);
             }
         });
-        search.add(jTextField1, java.awt.BorderLayout.CENTER);
 
-        jComboBox1.setBackground(new java.awt.Color(198, 222, 192));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mã NV", "Tên nhân viên", "Số điện thoại", " " }));
-        jComboBox1.setBorder(null);
-        jComboBox1.setMinimumSize(new java.awt.Dimension(100, 30));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
-        search.add(jComboBox1, java.awt.BorderLayout.EAST);
+        txtSearchNV.setBorder(null);
+        txtSearchNV.setPreferredSize(new java.awt.Dimension(71, 30));
 
-        btnSearch.setBackground(new java.awt.Color(198, 222, 192));
-        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons/search.jpeg"))); // NOI18N
-        btnSearch.setBorder(null);
-        btnSearch.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnSearch.setPreferredSize(new java.awt.Dimension(30, 30));
-        btnSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSearchActionPerformed(evt);
-            }
-        });
-        search.add(btnSearch, java.awt.BorderLayout.LINE_START);
+        cboTieuChiNV.setBackground(new java.awt.Color(198, 222, 192));
+        cboTieuChiNV.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mã NV", "Tên nhân viên", "Số điện thoại", "CCCD" }));
+        cboTieuChiNV.setBorder(null);
+        cboTieuChiNV.setMinimumSize(new java.awt.Dimension(100, 30));
 
         javax.swing.GroupLayout optionLayout = new javax.swing.GroupLayout(option);
         option.setLayout(optionLayout);
@@ -403,11 +485,15 @@ public class GD_QLNS extends javax.swing.JPanel {
             .addGroup(optionLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnThoiViecNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(18, 18, 18)
+                .addComponent(btnSearchNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtSearchNV, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cboTieuChiNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -416,9 +502,12 @@ public class GD_QLNS extends javax.swing.JPanel {
             .addGroup(optionLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addGroup(optionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSearchNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSearchNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboTieuChiNV, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(optionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnThoiViecNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(15, Short.MAX_VALUE))
@@ -428,8 +517,8 @@ public class GD_QLNS extends javax.swing.JPanel {
         dsNv.setLayout(dsNvLayout);
         dsNvLayout.setHorizontalGroup(
             dsNvLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(option, javax.swing.GroupLayout.DEFAULT_SIZE, 1004, Short.MAX_VALUE)
-            .addComponent(tableNV, javax.swing.GroupLayout.DEFAULT_SIZE, 1004, Short.MAX_VALUE)
+            .addComponent(option, javax.swing.GroupLayout.DEFAULT_SIZE, 1326, Short.MAX_VALUE)
+            .addComponent(tableNV)
         );
         dsNvLayout.setVerticalGroup(
             dsNvLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -448,95 +537,113 @@ public class GD_QLNS extends javax.swing.JPanel {
     private void tblNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblNVMouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {
-                int row = tblNV.rowAtPoint(evt.getPoint());
-                if (row != -1) {
-                        String maNV = (String) tblNV.getValueAt(row, 0);
-                        Layout.instance.showChiTietNV(maNV);
-                }
+            int row = tblNV.rowAtPoint(evt.getPoint());
+            if (row != -1) {
+                String maNV = (String) tblNV.getValueAt(row, 0);
+                Layout.instance.showChiTietNV(maNV);
+            }
         }
     }//GEN-LAST:event_tblNVMouseClicked
 
-	private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTable2MouseClicked
-		if (evt.getClickCount() == 2) {
-			int row = jTable2.rowAtPoint(evt.getPoint());
-			if (row != -1) {
-				String maCN = (String) jTable2.getValueAt(row, 0);
-				Layout.instance.showChiTietCN(maCN);
-			}
-		}
-	}// GEN-LAST:event_jTable2MouseClicked
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        Layout.instance.showLayout("themNS");
+    }//GEN-LAST:event_jButton1MouseClicked
 
-	private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton3ActionPerformed
-		// TODO add your handling code here:
-		Layout.instance.showLayout("danhGiaNS");
-	}// GEN-LAST:event_jButton3ActionPerformed
+    private void btnThoiViecCNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThoiViecCNMouseClicked
+        handlerBtnThoiViecCN();
+    }//GEN-LAST:event_btnThoiViecCNMouseClicked
 
-	private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton2ActionPerformed
-		// TODO add your handling code here:
-	}// GEN-LAST:event_jButton2ActionPerformed
+    private void btnThoiViecNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThoiViecNVMouseClicked
+        handlerBtnThoiViecNV();
+    }//GEN-LAST:event_btnThoiViecNVMouseClicked
 
-	private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
-		// TODO add your handling code here:
-	}// GEN-LAST:event_jButton1ActionPerformed
+    private void btnSearchCNMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchCNMouseClicked
+        handlerBtnSearchCN();
+    }//GEN-LAST:event_btnSearchCNMouseClicked
 
-	private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTextField1ActionPerformed
-		// TODO add your handling code here:
-	}// GEN-LAST:event_jTextField1ActionPerformed
+    private void btnSearchNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSearchNVMouseClicked
+        handlerBtnSearchNV();
+    }//GEN-LAST:event_btnSearchNVMouseClicked
 
-	private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jComboBox1ActionPerformed
-		// TODO add your handling code here:
-	}// GEN-LAST:event_jComboBox1ActionPerformed
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTable2MouseClicked
+        if (evt.getClickCount() == 2) {
+            int row = jTable2.rowAtPoint(evt.getPoint());
+            if (row != -1) {
+                String maCN = (String) jTable2.getValueAt(row, 0);
+                Layout.instance.showChiTietCN(maCN);
+            }
+        }
+    }// GEN-LAST:event_jTable2MouseClicked
 
-	private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSearchActionPerformed
-		// TODO add your handling code here:
-		System.out.println("search");
-	}// GEN-LAST:event_btnSearchActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+        Layout.instance.showLayout("danhGiaNS");
+    }// GEN-LAST:event_jButton3ActionPerformed
 
-	private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton4ActionPerformed
-		// TODO add your handling code here:
-		Layout.instance.showLayout("danhGiaNS");
-	}// GEN-LAST:event_jButton4ActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }// GEN-LAST:event_jButton2ActionPerformed
 
-	private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton5ActionPerformed
-		// TODO add your handling code here:
-	}// GEN-LAST:event_jButton5ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }// GEN-LAST:event_jButton1ActionPerformed
 
-	private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton6ActionPerformed
-		// TODO add your handling code here:
-		Layout.instance.showLayout("themNS");
-	}// GEN-LAST:event_jButton6ActionPerformed
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }// GEN-LAST:event_jTextField1ActionPerformed
 
-	private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTextField2ActionPerformed
-		// TODO add your handling code here:
-	}// GEN-LAST:event_jTextField2ActionPerformed
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }// GEN-LAST:event_jComboBox1ActionPerformed
 
-	private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jComboBox2ActionPerformed
-		// TODO add your handling code here:
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSearchActionPerformed
+        // TODO add your handling code here:
+        System.out.println("search");
+    }// GEN-LAST:event_btnSearchActionPerformed
 
-	}// GEN-LAST:event_jComboBox2ActionPerformed
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        Layout.instance.showLayout("danhGiaNS");
+    }// GEN-LAST:event_jButton4ActionPerformed
 
-	private void btnSearch1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSearch1ActionPerformed
-		// TODO add your handling code here:
-	}// GEN-LAST:event_btnSearch1ActionPerformed
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }// GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        Layout.instance.showLayout("themNS");
+    }// GEN-LAST:event_jButton6ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }// GEN-LAST:event_jTextField2ActionPerformed
+
+    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jComboBox2ActionPerformed
+        // TODO add your handling code here:
+
+    }// GEN-LAST:event_jComboBox2ActionPerformed
+
+    private void btnSearch1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnSearch1ActionPerformed
+        // TODO add your handling code here:
+    }// GEN-LAST:event_btnSearch1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane body;
-    private javax.swing.JButton btnSearch;
-    private javax.swing.JButton btnSearch1;
+    private javax.swing.JButton btnSearchCN;
+    private javax.swing.JButton btnSearchNV;
+    private javax.swing.JButton btnThoiViecCN;
+    private javax.swing.JButton btnThoiViecNV;
+    private javax.swing.JComboBox<String> cboTieuChiCN;
+    private javax.swing.JComboBox<String> cboTieuChiNV;
     private javax.swing.JPanel dsCn;
     private javax.swing.JPanel dsNv;
     private javax.swing.JPanel header;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JPanel option;
     private javax.swing.JPanel option1;
     private javax.swing.JPanel search;
@@ -546,6 +653,8 @@ public class GD_QLNS extends javax.swing.JPanel {
     private javax.swing.JTable tblNV;
     private javax.swing.JLabel title;
     private javax.swing.JPanel tmp;
+    private javax.swing.JTextField txtSearchCN;
+    private javax.swing.JTextField txtSearchNV;
     // End of variables declaration//GEN-END:variables
 
 }

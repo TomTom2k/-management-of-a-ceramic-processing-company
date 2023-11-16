@@ -34,6 +34,7 @@ CREATE TABLE BangDanhGiaNhanVien (
     maNV VARCHAR(20),
     diemChuyenCan FLOAT,
     diemThaiDo FLOAT,
+	diemChuyenMon FLOAT,
     diemHieuSuat FLOAT,
     bac CHAR,
     FOREIGN KEY (maNV) REFERENCES NhanVien(maNV)
@@ -85,6 +86,7 @@ CREATE TABLE BangDanhGiaCongNhan (
     maCN VARCHAR(20),
     diemChuyenCan FLOAT,
     diemThaiDo FLOAT,
+	diemChuyenMon FLOAT,
     diemHieuSuat FLOAT,
     bac CHAR,
     FOREIGN KEY (maCN) REFERENCES CongNhan(maCN)

@@ -562,6 +562,7 @@ public class Layout extends javax.swing.JFrame {
 
     private void btnQLNSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLNSActionPerformed
         cardLayout.show(body, "tabNS");
+        GD_QLNS.instance.updateData();
         activeMenuItem(btnQLNS);
     }//GEN-LAST:event_btnQLNSActionPerformed
 
