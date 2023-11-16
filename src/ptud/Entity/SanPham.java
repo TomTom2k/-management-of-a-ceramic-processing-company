@@ -23,7 +23,7 @@ public class SanPham
   String tenSanPham;
   int soLuong;
   double donGia;
-
+  int tienDo;
     public ArrayList<CongDoan> getCongDoans() {
         return congDoans;
     }
@@ -49,29 +49,32 @@ public class SanPham
     public void setTienDo() 
     {        
         updateListCongDoans();
+        float tienDo;
         if(congDoans.size()!=0)
         {
              String max = congDoans.get(0).getMaCD();
-        this.tienDo =congDoans.get(0).getSoLuongHoanThanh(); 
+        tienDo =congDoans.get(0).getSoLuongHoanThanh(); 
          System.out.println(congDoans.get(0).getSoLuongHoanThanh());
          for(CongDoan congDoan :congDoans)
          {         
              if(congDoan.getMaCD().compareToIgnoreCase(max)>0)
              {
                  max = congDoan.getMaCD();
-                 this.tienDo = congDoan.getSoLuongHoanThanh();
-                   System.out.println(congDoan.getSoLuongHoanThanh());
+                 tienDo = congDoan.getSoLuongHoanThanh();
+                 System.out.println(congDoan.getSoLuongHoanThanh());
              }
-         }
-         this.tienDo = (int)(1.0*this.tienDo/soLuong)*100;  
+         
+             float percent = 100*tienDo/soLuong;
+        this.tienDo = (int)percent;  
+          System.out.println("percent:"+tienDo);
+        }
         }
         else
         {
             tienDo =0;
+        }    
         }
-     
-        }
-  int tienDo;
+
   public String getMaSanPham() 
     {
 		return maSanPham;

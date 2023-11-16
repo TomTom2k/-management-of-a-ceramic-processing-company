@@ -36,6 +36,8 @@ public class GD_QLHD extends javax.swing.JPanel {
         cardLayout = (CardLayout) (rightSide.getLayout());
         hopDongModel = (DefaultTableModel) hopDongTable.getModel();
         khacHangModel = (DefaultTableModel) khachHangTable.getModel();
+        hopDongTable.setRowHeight(30);
+        khachHangTable.setRowHeight(30);
         updateTable();
         gD_TaoHopDong.receiveGD_QLHD(this);
         if(jTabbedPane1.getSelectedIndex()==0)
