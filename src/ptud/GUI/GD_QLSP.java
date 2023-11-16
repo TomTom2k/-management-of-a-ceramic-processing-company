@@ -1451,7 +1451,7 @@ public class GD_QLSP extends javax.swing.JPanel {
             }
 
         }
-    }// GEN-LAST:event_jButtonLuu2MouseReleased
+    }// GEN-LAST:event_jButtonLuu2MouseReleased 
 
     private void jDateChooser1PropertyChange(java.beans.PropertyChangeEvent evt) {// GEN-FIRST:event_jDateChooser1PropertyChange
         // TODO add your handling code here:
