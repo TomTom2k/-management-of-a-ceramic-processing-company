@@ -130,12 +130,11 @@ public class DAO_PhieuLuongCongNhan implements DAOInterface<PhieuLuongCongNhan>{
             statement.setInt(2, t.getNam());
             statement.setString(3, t.getMaCN());
             statement.setDouble(4, t.getLuong());
-            statement.setString(5, t.getMaPL());
-            statement.setDouble(6, t.getThuong());
-            statement.setDouble(7, t.getPhat());
-            statement.setInt(8, t.getSoNgayLam());
-            statement.setDouble(9, t.getLuongThucNhan());
-            
+            statement.setDouble(5, t.getThuong());
+            statement.setDouble(6, t.getPhat());
+            statement.setInt(7, t.getSoNgayLam());
+            statement.setDouble(8, t.getLuongThucNhan());
+            statement.setString(9, t.getMaPL());
             // Execute the query
             int rowsAffected = statement.executeUpdate();
           
