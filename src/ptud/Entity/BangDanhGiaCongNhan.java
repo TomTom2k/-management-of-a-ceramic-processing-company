@@ -1,28 +1,27 @@
 package ptud.Entity;
 
-
 import ptud.Entity.CongNhan;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-
 /**
  *
  * @author TomTom
  */
 public class BangDanhGiaCongNhan {
-    private long id;
+
+    private String id;
     private CongNhan congNhan;
     private int nam;
     private float diemChuyenCan;
-    private float diemchuyenMon;
+    private float diemChuyenMon;
     private float diemThaiDo;
     private float diemHieuSuat;
     private char bac;
 
-    public long getId() {
+    public String getId() {
         return id;
     }
 
@@ -39,7 +38,7 @@ public class BangDanhGiaCongNhan {
     }
 
     public float getDiemchuyenMon() {
-        return diemchuyenMon;
+        return diemChuyenMon;
     }
 
     public float getDiemThaiDo() {
@@ -54,7 +53,7 @@ public class BangDanhGiaCongNhan {
         return bac;
     }
 
-    public void setId(long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -71,7 +70,7 @@ public class BangDanhGiaCongNhan {
     }
 
     public void setDiemchuyenMon(float diemchuyenMon) {
-        this.diemchuyenMon = diemchuyenMon;
+        this.diemChuyenMon = diemchuyenMon;
     }
 
     public void setDiemThaiDo(float diemThaiDo) {
@@ -81,34 +80,66 @@ public class BangDanhGiaCongNhan {
     public void setDiemHieuSuat(float diemHieuSuat) {
         this.diemHieuSuat = diemHieuSuat;
     }
-    
+
+    public float tinhTongDiem() {
+        return this.diemChuyenCan + this.diemHieuSuat + this.diemThaiDo + this.diemChuyenMon;
+    }
+
     public void tinhBac() {
-        float tong = this.diemChuyenCan + this.diemHieuSuat + this.diemThaiDo + this.diemchuyenMon;
-        if(tong < 20)   
+        float tong = tinhTongDiem();
+        if (tong < 20) {
             this.bac = 'D';
-        else if(tong <25)
+        } else if (tong < 25) {
             this.bac = 'C';
-        else if(tong <35)
+        } else if (tong < 35) {
             this.bac = 'B';
-        else 
+        } else {
             this.bac = 'A';
+        }
     }
 
     public BangDanhGiaCongNhan() {
     }
 
-    public BangDanhGiaCongNhan(long id, CongNhan congNhan, int nam, float diemChuyenCan, float diemchuyenMon, float diemThaiDo, float diemHieuSuat) {
+    public BangDanhGiaCongNhan(CongNhan congNhan, int nam, float diemChuyenCan, float diemChuyenMon, float diemThaiDo, float diemHieuSuat) {
+        this.id = genMaBDG(congNhan.getMaCN(), nam);
+        this.congNhan = congNhan;
+        this.nam = nam;
+        this.diemChuyenCan = diemChuyenCan;
+        this.diemChuyenMon = diemChuyenMon;
+        this.diemThaiDo = diemThaiDo;
+        this.diemHieuSuat = diemHieuSuat;
+        tinhBac();
+    }
+
+    public BangDanhGiaCongNhan(String id, CongNhan congNhan, int nam, float diemChuyenCan, float diemchuyenMon, float diemThaiDo, float diemHieuSuat, char bac) {
         this.id = id;
         this.congNhan = congNhan;
         this.nam = nam;
         this.diemChuyenCan = diemChuyenCan;
-        this.diemchuyenMon = diemchuyenMon;
+        this.diemChuyenMon = diemchuyenMon;
         this.diemThaiDo = diemThaiDo;
         this.diemHieuSuat = diemHieuSuat;
+        this.bac = bac;
+    }
+
+    public BangDanhGiaCongNhan(CongNhan congNhan, int nam, float diemChuyenCan, float diemchuyenMon, float diemThaiDo, float diemHieuSuat, char bac) {
+        this.id = genMaBDG(congNhan.getMaCN(), nam);
+        this.congNhan = congNhan;
+        this.nam = nam;
+        this.diemChuyenCan = diemChuyenCan;
+        this.diemChuyenMon = diemchuyenMon;
+        this.diemThaiDo = diemThaiDo;
+        this.diemHieuSuat = diemHieuSuat;
+        this.bac = bac;
+    }
+
+    private String genMaBDG(String maCongNhan, int nam) {
+        return maCongNhan + nam;
     }
 
     @Override
     public String toString() {
-        return "BangDanhGia{" + "id=" + id + ", congNhan=" + congNhan + ", nam=" + nam + ", diemChuyenCan=" + diemChuyenCan + ", diemchuyenMon=" + diemchuyenMon + ", diemThaiDo=" + diemThaiDo + ", diemHieuSuat=" + diemHieuSuat + ", bac=" + bac + '}';
+        return "BangDanhGia{" + "id=" + id + ", congNhan=" + congNhan + ", nam=" + nam + ", diemChuyenCan=" + diemChuyenCan + ", diemchuyenMon=" + diemChuyenMon + ", diemThaiDo=" + diemThaiDo + ", diemHieuSuat=" + diemHieuSuat + ", bac=" + bac + '}';
     }
 }

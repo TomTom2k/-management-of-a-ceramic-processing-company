@@ -11,6 +11,7 @@ import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -41,15 +42,33 @@ public class GD_ThemNS extends javax.swing.JPanel {
         // Kiểm tra tên không được trống
         String ten = txtName.getText().trim();
         if (ten.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập tên người sử dụng", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập tên", "Lỗi", JOptionPane.ERROR_MESSAGE);
             txtName.requestFocusInWindow();
+            return false;
+        }
+        if (!ten.matches("([a-zA-Z\\p{IsLatin}]* ?)*")) {
+            JOptionPane.showMessageDialog(null, "Tên không được chứa ký tự đặc biệt và chỉ gồm chữ cái và khoảng trắng", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            txtName.requestFocusInWindow();
+            return false;
+        }
+
+        Date dateNgaySinh = txtNgaySinh.getDate();
+        if (dateNgaySinh == null) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn ngày sinh", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            txtNgaySinh.requestFocusInWindow();
             return false;
         }
 
         // Kiểm tra ngày sinh không được null và không trong tương lai
         LocalDate ngaySinh = txtNgaySinh.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        if (ngaySinh == null || ngaySinh.isAfter(LocalDate.now())) {
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn ngày sinh hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        if (ngaySinh == null) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn ngày sinh", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            txtNgaySinh.requestFocusInWindow();
+            return false;
+        }
+        if (ngaySinh.isAfter(LocalDate.now().minusYears(18))) {
+            JOptionPane.showMessageDialog(null, "Ngày sinh không hợp lệ. Phải lớn hơn hoặc bằng 18 tuổi.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+
             txtNgaySinh.requestFocusInWindow();
             return false;
         }
@@ -61,6 +80,11 @@ public class GD_ThemNS extends javax.swing.JPanel {
             txtCccd.requestFocusInWindow();
             return false;
         }
+        if (!cccd.matches("\\d{12}")) {
+            JOptionPane.showMessageDialog(null, "CCCD phải có đúng 12 số", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            txtCccd.requestFocusInWindow();
+            return false;
+        }
 
         // Kiểm tra số điện thoại không được trống và phải là số
         String dienThoai = txtDienThoai.getText().trim();
@@ -69,7 +93,18 @@ public class GD_ThemNS extends javax.swing.JPanel {
             txtDienThoai.requestFocusInWindow();
             return false;
         }
+        if (!dienThoai.matches("\\d{10}")) {
+            JOptionPane.showMessageDialog(null, "Số điện thoại phải có đúng 10 số", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            txtDienThoai.requestFocusInWindow();
+            return false;
+        }
 
+        Date dateNgayVaoLam = txtNgayBatDauLam.getDate();
+        if (dateNgayVaoLam == null) {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn ngày vào làm", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            txtNgayBatDauLam.requestFocusInWindow();
+            return false;
+        }
         // Kiểm tra ngày vào làm không được null và không trong tương lai
         LocalDate ngayVaoLam = txtNgayBatDauLam.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         if (ngayVaoLam == null || ngayVaoLam.isAfter(LocalDate.now())) {
@@ -86,13 +121,23 @@ public class GD_ThemNS extends javax.swing.JPanel {
             return false;
         }
 
-        // Kiểm tra lương cơ bản và thưởng là số
-        String luongCoBan = txtLuongCoBan.getText().trim();
-        String thuong = txtThuong.getText().trim();
-        if (!luongCoBan.matches("\\d+") || !thuong.matches("\\d+")) {
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập lương cơ bản và thưởng là số hợp lệ", "Lỗi", JOptionPane.ERROR_MESSAGE);
-            txtLuongCoBan.requestFocusInWindow();
-            return false;
+        if (rdoNhanVien.isSelected()) {
+
+            // Kiểm tra lương cơ bản là số không âm
+            String luongCoBan = txtLuongCoBan.getText().trim();
+            if (!luongCoBan.matches("\\d+")) {
+                JOptionPane.showMessageDialog(null, "Lương cơ bản phải là số không âm", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                txtLuongCoBan.requestFocusInWindow();
+                return false;
+            }
+
+            // Kiểm tra thưởng là số không âm
+            String thuong = txtThuong.getText().trim();
+            if (!thuong.matches("\\d+")) {
+                JOptionPane.showMessageDialog(null, "Thưởng phải là số không âm", "Lỗi", JOptionPane.ERROR_MESSAGE);
+                txtThuong.requestFocusInWindow();
+                return false;
+            }
         }
 
         // Nếu đã qua tất cả kiểm tra, trả về true
@@ -266,7 +311,7 @@ public class GD_ThemNS extends javax.swing.JPanel {
 
         lblName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblName.setForeground(new java.awt.Color(0, 0, 0));
-        lblName.setText("Tên công nhân:");
+        lblName.setText("Tên nhân viên:");
         lblName.setPreferredSize(new java.awt.Dimension(180, 100));
         lblName.setRequestFocusEnabled(false);
         name.add(lblName, java.awt.BorderLayout.WEST);
@@ -424,7 +469,6 @@ public class GD_ThemNS extends javax.swing.JPanel {
         jPanel1.add(btnUpload, java.awt.BorderLayout.WEST);
 
         txtPath.setEditable(false);
-        txtPath.setText("Chọn file ...");
         txtPath.setBorder(null);
         txtPath.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -516,7 +560,7 @@ public class GD_ThemNS extends javax.swing.JPanel {
     }//GEN-LAST:event_btnUploadActionPerformed
 
     private void rdoCongNhanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdoCongNhanMouseClicked
-        System.out.print(rdoCongNhan.isSelected() + ":" + rdoNhanVien.isSelected());
+        lblName.setText("Tên công nhân:");
         thuong.setVisible(false);
         luongCoBan.setVisible(false);
         revalidate();
@@ -530,7 +574,7 @@ public class GD_ThemNS extends javax.swing.JPanel {
     }//GEN-LAST:event_typeMouseClicked
 
     private void rdoNhanVienMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdoNhanVienMouseClicked
-        System.out.print(rdoCongNhan.isSelected() + ":" + rdoNhanVien.isSelected());
+        lblName.setText("Tên nhân viên:");
         thuong.setVisible(true);
         luongCoBan.setVisible(true);
         revalidate();
@@ -560,7 +604,7 @@ public class GD_ThemNS extends javax.swing.JPanel {
                 byte[] avatar = Files.readAllBytes(path);
 
                 if (rdoCongNhan.isSelected()) {
-                    CongNhan congNhan = new CongNhan(boPhan, ten, rdoNu.isSelected(), ngaySinh, ngayBatDauLam, cccd, dienThoai, true, avatar, true);
+                    CongNhan congNhan = new CongNhan(boPhan, ten, rdoNam.isSelected(), ngaySinh, ngayBatDauLam, cccd, dienThoai, true, avatar, true);
                     DAO_CongNhan daoCongNhan = DAO_CongNhan.getInstance();
                     daoCongNhan.insert(congNhan);
                     JOptionPane.showMessageDialog(null, "Thêm công nhân thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);
@@ -568,7 +612,7 @@ public class GD_ThemNS extends javax.swing.JPanel {
                 } else {
                     double luongCoBan = Double.parseDouble(txtLuongCoBan.getText());
                     double thuong = Double.parseDouble(txtThuong.getText());
-                    NhanVien nhanVien = new NhanVien(boPhan, ten, rdoNu.isSelected(), ngaySinh, ngayBatDauLam, cccd, dienThoai, true, avatar, luongCoBan, thuong);
+                    NhanVien nhanVien = new NhanVien(boPhan, ten, rdoNam.isSelected(), ngaySinh, ngayBatDauLam, cccd, dienThoai, true, avatar, luongCoBan, thuong);
                     DAO_NhanVien daoNhanVien = DAO_NhanVien.getInstance();
                     daoNhanVien.insert(nhanVien);
                     JOptionPane.showMessageDialog(null, "Thêm nhân viên thành công!", "Thành công", JOptionPane.INFORMATION_MESSAGE);

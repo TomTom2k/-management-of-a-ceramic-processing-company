@@ -66,9 +66,8 @@ public class DAO_NhanVien implements DAOInterface<NhanVien> {
             ConnectDB.getInstance();
             java.sql.Connection connection = ConnectDB.getConnection();
 
-            String query = "SELECT * FROM NhanVien";
+            String query = "SELECT * FROM NhanVien WHERE trangThai = 1";
             PreparedStatement statement = connection.prepareStatement(query);
-
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
