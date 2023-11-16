@@ -247,7 +247,6 @@ public class DAO_ChiTietPhanCong implements DAOInterface<ChiTietPhanCong> {
             Logger.getLogger(DAO_ChiTietPhanCong.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-}
 
     public static String getMaChiTietPhanCongBymaCN(String maCN) {
         try {
