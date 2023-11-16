@@ -284,6 +284,26 @@ public class DAO_ChiTietPhanCong implements DAOInterface<ChiTietPhanCong> {
         }
         return "-1";
     }
+    public int getSoLuongCongDoanHoanThanhByMaCongNhan(String maCN, LocalDate date) {
+        try {
+            String fotmatNgay = date.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            String query = "select sum(p.soLuongCD + p.soLuongCDTangCa) as soLuong\n" +
+                    "from [dbo].[PhieuChamCongCongNhan] p\n" +
+                    "join [dbo].[ChiTietPhanCong] c on p.maCTPC = c.maCTPC\n" +
+                    "where c.maCN = ? and p.ngayChamCong = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, maCN);
+            statement.setString(2, fotmatNgay);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                return resultSet.getInt("soLuong");
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_ChiTietPhanCong.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return 0;
+    }
 }
 
    
