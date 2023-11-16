@@ -80,7 +80,7 @@ CREATE TABLE CongNhan (
 CREATE TABLE BangDanhGiaCongNhan (
 	maBDG VARCHAR(50) PRIMARY KEY,
     nam INT,
-    maCN VARCHAR(20),
+    maCN VARCHAR(50),
     diemChuyenCan FLOAT,
     diemThaiDo FLOAT,
 	diemChuyenMon FLOAT,
