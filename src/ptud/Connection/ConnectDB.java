@@ -33,7 +33,7 @@ public class ConnectDB {
 				//String url = "jdbc:sqlserver://localhost:1433;databaseName=HotelManagement;integratedSecurity=true;";
 			
 			//Login by SQL Login
-				String url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyLSP2";
+				String url = "jdbc:sqlserver://localhost:1433;databaseName=QuanLyLSP";
 				String username = "sa";
 				String password = "12345678";
 				
