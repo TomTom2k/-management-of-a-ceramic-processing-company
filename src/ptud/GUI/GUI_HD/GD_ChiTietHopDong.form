@@ -450,7 +450,7 @@
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="c0" green="de" red="c6" type="rgb"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="h&#x1ee7;y h&#x1ee3;p &#x111;&#x1ed3;ng"/>
+                <Property name="text" type="java.lang.String" value="H&#x1ee7;y h&#x1ee3;p &#x111;&#x1ed3;ng"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="huyButtonActionPerformed"/>

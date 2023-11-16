@@ -50,7 +50,9 @@ public class DAO_CongNhan implements DAOInterface<CongNhan> {
             String query = "SELECT * FROM CongNhan WHERE trangThai = 1";
             PreparedStatement statement = connection.prepareStatement(query);
 
-            ResultSet resultSet = statement.executeQuery();
+
+           ResultSet resultSet = statement.executeQuery();
+
 
             while (resultSet.next()) {
                 String maCN = resultSet.getString("maCN");
@@ -78,6 +80,7 @@ public class DAO_CongNhan implements DAOInterface<CongNhan> {
     public boolean insert(CongNhan congNhan) {
         try {
             String sql = "INSERT INTO CongNhan (maCN, maBP, tenCN, gioiTinh, ngaySinh, ngayBatDauLam, CCCD, dienThoai, trangThai, hinhAnh, choPhanCong) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, congNhan.getMaCN());
             statement.setString(2, congNhan.getBoPhan().getMaBP()); // Điều chỉnh tên cột maBP tùy thuộc vào cơ sở dữ liệu của bạn
@@ -115,7 +118,7 @@ public class DAO_CongNhan implements DAOInterface<CongNhan> {
             statement.setBytes(9, congNhan.getAvatar());
             statement.setBoolean(10, congNhan.isChoPhanCong());
             statement.setString(11, congNhan.getMaCN());
-
+          
             int rowsAffected = statement.executeUpdate();
             return rowsAffected > 0;
         } catch (SQLException e) {

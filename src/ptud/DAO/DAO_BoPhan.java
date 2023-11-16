@@ -1,12 +1,13 @@
 package ptud.DAO;
 
-
 import java.util.ArrayList;
 import ptud.DAO.DAOInterface;
 import ptud.Entity.BoPhan;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import ptud.Connection.ConnectDB;
 import static ptud.Main.connection;
 
@@ -19,6 +20,10 @@ import static ptud.Main.connection;
  * @author TomTom
  */
 public class DAO_BoPhan implements DAOInterface<BoPhan> {
+    public static DAO_BoPhan getInstance() {
+        return new DAO_BoPhan();
+    }
+
     public static DAO_BoPhan getInstance() {
         return new DAO_BoPhan();
     }
@@ -154,4 +159,48 @@ public class DAO_BoPhan implements DAOInterface<BoPhan> {
         return filteredList;
     }
 
+    public static String getMaBoPhanByTenBoPhan(String tenBoPhan) {
+        try {
+            String query = "select maBP\n"
+                    + "from [dbo].[BoPhan]\n"
+                    + "where tenBP = ?";
+            PreparedStatement statement;
+            statement = connection.prepareStatement(query);
+            statement.setNString(1, tenBoPhan);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                String ketqua = resultSet.getString("maBP");
+                return ketqua;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_BoPhan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
+    }
+
+    public ArrayList<BoPhan> filter(String prefix) {
+        ArrayList<BoPhan> filteredList = new ArrayList<>();
+        try {
+            ConnectDB.getInstance();
+            java.sql.Connection connection = ConnectDB.getConnection();
+
+            // Sử dụng LIKE để lọc các bộ phận bắt đầu bằng "HC" hoặc "SX"
+            String query = "SELECT * FROM BoPhan WHERE maBP LIKE ? OR maBP LIKE ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, prefix + "%");
+            statement.setString(2, prefix + "%");
+
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                String maBP = resultSet.getString("maBP");
+                String tenBP = resultSet.getString("tenBP");
+                BoPhan boPhan = new BoPhan(maBP, tenBP);
+                filteredList.add(boPhan);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return filteredList;
+    }
 }

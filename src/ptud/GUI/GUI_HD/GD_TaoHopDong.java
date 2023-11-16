@@ -41,8 +41,16 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
         initComponents();
         cardLayout = (CardLayout) body_body_2.getLayout();
         modelSanPham = (DefaultTableModel) jTable1.getModel();
+        addListKH();
     }
-
+    public void addListKH()
+    {
+        jComboBox1.removeAllItems();
+        for(KhachHang khachHang : daokh.getAll())
+        {
+            jComboBox1.addItem(khachHang.getMaKhachHang());
+        }
+    }
     public void receiveGD_QLHD(GD_QLHD gd_qlhd) {
         gd_QLHD = gd_qlhd;
     }
@@ -70,6 +78,7 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
                 KhachHang khachHang = new KhachHang(daokh.getAll().size() + 1, tenKH, jRadioButtonToChuc.isEnabled(), email, sdt);
                 daokh.insert(khachHang);
                 gd_QLHD.updateTable();
+                addListKH();
             }
         } catch (Exception e) {
 
@@ -136,15 +145,7 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
                 err_tenHD.setText("Chữ cái đầu phải viết hoa");
                 isCreate = false;
             }
-            if (!checkRegex("^[0-9]{6}$", jTextFieldMaKH.getText())) {
-                err_maKH.setText("Mã khách hàng phải thuộc định dạng 6 ký tự số");
-                isCreate = false;
-
-            }
-            if (findKH() == false) {
-                err_maKH.setText("Mã khách hàng không tồn tại");
-                isCreate = false;
-            }
+        
             if (giaTri <= 0) {
                 err_TriGiaHD.setText("Gía trị tài khoản phải là số không âm!");
                 isCreate = false;
@@ -160,14 +161,14 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
                 try {
 
                     String tenHD = jTextFieldTenHD.getText();
-                    String maKH = jTextFieldMaKH.getText();
+
                     int stt = 1;
                     for (HopDong hopDong : daohd.getAll()) {
                         if (hopDong.getNgayBatDau().equals(ngayBD)) {
                             stt++;
                         }
                     }
-                    hopDong = new HopDong(stt, tenHD, ngayBD, ngayKT, giaTri, maKH, "Chờ xác nhận");
+                    hopDong = new HopDong(stt, tenHD, ngayBD, ngayKT, giaTri, jComboBox1.getSelectedItem().toString(), "Chờ xác nhận");
                     daohd.insert(hopDong);
                 } catch (Exception e) {
                     JOptionPane.showConfirmDialog(this, "Lỗi tạo hợp đồng!");
@@ -197,14 +198,7 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
         err_TriGiaHD.setText("");
     }
 
-    boolean findKH() {
-        for (KhachHang khachHang : daokh.getAll()) {
-            if (khachHang.getMaKhachHang().compareToIgnoreCase(jTextFieldMaKH.getText()) == 0) {
-                return true;
-            }
-        }
-        return false;
-    }
+
 
     void changeObjectToEnity(Object[] rowData, int stt) {
         double donGia;
@@ -236,7 +230,6 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jTextFieldTenHD = new javax.swing.JTextField();
-        jTextFieldMaKH = new javax.swing.JTextField();
         jTextFieldGiaHD = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -248,6 +241,7 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
         errnKT = new javax.swing.JLabel();
         err_TriGiaHD = new javax.swing.JLabel();
         jButton7 = new javax.swing.JButton();
+        jComboBox1 = new javax.swing.JComboBox<>();
         body_1 = new javax.swing.JPanel();
         heading_body_1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -332,12 +326,6 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
         jTextFieldTenHD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldTenHDActionPerformed(evt);
-            }
-        });
-
-        jTextFieldMaKH.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldMaKHActionPerformed(evt);
             }
         });
 
@@ -432,16 +420,16 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
                                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGroup(headingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headingLayout.createSequentialGroup()
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(err_maKH))
                                             .addGroup(headingLayout.createSequentialGroup()
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addGroup(headingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addComponent(jDateChooser4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                                     .addComponent(jDateChooser3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                    .addComponent(jTextFieldMaKH)
-                                                    .addComponent(jTextFieldTenHD, javax.swing.GroupLayout.Alignment.TRAILING)))
-                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, headingLayout.createSequentialGroup()
-                                                .addGap(80, 80, 80)
-                                                .addComponent(err_maKH)))))))
+                                                    .addComponent(jTextFieldTenHD, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))))
                         .addGap(18, 18, 18)))
                 .addGap(39, 39, 39)
                 .addComponent(errnKT))
@@ -458,8 +446,8 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
                 .addComponent(err_tenHD)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(headingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextFieldMaKH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(2, 2, 2)
                 .addComponent(err_maKH)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -878,10 +866,6 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldGiaHDActionPerformed
 
-    private void jTextFieldMaKHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldMaKHActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldMaKHActionPerformed
-
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         jLabel21.setText("");
         jLabel22.setText("");
@@ -910,6 +894,7 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
+    private javax.swing.JComboBox<String> jComboBox1;
     private com.toedter.calendar.JDateChooser jDateChooser3;
     private com.toedter.calendar.JDateChooser jDateChooser4;
     private javax.swing.JLabel jLabel1;
@@ -947,7 +932,6 @@ public class GD_TaoHopDong extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField8;
     private javax.swing.JTextField jTextField9;
     private javax.swing.JTextField jTextFieldGiaHD;
-    private javax.swing.JTextField jTextFieldMaKH;
     private javax.swing.JTextField jTextFieldMail;
     private javax.swing.JTextField jTextFieldSDT;
     private javax.swing.JTextField jTextFieldTenHD;

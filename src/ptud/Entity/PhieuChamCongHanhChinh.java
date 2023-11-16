@@ -11,6 +11,7 @@ import java.time.LocalDate;
  * @author TranLoc
  */
 public class PhieuChamCongHanhChinh {
+    private String maPCCHC;
     private String maNV;
     private LocalDate ngay;
     private boolean vang, diTre;
@@ -18,7 +19,8 @@ public class PhieuChamCongHanhChinh {
     private double tienPhat;
     private String noiDungTienPhat;
 
-    public PhieuChamCongHanhChinh(String maNV, LocalDate ngay, boolean vang, boolean diTre, int gioTangCa, double tienPhat, String noiDungTienPhat) {
+    public PhieuChamCongHanhChinh(String maPCCHC, String maNV, LocalDate ngay, boolean vang, boolean diTre, int gioTangCa, double tienPhat, String noiDungTienPhat) {
+        this.maPCCHC = maPCCHC;
         this.maNV = maNV;
         this.ngay = ngay;
         this.vang = vang;
@@ -27,6 +29,16 @@ public class PhieuChamCongHanhChinh {
         this.tienPhat = tienPhat;
         this.noiDungTienPhat = noiDungTienPhat;
     }
+
+    public String getMaPCCHC() {
+        return maPCCHC;
+    }
+
+    public void setMaPCCHC(String maPCCHC) {
+        this.maPCCHC = maPCCHC;
+    }
+
+    
 
     public PhieuChamCongHanhChinh() {
     }

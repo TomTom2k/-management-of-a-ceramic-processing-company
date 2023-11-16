@@ -12,7 +12,7 @@ import java.util.Date;
  * @author TranLoc
  */
 public class PhieuChamCongCongNhan {
-    private String maCN;
+    private String maPCCCN;
     private LocalDate ngay;
     private boolean vang;
     private int soLuongSanPham;
@@ -26,8 +26,8 @@ public class PhieuChamCongCongNhan {
     public PhieuChamCongCongNhan() {
     }
 
-    public PhieuChamCongCongNhan(String maCN, LocalDate ngay, boolean vang, int soLuongSanPham, String maCTPC, String noiDungPhat, double tongTienCD, double tienThuong, double tienPhat, int soLuongSanPhamTangCa) {
-        this.maCN = maCN;
+    public PhieuChamCongCongNhan(String maPCCCN, String maCN, LocalDate ngay, boolean vang, int soLuongSanPham, String maCTPC, String noiDungPhat, double tienCong, double tienThuong, double tienPhat, int soLuongSanPhamTangCa) {
+        this.maPCCCN = maPCCCN;
         this.ngay = ngay;
         this.vang = vang;
         this.soLuongSanPham = soLuongSanPham;
@@ -39,20 +39,22 @@ public class PhieuChamCongCongNhan {
         this.soLuongSanPhamTangCa = soLuongSanPhamTangCa;
     }
 
+    public String getMaPCCCN() {
+        return maPCCCN;
+    }
+
+    public void setMaPCCCN(String maPCCCN) {
+        this.maPCCCN = maPCCCN;
+    }
+
+    
+
     public boolean isVang() {
         return vang;
     }
 
     public void setVang(boolean vang) {
         this.vang = vang;
-    }
-
-    public String getMaCN() {
-        return maCN;
-    }
-
-    public void setMaCN(String maCN) {
-        this.maCN = maCN;
     }
 
     public LocalDate getNgay() {
@@ -118,4 +120,10 @@ public class PhieuChamCongCongNhan {
     public void setSoLuongSanPhamTangCa(int soLuongSanPhamTangCa) {
         this.soLuongSanPhamTangCa = soLuongSanPhamTangCa;
     }      
+
+    @Override
+    public String toString() {
+        return "PhieuChamCongCongNhan{" + "maPCCCN=" + maPCCCN + ", ngay=" + ngay + ", vang=" + vang + ", soLuongSanPham=" + soLuongSanPham + ", maCTPC=" + maCTPC + ", noiDungPhat=" + noiDungPhat + ", tienCong=" + tienCong + ", tienThuong=" + tienThuong + ", tienPhat=" + tienPhat + ", soLuongSanPhamTangCa=" + soLuongSanPhamTangCa + '}';
+    }
+    
 }
