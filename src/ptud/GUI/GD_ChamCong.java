@@ -607,6 +607,7 @@ public class GD_ChamCong extends javax.swing.JPanel {
             phieuChamCongCongNhan.setTienThuong((int) (model.getValueAt(i, 6)));
             try {
                 boolean kq = DAO_PhieuChamCongCongNhan.getInstance().insert(phieuChamCongCongNhan);
+                DAO_ChiTietPhanCong.getInstance().updateChoPhanCong(maCN, true);
 //                if (kq) {
 //                    JOptionPane.showMessageDialog(this,
 //                            "Chấm công thành công",
