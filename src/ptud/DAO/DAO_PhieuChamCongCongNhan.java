@@ -29,10 +29,10 @@ public class DAO_PhieuChamCongCongNhan {
 
     public static String formatChuoi(int thang, int nam, String idCN) {
         String thangStr = String.format("%02d", thang);
-        String namStr = String.format("%02d", nam % 100);
+        String namStr = String.format("%04d", nam);
         return thangStr + namStr + idCN;
     }
-
+    
     public static String formatID_PCCCN(LocalDate date, String idCN) {
         String formattedDate = date.format(DateTimeFormatter.ofPattern("ddMMyy"));
         return formattedDate + idCN;
@@ -125,7 +125,7 @@ public class DAO_PhieuChamCongCongNhan {
         }
         return 0;
     }
-
+ 
     public float getTongTienCongTangCaTrongThang(String idCN, int thang, int nam) throws SQLException {
         String query = "select sum(soLuongCDTangCa * donGia * 1.2) as tongTien\n"
                 + "from [dbo].[PhieuChamCongCongNhan] p\n"
