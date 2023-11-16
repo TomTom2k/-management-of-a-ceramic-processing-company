@@ -5,6 +5,7 @@
 package ptud.GUI;
 
 import java.awt.Component;
+import java.io.EOFException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -15,10 +16,14 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellEditor;
+import javax.swing.text.JTextComponent;
+
 import org.jdesktop.swingx.autocomplete.AutoCompleteComboBoxEditor;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 import ptud.DAO.*;
@@ -40,7 +45,10 @@ public class GD_QLSP extends javax.swing.JPanel {
      */
     public GD_QLSP() {
         initComponents();
+        init();
+    }
 
+    public void init() {
         AutoCompleteDecorator.decorate(jComboBoxMaHopDong);
         AutoCompleteDecorator.decorate(jComboBoxMaBoPhan);
         AutoCompleteDecorator.decorate(jComboBoxCDTQ);
@@ -49,7 +57,7 @@ public class GD_QLSP extends javax.swing.JPanel {
         dsCongNhan = new DAO_CongNhan().getAll();
         dsSanPham = DAO_SanPham.getInstance().getAll();
         dsCongDoan = new DAO_CongDoan().getAll();
-        dsBoPhan = new ArrayList<BoPhan>(); 
+        dsBoPhan = new ArrayList<BoPhan>();
         dsCTPC = new ArrayList<ChiTietPhanCong>();
         // loaddata to jComboBoxMaHopDong
         for (HopDong h : dsHopDong) {
@@ -65,7 +73,8 @@ public class GD_QLSP extends javax.swing.JPanel {
             if (boPhan.getMaBP().startsWith("SX")) {
                 jComboBoxMaBoPhan.addItem(boPhan.getMaBP());
                 jComboBoxBoPhan.addItem(boPhan.getTenBP());
-                dsBoPhan.add(boPhan); 
+                jComboBoxBoPhan1.addItem(boPhan.getTenBP());
+                dsBoPhan.add(boPhan);
             }
         }
 
@@ -74,12 +83,16 @@ public class GD_QLSP extends javax.swing.JPanel {
             jComboBoxSanPham.addItem(sanPham.getTenSanPham());
         }
 
+        // loaddata jcombobox congdoan
+        for (CongDoan cd : DAO_CongDoan.getInstance().getAll())
+            jComboBoxCongDoan.addItem(cd.getTenCD());
+
         // loaddata to jtableCongDoan
         loadDsCongDoan();
-        loadDsCongNhan(); 
+        loadDsCongNhan();
 
         jDateChooser1.setDate(new Date());
-        loadDsCTPC(); 
+        loadDsCTPC();
     }
 
     // biến toàn cục
@@ -153,23 +166,24 @@ public class GD_QLSP extends javax.swing.JPanel {
         dsCongNhan = DAO_CongNhan.getInstance().getAll();
         DefaultTableModel tblModelCongNhan = (DefaultTableModel) jTableCongNhan.getModel();
         tblModelCongNhan.setRowCount(0);
-        for( CongNhan cn : dsCongNhan ) {
+        for (CongNhan cn : dsCongNhan) {
             int idBP = jComboBoxBoPhan.getSelectedIndex() - 1;
-            if(!cn.isTrangThai()) 
-                continue; 
-            if(idBP >= 0) {
-                if( !cn.getBoPhan().getMaBP().equals(dsBoPhan.get(idBP).getMaBP()) ) 
-                    continue; 
+            if (!cn.isTrangThai())
+                continue;
+            if (idBP >= 0) {
+                if (!cn.getBoPhan().getMaBP().equals(dsBoPhan.get(idBP).getMaBP()))
+                    continue;
             } else {
                 int row = jTableCongDoan1.getSelectedRow();
-                if(row>=0) {
+                if (row >= 0) {
                     String macd = (String) jTableCongDoan1.getValueAt(row, 0);
                     String mabp = DAO_CongDoan.getInstance().get(macd).getMaBP();
-                    if( !cn.getBoPhan().getMaBP().equals(mabp) )
+                    if (!cn.getBoPhan().getMaBP().equals(mabp))
                         continue;
                 }
             }
-            if( cn.isChoPhanCong() ) {
+
+            if (cn.isChoPhanCong()) {
                 // add to jTableCongNhan
                 String tbData[] = { cn.getMaCN(), cn.getTen(), "" };
                 tblModelCongNhan.addRow(tbData);
@@ -178,20 +192,38 @@ public class GD_QLSP extends javax.swing.JPanel {
     }
 
     private void loadDsCTPC() {
+
         Instant instant = jDateChooser1.getDate().toInstant();
         LocalDate localDate = instant.atZone(ZoneId.systemDefault()).toLocalDate();
         ArrayList<ChiTietPhanCong> dsCTPC = DAO_ChiTietPhanCong.getInstance().getAllByNgay(localDate);
         DefaultTableModel tblModelCTPC = (DefaultTableModel) jTableCTPC.getModel();
         tblModelCTPC.setRowCount(0);
+
+        String bp = jComboBoxBoPhan1.getSelectedItem().toString();
+        String cd2 = jComboBoxCongDoan.getSelectedItem().toString();
+
         for (ChiTietPhanCong ctpc : dsCTPC) {
             CongNhan cn = DAO_CongNhan.getInstance().get(ctpc.getMaCN());
             int soLuongHoanThanh = 0;
-            // tính số lượng hoàn thành từ PhieuChamCongCongNhan
             CongDoan cd = DAO_CongDoan.getInstance().get(ctpc.getMaCD());
-            String tbData[] = { ctpc.getMaCN(), cn.getTen(), cn.getBoPhan().getTenBP(), cd.getMaSP(), ctpc.getMaCD(), ctpc.getSoLuongCDGiao()+"",soLuongHoanThanh+"" };
-            tblModelCTPC.addRow(tbData);
+
+            String tenBP = new DAO_BoPhan().get(DAO_CongDoan.getInstance().get(ctpc.getMaCD()).getMaBP()).getTenBP();
+            String tenCD = cd.getTenCD();
+            boolean ok = true;
+            if (!tenBP.equals(bp) && !bp.equals("Tất cả")) {
+                ok = false;
+            }
+
+            if (!tenCD.equals(cd2) && !cd2.equals("Tất cả"))
+                ok = false;
+
+            if (ok) {
+                String tbData[] = { ctpc.getMaCN(), cn.getTen(), tenBP, cd.getMaSP(), tenCD,
+                        ctpc.getSoLuongCDGiao() + "", soLuongHoanThanh + "" };
+                tblModelCTPC.addRow(tbData);
+            }
         }
-    
+
     }
 
     private void clearData() {
@@ -215,6 +247,7 @@ public class GD_QLSP extends javax.swing.JPanel {
      * regenerated by the Form Editor.
      */
     @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -269,22 +302,21 @@ public class GD_QLSP extends javax.swing.JPanel {
         jTableCongNhan = new javax.swing.JTable();
         jButtonPhanCong = new javax.swing.JButton();
         jButtonNhapSoLuong = new javax.swing.JButton();
+        jTextFieldSoLuong = new javax.swing.JTextField();
+        jButtonLuu2 = new javax.swing.JButton();
         jComboBoxBoPhan = new javax.swing.JComboBox<>();
         jPanel10 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
         jTableCTPC = new javax.swing.JTable();
         jLabel9 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        jButtonSua1 = new javax.swing.JButton();
+        jButtonXoa1 = new javax.swing.JButton();
+        jButtonLuu1 = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
-        jComboBoxMaHopDong1 = new javax.swing.JComboBox<>();
         jLabel11 = new javax.swing.JLabel();
-        jComboBoxMaHopDong4 = new javax.swing.JComboBox<>();
-        jLabel12 = new javax.swing.JLabel();
-        jComboBoxSapXep1 = new javax.swing.JComboBox<>();
-        jToggleButton2 = new javax.swing.JToggleButton();
+        jComboBoxCongDoan = new javax.swing.JComboBox<>();
+        jComboBoxBoPhan1 = new javax.swing.JComboBox<>();
 
         jButtonTaoMoi.setText("Tạo mới");
         jButtonTaoMoi.setEnabled(false);
@@ -389,6 +421,8 @@ public class GD_QLSP extends javax.swing.JPanel {
                 "Mã công đoạn", "Tên công đoạn"
             }
         ));
+        jTableCDTQ.setCellSelectionEnabled(false);
+        jTableCDTQ.setRowSelectionAllowed(true);
         jTableCDTQ.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTableCDTQ.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -581,7 +615,9 @@ public class GD_QLSP extends javax.swing.JPanel {
                 "Mã công đoạn", "Tên công đoạn", "Đơn giá", "Bộ phận", "Mã sản phẩm", "Trạng thái", "Số lượng chuẩn bị tối thiểu", "Số lượng chuẩn bị", "Số lượng hoàn thành"
             }
         ));
+        jTableCongDoan.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTableCongDoan.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTableCongDoan.setShowHorizontalLines(true);
         jTableCongDoan.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 jTableCongDoanMouseReleased(evt);
@@ -892,31 +928,53 @@ public class GD_QLSP extends javax.swing.JPanel {
             }
         });
 
+        jTextFieldSoLuong.setEditable(false);
+
+        jButtonLuu2.setText("Lưu");
+        jButtonLuu2.setEnabled(false);
+        jButtonLuu2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jButtonLuu2MouseReleased(evt);
+            }
+        });
+        jButtonLuu2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLuu2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel9Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                 .addContainerGap(21, Short.MAX_VALUE)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                        .addComponent(jButtonNhapSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addComponent(jButtonNhapSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jTextFieldSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonLuu2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButtonPhanCong, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(146, 146, 146))))
+                        .addGap(57, 57, 57))
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap(8, Short.MAX_VALUE)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonPhanCong)
-                    .addComponent(jButtonNhapSoLuong)))
+                    .addComponent(jButtonNhapSoLuong)
+                    .addComponent(jTextFieldSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonLuu2))
+                .addContainerGap())
         );
 
         jComboBoxBoPhan.setEditable(true);
@@ -974,9 +1032,17 @@ public class GD_QLSP extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã công đoạn", "Tên công đoạn", "Bộ phận", "Mã sản phẩm", "Công đoạn", "Số lượng được giao", "Số lượng hoàn thành"
+                "Mã nhân viên", "Tên nhân viên", "Bộ phận", "Mã sản phẩm", "Công đoạn", "Số lượng được giao", "Số lượng hoàn thành"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jTableCTPC.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTableCTPC.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTableCTPC.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -984,63 +1050,79 @@ public class GD_QLSP extends javax.swing.JPanel {
                 jTableCTPCMouseReleased(evt);
             }
         });
+        jTableCTPC.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTableCTPCKeyReleased(evt);
+            }
+        });
         jScrollPane6.setViewportView(jTableCTPC);
 
         jLabel9.setText("Ngày:");
 
-        jButton9.setText("Sửa");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
+        jDateChooser1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jDateChooser1PropertyChange(evt);
             }
         });
 
-        jButton10.setText("Xoá");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSua1.setText("Sửa");
+        jButtonSua1.setEnabled(false);
+        jButtonSua1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jButtonSua1MouseReleased(evt);
+            }
+        });
+        jButtonSua1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
+                jButtonSua1ActionPerformed(evt);
             }
         });
 
-        jButton11.setText("Lưu");
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
+        jButtonXoa1.setText("Xoá");
+        jButtonXoa1.setEnabled(false);
+        jButtonXoa1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jButtonXoa1MouseReleased(evt);
+            }
+        });
+        jButtonXoa1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
+                jButtonXoa1ActionPerformed(evt);
+            }
+        });
+
+        jButtonLuu1.setText("Lưu");
+        jButtonLuu1.setEnabled(false);
+        jButtonLuu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jButtonLuu1MouseReleased(evt);
+            }
+        });
+        jButtonLuu1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonLuu1ActionPerformed(evt);
             }
         });
 
         jLabel10.setText("Bộ phận:");
 
-        jComboBoxMaHopDong1.setEditable(true);
-        jComboBoxMaHopDong1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
-        jComboBoxMaHopDong1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxMaHopDong1ActionPerformed(evt);
-            }
-        });
-
         jLabel11.setText("Công đoạn:");
 
-        jComboBoxMaHopDong4.setEditable(true);
-        jComboBoxMaHopDong4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
-        jComboBoxMaHopDong4.addActionListener(new java.awt.event.ActionListener() {
+        jComboBoxCongDoan.setEditable(true);
+        jComboBoxCongDoan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
+        jComboBoxCongDoan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxMaHopDong4ActionPerformed(evt);
+                jComboBoxCongDoanActionPerformed(evt);
             }
         });
 
-        jLabel12.setText("Sắp xếp theo:");
-
-        jComboBoxSapXep1.setEditable(true);
-        jComboBoxSapXep1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "DATABASE", "SQL", "SYSTEM DESIGN", "MYSQL", "ORACLE", "WEB DESIGN", "DESKTOP APPLICATION", "GRAPHICS" }));
-        jComboBoxSapXep1.addActionListener(new java.awt.event.ActionListener() {
+        jComboBoxBoPhan1.setEditable(true);
+        jComboBoxBoPhan1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
+        jComboBoxBoPhan1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBoxSapXep1ActionPerformed(evt);
+                jComboBoxBoPhan1ActionPerformed(evt);
             }
         });
-
-        jToggleButton2.setText("Giảm dần");
-        jToggleButton2.setToolTipText("");
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -1051,9 +1133,9 @@ public class GD_QLSP extends javax.swing.JPanel {
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jButtonLuu1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonSua1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButtonXoa1, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel10Layout.createSequentialGroup()
                         .addGap(126, 126, 126)
                         .addComponent(jLabel9)
@@ -1061,19 +1143,13 @@ public class GD_QLSP extends javax.swing.JPanel {
                         .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32)
                         .addComponent(jLabel10)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxMaHopDong4, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBoxBoPhan1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
                         .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxMaHopDong1, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54)
-                        .addComponent(jLabel12)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxSapXep1, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jToggleButton2)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jComboBoxCongDoan, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(505, Short.MAX_VALUE))
             .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                     .addGap(130, 130, 130)
@@ -1083,26 +1159,23 @@ public class GD_QLSP extends javax.swing.JPanel {
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addGap(6, 6, 6)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
                     .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel12)
-                        .addComponent(jComboBoxSapXep1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jToggleButton2))
-                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel10)
-                        .addComponent(jComboBoxMaHopDong1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jComboBoxBoPhan1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel11)
-                        .addComponent(jComboBoxMaHopDong4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jComboBoxCongDoan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(19, 19, 19)
+                .addComponent(jButtonSua1)
                 .addGap(18, 18, 18)
-                .addComponent(jButton9)
+                .addComponent(jButtonXoa1)
                 .addGap(18, 18, 18)
-                .addComponent(jButton10)
-                .addGap(18, 18, 18)
-                .addComponent(jButton11)
-                .addContainerGap(146, Short.MAX_VALUE))
+                .addComponent(jButtonLuu1)
+                .addContainerGap(152, Short.MAX_VALUE))
             .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                     .addContainerGap(49, Short.MAX_VALUE)
@@ -1151,28 +1224,49 @@ public class GD_QLSP extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTableCongDoan1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCongDoan1MouseReleased
-        // TODO add your handling code here:
-        if( jTableCongDoan1.isEnabled() ) {
-            loadDsCongNhan();
-            jButtonNhapSoLuong.setEnabled(true);
+    private void jButtonXoa1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonXoa1MouseReleased
+
+
+
+        if(jButtonXoa1.isEnabled()) {
+            // yes no option
+            int result = JOptionPane.showConfirmDialog(this, "Bạn đã chắc chắn chưa ?", "Xác nhận", JOptionPane.YES_NO_OPTION);
+            if (result == JOptionPane.YES_OPTION) {
+                int row = jTableCTPC.getSelectedRow(); 
+                if(row >= 0) {
+                    String maCN = jTableCTPC.getValueAt(row, 0).toString();
+                    DAO_ChiTietPhanCong.getInstance().deleteHomNayByMaCN(maCN);
+                    DAO_ChiTietPhanCong.getInstance().updateChoPhanCong(maCN, true);
+                }
+                loadDsCTPC();
+                loadDsCongNhan();
+                loadDsCongDoan();
+            } 
         }
-    }//GEN-LAST:event_jTableCongDoan1MouseReleased
+    }//GEN-LAST:event_jButtonXoa1MouseReleased
 
-    private void jTableCongDoan1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jTableCongDoan1PropertyChange
+    private void jTableCongDoan1MouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTableCongDoan1MouseReleased
         // TODO add your handling code here:
-        
-    }//GEN-LAST:event_jTableCongDoan1PropertyChange
-
-    private void jTableCongDoan1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableCongDoan1KeyReleased
-        // TODO add your handling code here:
-        if( jTableCongDoan1.isEnabled() ) {
+        if (jTableCongDoan1.isEnabled()) {
             loadDsCongNhan();
-            jButtonNhapSoLuong.setEnabled(true);
+            jButtonNhapSoLuong.setEnabled(jTableCongNhan.getRowCount() > 0);
         }
-    }//GEN-LAST:event_jTableCongDoan1KeyReleased
+    }// GEN-LAST:event_jTableCongDoan1MouseReleased
 
-    private void jTableSanPhamKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableSanPhamKeyReleased
+    private void jTableCongDoan1PropertyChange(java.beans.PropertyChangeEvent evt) {// GEN-FIRST:event_jTableCongDoan1PropertyChange
+        // TODO add your handling code here:
+
+    }// GEN-LAST:event_jTableCongDoan1PropertyChange
+
+    private void jTableCongDoan1KeyReleased(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jTableCongDoan1KeyReleased
+        // TODO add your handling code here:
+        if (jTableCongDoan1.isEnabled()) {
+            loadDsCongNhan();
+            jButtonNhapSoLuong.setEnabled(jTableCongNhan.getRowCount() > 0);
+        }
+    }// GEN-LAST:event_jTableCongDoan1KeyReleased
+
+    private void jTableSanPhamKeyReleased(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jTableSanPhamKeyReleased
         // TODO add your handling code here:
         if (jTableSanPham.isEnabled()) {
             int row = jTableSanPham.getSelectedRow();
@@ -1185,9 +1279,9 @@ public class GD_QLSP extends javax.swing.JPanel {
             jTableCongDoan.setEnabled(true);
             clearData();
         }
-    }//GEN-LAST:event_jTableSanPhamKeyReleased
+    }// GEN-LAST:event_jTableSanPhamKeyReleased
 
-    private void jTableCongDoanKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableCongDoanKeyReleased
+    private void jTableCongDoanKeyReleased(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jTableCongDoanKeyReleased
         // TODO add your handling code here:
         if (jTableCongDoan.isEnabled()) {
             if (jTableCongDoan.getSelectedRowCount() > 0) {
@@ -1209,95 +1303,281 @@ public class GD_QLSP extends javax.swing.JPanel {
                 loadDataJComboBoxCDTQ();
             }
         }
-    }//GEN-LAST:event_jTableCongDoanKeyReleased
+    }// GEN-LAST:event_jTableCongDoanKeyReleased
 
-    private void jButtonNhapSoLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNhapSoLuongActionPerformed
+    private void jButtonNhapSoLuongActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButtonNhapSoLuongActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButtonNhapSoLuongActionPerformed
+    }// GEN-LAST:event_jButtonNhapSoLuongActionPerformed
 
-    private void jButtonNhapSoLuongMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonNhapSoLuongMouseReleased
-        if( jButtonNhapSoLuong.isEnabled() ) {
-            if( !jButtonNhapSoLuong.getText().equals("Hủy") ) {
+    private void jButtonNhapSoLuongMouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jButtonNhapSoLuongMouseReleased
+        if (jButtonNhapSoLuong.isEnabled()) {
+            if (!jButtonNhapSoLuong.getText().equals("Hủy")) {
                 jButtonNhapSoLuong.setText("Hủy");
-                jButtonPhanCong.setEnabled(true); 
-                jComboBoxBoPhan.setEnabled(false); 
+                jButtonPhanCong.setEnabled(true);
+                jComboBoxBoPhan.setEnabled(false);
                 jComboBoxSanPham.setEnabled(false);
                 jTableCongDoan1.setEnabled(false);
                 jTableCongNhan.setEnabled(true);
 
-                jTableCongNhan.editCellAt(0, 2); 
-                Component editor = jTableCongNhan.getEditorComponent();
+                // jTableCongNhan.editCellAt(0, 2);
+                // Component editor = jTableCongNhan.getEditorComponent();
+                // if (editor instanceof JTextField) {
+                // JTextField textField = (JTextField) editor;
+                // textField.requestFocus();
+                //
+                // // Đặt con trỏ chuột ở cuối cell
+                // textField.setCaretPosition(textField.getText().length());
+                // }
+                jTextFieldSoLuong.setEditable(true);
+                jTextFieldSoLuong.requestFocus();
+                jButtonLuu2.setEnabled(true);
+            } else {
+                jButtonNhapSoLuong.setText("Nhập số lượng");
+                jButtonPhanCong.setEnabled(false);
+                jComboBoxBoPhan.setEnabled(true);
+                jComboBoxSanPham.setEnabled(true);
+                jTableCongDoan1.setEnabled(true);
+                jTableCongNhan.setEnabled(false);
+                // jTableCongNhan.removeEditor();
+                // jTableCongNhan.requestFocus();
+                jTextFieldSoLuong.setEditable(false);
+                jTextFieldSoLuong.setText("");
+                jButtonLuu2.setEnabled(false);
+
+                loadDsCongNhan();
+            }
+        }
+    }// GEN-LAST:event_jButtonNhapSoLuongMouseReleased
+
+    private void jButtonPhanCongMouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jButtonPhanCongMouseReleased
+        // TODO add your handling code here:
+        if (jButtonPhanCong.isEnabled()) {
+            try {
+                int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thêm?", "Xác nhận",
+                        JOptionPane.YES_NO_OPTION);
+                if (confirm == JOptionPane.YES_OPTION) {
+
+                    boolean have = false;
+                    for (int i = 0; i < jTableCongNhan.getRowCount(); i++) {
+                        String maCN = jTableCongNhan.getValueAt(i, 0).toString();
+                        String sl = jTableCongNhan.getValueAt(i, 2).toString();
+                        if (!sl.matches("\\d+"))
+                            continue;
+                        int soLuong = Integer.parseInt(sl);
+                        if (soLuong <= 0)
+                            continue;
+                        have = true;
+
+                        String ngay = new SimpleDateFormat("ddMMyyyy").format(new Date());
+                        String maCTPC = ngay + maCN;
+                        String macd = jTableCongDoan1.getValueAt(jTableCongDoan1.getSelectedRow(), 0).toString();
+                        DAO_ChiTietPhanCong.getInstance()
+                                .insert(new ChiTietPhanCong(maCTPC, macd, maCN, LocalDate.now(), soLuong));
+                        DAO_ChiTietPhanCong.getInstance().updateChoPhanCong(maCN, false);
+
+                    }
+                    if (!have)
+                        throw new Exception("Vui lòng nhập số lượng cho ít nhất một công nhân");
+                    loadDsCongNhan();
+                    loadDsCongDoan();
+                    loadDsCTPC();
+                    // cập nhật vào bảng phân công
+
+                    jButtonNhapSoLuong.setText("Nhập số lượng");
+                    jButtonNhapSoLuong.setEnabled(false);
+                    jButtonPhanCong.setEnabled(false);
+                    jComboBoxBoPhan.setEnabled(true);
+                    jComboBoxSanPham.setEnabled(true);
+                    jTableCongDoan1.setEnabled(true);
+                    jTableCongNhan.setEnabled(false);
+                    jTableCongNhan.removeEditor();
+                    jTableCongNhan.requestFocus();
+                    jTextFieldSoLuong.setEditable(false);
+                    jButtonLuu2.setEnabled(false);
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, e.getMessage());
+                jTextFieldSoLuong.requestFocus();
+            }
+        }
+    }// GEN-LAST:event_jButtonPhanCongMouseReleased
+
+    private void jTableCTPCMouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTableCTPCMouseReleased
+        if (jTableCTPC.isEnabled()) {
+            int row = jTableCTPC.getSelectedRow();
+            // kiểm tra jDateChooser1 đang chỉ đúng ngày hiện tại không, chỉ lấy
+            // ngày/tháng/năm
+            Date selectedDate = jDateChooser1.getDate();
+            LocalDate current = LocalDate.now();
+            LocalDate localDate = selectedDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            if (row >= 0 && current.equals(localDate)) {
+                jButtonSua1.setEnabled(true);
+                jButtonXoa1.setEnabled(true);
+            }
+        }
+    }// GEN-LAST:event_jTableCTPCMouseReleased
+
+    private void jButtonLuu2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButtonLuu2ActionPerformed
+        // TODO add your handling code here:
+    }// GEN-LAST:event_jButtonLuu2ActionPerformed
+
+    private void jButtonLuu2MouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jButtonLuu2MouseReleased
+        if (jButtonLuu2.isEnabled()) {
+            try {
+                loadDsCongNhan();
+                String sl = jTextFieldSoLuong.getText().toString();
+                jTextFieldSoLuong.setText("");
+                int soLuong = Integer.parseInt(sl);
+
+                if (soLuong <= 0)
+                    throw new Exception("Vui lòng nhập số lượng là số tự nhiên > 0");
+                int row = jTableCongDoan1.getSelectedRow();
+                String macd = jTableCongDoan1.getValueAt(row, 0).toString();
+                CongDoan cd = DAO_CongDoan.getInstance().get(macd);
+                int soLuongChuanBi = cd.getSoLuongChuanBi();
+                for (int i = 0; i < jTableCongNhan.getRowCount(); i++) {
+                    if (soLuongChuanBi > 0) {
+                        // set giá trị row i, col 2 = min (soLuongChuanbi, soLuong)
+                        jTableCongNhan.setValueAt(Math.min(soLuongChuanBi, soLuong), i, 2);
+                        soLuongChuanBi -= Math.min(soLuongChuanBi, soLuong);
+                    } else
+                        break;
+                }
+
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng là số tự nhiên > 0");
+                jTextFieldSoLuong.requestFocus();
+                return;
+            }
+
+        }
+    }// GEN-LAST:event_jButtonLuu2MouseReleased
+
+    private void jDateChooser1PropertyChange(java.beans.PropertyChangeEvent evt) {// GEN-FIRST:event_jDateChooser1PropertyChange
+        // TODO add your handling code here:
+        loadDsCTPC();
+        jButtonSua1.setEnabled(false);
+        jButtonXoa1.setEnabled(false);
+        jButtonLuu1.setEnabled(false);
+    }// GEN-LAST:event_jDateChooser1PropertyChange
+
+    private void jComboBoxBoPhan1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jComboBoxBoPhan1ActionPerformed
+        // TODO add your handling code here:
+        if (jComboBoxBoPhan1.isEnabled())
+            loadDsCTPC();
+    }// GEN-LAST:event_jComboBoxBoPhan1ActionPerformed
+
+    private void jTableCTPCKeyReleased(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_jTableCTPCKeyReleased
+        // TODO add your handling code here:
+        if (jTableCTPC.isEnabled()) {
+            int row = jTableCTPC.getSelectedRow();
+            // kiểm tra jDateChooser1 đang chỉ đúng ngày hiện tại không, chỉ lấy
+            // ngày/tháng/năm
+            Date selectedDate = jDateChooser1.getDate();
+            LocalDate current = LocalDate.now();
+            LocalDate localDate = selectedDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            if (row >= 0 && current.equals(localDate)) {
+                jButtonSua1.setEnabled(true);
+                jButtonXoa1.setEnabled(true);
+            }
+        }
+    }// GEN-LAST:event_jTableCTPCKeyReleased
+
+    private void jButtonSua1MouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jButtonSua1MouseReleased
+        if (jButtonSua1.isEnabled()) {
+
+            if (!jButtonSua1.getText().equals("Hủy")) {
+                jButtonSua1.setText("Hủy");
+                jButtonLuu1.setEnabled(true);
+                jButtonXoa1.setEnabled(false);
+                jTableCTPC.setEnabled(false);
+
+                int row = jTableCTPC.getSelectedRow();
+                jTableCTPC.editCellAt(row, 5);
+                Component editor = jTableCTPC.getEditorComponent();
                 if (editor instanceof JTextField) {
                     JTextField textField = (JTextField) editor;
                     textField.requestFocus();
-
                     // Đặt con trỏ chuột ở cuối cell
                     textField.setCaretPosition(textField.getText().length());
                 }
-                
+
             } else {
-                jButtonNhapSoLuong.setText("Nhập số lượng");
-                jButtonPhanCong.setEnabled(false); 
-                jComboBoxBoPhan.setEnabled(true); 
-                jComboBoxSanPham.setEnabled(true);
-                jTableCongDoan1.setEnabled(true);
-                jTableCongNhan.setEnabled(false);
-                jTableCongNhan.removeEditor();
-                jTableCongNhan.requestFocus();
-                
+                jButtonSua1.setText("Sửa");
+                jButtonLuu1.setEnabled(false);
+                jButtonXoa1.setEnabled(true);
+                jTableCTPC.setEnabled(true);
+                jTableCTPC.clearSelection();
+                jTableCTPC.removeEditor();
+                loadDsCTPC();
+            }
 
-                loadDsCongNhan();
-            }  
         }
-    }//GEN-LAST:event_jButtonNhapSoLuongMouseReleased
+    }// GEN-LAST:event_jButtonSua1MouseReleased
 
-    private void jButtonPhanCongMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButtonPhanCongMouseReleased
+    private void jButtonLuu1MouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jButtonLuu1MouseReleased
         // TODO add your handling code here:
-        if(jButtonPhanCong.isEnabled()) {
+        if (jButtonLuu1.isEnabled()) {
+            int row = jTableCTPC.getSelectedRow();
             try {
-                boolean have = false; 
-                for (int i = 0; i < jTableCongNhan.getRowCount(); i++) {
-                    String maCN = jTableCongNhan.getValueAt(i, 0).toString();
-                    String sl = jTableCongNhan.getValueAt(i, 2).toString(); 
-                    if(!sl.matches("\\d+")) 
-                        continue; 
-                    int soLuong = Integer.parseInt(sl);
-                    if(soLuong <= 0) 
-                        continue;
-                    have = true;
-                    System.out.println(soLuong + " " + soLuong);
-                    String ngay = new SimpleDateFormat("ddMMyyyy").format(new Date());
-                    String maCTPC = ngay + maCN;
-                    String macd = jTableCongDoan1.getValueAt(jTableCongDoan1.getSelectedRow(), 0).toString();
-                    DAO_ChiTietPhanCong.getInstance().insert(new ChiTietPhanCong(maCTPC, macd, maCN, LocalDate.now(), soLuong));
-                    DAO_ChiTietPhanCong.getInstance().updateChoPhanCong(maCN, false);
-                    
-                }   
-                if(!have) 
-                    throw new Exception("Vui lòng nhập số lượng cho ít nhất một công nhân");
-                loadDsCongNhan();
-                loadDsCongDoan();
-                loadDsCTPC(); 
-                // cập nhật vào bảng phân công 
+                System.out.println(jTableCTPC.getValueAt(row, 5).toString());
+                int soLuongGiaoMoi = Integer.parseInt(jTableCTPC.getValueAt(row, 5).toString());
+                // int soLuongChuanBi = jTableCTPC.getValueAt(row, 4).toString()
+                if (soLuongGiaoMoi <= 0)
+                    throw new Exception("Vui lòng nhập số lượng là số tự nhiên > 0");
 
-                jButtonNhapSoLuong.setText("Nhập số lượng");
-                jButtonPhanCong.setEnabled(false); 
-                jComboBoxBoPhan.setEnabled(true); 
-                jComboBoxSanPham.setEnabled(true);
-                jTableCongDoan1.setEnabled(true);
-                jTableCongNhan.setEnabled(false);
-                jTableCongNhan.removeEditor();
-                jTableCongNhan.requestFocus();
-            } 
-            catch (Exception e) {
+                String tenCD = jTableCTPC.getValueAt(row, 4).toString();
+                String maSP = jTableCTPC.getValueAt(row, 3).toString();
+                ArrayList<CongDoan> dsCD = DAO_CongDoan.getInstance().getAllByMaSP(maSP); 
+                CongDoan cd = null;
+                for (CongDoan congDoan : dsCD) {
+                    if (congDoan.getTenCD().equals(tenCD)) {
+                        cd = congDoan;
+                        break;
+                    }
+                }
+                if (cd == null)
+                    throw new Exception("Vui lòng chọn công đoạn");
+                if(soLuongGiaoMoi > cd.getSoLuongChuanBi()) 
+                    throw new Exception("Số lượng giao không được lớn hơn số lượng chuẩn bị");
+
+                // yes, no option 
+                int option = JOptionPane.showConfirmDialog(this, "Bạn đã chắc chắn chưa ?", "Confirmation", JOptionPane.YES_NO_OPTION);
+                if (option == JOptionPane.YES_OPTION) {
+                    DAO_ChiTietPhanCong.getInstance().updateSoLuongGiaoHomNayByMaCN(jTableCTPC.getValueAt(row, 0).toString(), soLuongGiaoMoi);
+                    jTableCTPC.clearSelection();
+                    jTableCTPC.removeEditor();
+                    jButtonSua1.setText("Sửa");
+                    jButtonLuu1.setEnabled(false);
+                    jButtonXoa1.setEnabled(true);
+                    jTableCTPC.setEnabled(true);
+                    loadDsCTPC();
+                    loadDsCongDoan();
+                    loadDsCongNhan();
+                } else {
+                    Component editor = jTableCTPC.getEditorComponent();
+                    if (editor instanceof JTextField) {
+                        JTextField textField = (JTextField) editor;
+                        textField.requestFocus();
+                        textField.setCaretPosition(textField.getText().length());
+                    }
+                }
+
+            } catch (Exception e) {
+                // TODO: handle exception
                 JOptionPane.showMessageDialog(this, e.getMessage());
+                jTableCTPC.editCellAt(row, 5);
+                Component editor = jTableCTPC.getEditorComponent();
+                if (editor instanceof JTextField) {
+                    JTextField textField = (JTextField) editor;
+                    textField.setText("");
+                    textField.requestFocus();
+                    // Đặt con trỏ chuột ở cuối cell
+                    textField.setCaretPosition(textField.getText().length());
+                }
             }
         }
-    }//GEN-LAST:event_jButtonPhanCongMouseReleased
-
-    private void jTableCTPCMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCTPCMouseReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTableCTPCMouseReleased
+    }// GEN-LAST:event_jButtonLuu1MouseReleased
 
     private void jCheckBoxHoanThanhMouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jCheckBoxHoanThanhMouseReleased
         // TODO add your handling code here:
@@ -1319,16 +1599,23 @@ public class GD_QLSP extends javax.swing.JPanel {
      // TODO add your handling code here:
      // TODO add your handling code here:
 
-    private void jComboBoxMaHopDong1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jComboBoxMaHopDong1ActionPerformed
+    private void jComboBoxCongDoanActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jComboBoxMaHopDong1ActionPerformed
         // TODO add your handling code here:
+        if (jComboBoxCongDoan.isEnabled()) {
+            loadDsCTPC();
+            jComboBoxBoPhan1.setSelectedIndex(0);
+        }
+
     }// GEN-LAST:event_jComboBoxMaHopDong1ActionPerformed
 
     private void jComboBoxSanPhamActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jComboBoxMaHopDong2ActionPerformed
         // TODO add your handling code here:
-        loadDsCongDoan();
+        if (jComboBoxSanPham.isEnabled()) {
+            loadDsCongDoan();
+        }
     }// GEN-LAST:event_jComboBoxMaHopDong2ActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton9ActionPerformed
+    private void jButtonSua1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
     }// GEN-LAST:event_jButton9ActionPerformed
 
@@ -1336,23 +1623,26 @@ public class GD_QLSP extends javax.swing.JPanel {
         // TODO add your handling code here:
     }// GEN-LAST:event_jButton9ActionPerformed
 
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton10ActionPerformed
+    private void jButtonXoa1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
     }// GEN-LAST:event_jButton10ActionPerformed
 
-    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton11ActionPerformed
+    private void jButtonLuu1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton11ActionPerformed
         // TODO add your handling code here:
     }// GEN-LAST:event_jButton11ActionPerformed
 
     private void jComboBoxBoPhanActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jComboBoxMaHopDong3ActionPerformed
         // TODO add your handling code here:
-     
-        loadDsCongDoan();
-        loadDsCongNhan();
+        if (jComboBoxBoPhan.isEnabled()) {
+            loadDsCongDoan();
+            loadDsCongNhan();
+        }
     }// GEN-LAST:event_jComboBoxMaHopDong3ActionPerformed
 
-    private void jComboBoxMaHopDong4ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jComboBoxMaHopDong4ActionPerformed
+    private void jComboBoxBoPhan2ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jComboBoxMaHopDong4ActionPerformed
         // TODO add your handling code here:
+        if (jComboBoxCongDoan.isEnabled())
+            loadDsCTPC();
     }// GEN-LAST:event_jComboBoxMaHopDong4ActionPerformed
 
     private void jComboBoxSapXep1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jComboBoxSapXep1ActionPerformed
@@ -1547,7 +1837,7 @@ public class GD_QLSP extends javax.swing.JPanel {
         ArrayList<CongDoan> dsCon = new ArrayList<CongDoan>();
         ArrayList<CongDoan> dsCDTQTrongTable = new ArrayList<CongDoan>();
 
-        if (congDoan != null) {
+        if (congDoan != null && !jButtonTaoMoi.getText().equals("Hủy")) {
             dsCha.add(congDoan);
             dsCon.add(congDoan);
             while (!dsCha.isEmpty()) {
@@ -1639,6 +1929,7 @@ public class GD_QLSP extends javax.swing.JPanel {
                 jButtonSua.setEnabled(false);
                 jButtonXoa.setEnabled(false);
                 editting();
+                loadDataJComboBoxCDTQ();
             }
 
             else {
@@ -1697,8 +1988,6 @@ public class GD_QLSP extends javax.swing.JPanel {
     private void jButtonLuuMouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jButtonLuuMouseReleased
         // TODO add your handling code here:
         if (jButtonLuu.isEnabled()) {
-            // tạo một của sở confirm
-            // Create a confirmation dialog
             String maCD = "", maSP1 = "", maBP = "", tenCD = "";
             double donGia = 0;
             int soLuongChuanBiToiThieu = 0;
@@ -1749,6 +2038,7 @@ public class GD_QLSP extends javax.swing.JPanel {
                 loadDataJTableCongDoan();
                 loadDataJComboBoxCDTQ();
                 AfterSaveOrCancel();
+                loadDsCongDoan();
             }
         }
     }// GEN-LAST:event_jButtonLuuMouseReleased
@@ -1827,32 +2117,31 @@ public class GD_QLSP extends javax.swing.JPanel {
     }// GEN-LAST:event_jButtonSuaMouseReleased
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
-    private javax.swing.JButton jButton9;
     private javax.swing.JButton jButtonLuu;
+    private javax.swing.JButton jButtonLuu1;
+    private javax.swing.JButton jButtonLuu2;
     private javax.swing.JButton jButtonNhapSoLuong;
     private javax.swing.JButton jButtonPhanCong;
     private javax.swing.JButton jButtonSua;
+    private javax.swing.JButton jButtonSua1;
     private javax.swing.JButton jButtonTaoMoi;
     private javax.swing.JButton jButtonThemCDTQ;
     private javax.swing.JButton jButtonXoa;
+    private javax.swing.JButton jButtonXoa1;
     private javax.swing.JButton jButtonXoaCDTQ;
     private javax.swing.JCheckBox jCheckBoxHoanThanh;
     private javax.swing.JComboBox<String> jComboBoxBoPhan;
+    private javax.swing.JComboBox<String> jComboBoxBoPhan1;
     private javax.swing.JComboBox<String> jComboBoxCDTQ;
+    private javax.swing.JComboBox<String> jComboBoxCongDoan;
     private javax.swing.JComboBox<String> jComboBoxMaBoPhan;
     private javax.swing.JComboBox<String> jComboBoxMaHopDong;
-    private javax.swing.JComboBox<String> jComboBoxMaHopDong1;
-    private javax.swing.JComboBox<String> jComboBoxMaHopDong4;
     private javax.swing.JComboBox<String> jComboBoxSanPham;
     private javax.swing.JComboBox<String> jComboBoxSapXep;
-    private javax.swing.JComboBox<String> jComboBoxSapXep1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
@@ -1889,8 +2178,8 @@ public class GD_QLSP extends javax.swing.JPanel {
     private javax.swing.JTextField jTextFieldDonGia;
     private javax.swing.JTextField jTextFieldMaCD;
     private javax.swing.JTextField jTextFieldSLCBTT;
+    private javax.swing.JTextField jTextFieldSoLuong;
     private javax.swing.JTextField jTextFieldTenCD;
-    private javax.swing.JToggleButton jToggleButton2;
     private javax.swing.JToggleButton jToggleButtonSort;
     // End of variables declaration//GEN-END:variables
 }
