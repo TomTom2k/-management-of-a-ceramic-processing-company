@@ -4,7 +4,11 @@
  */
 package ptud.Entity;
 
+import java.sql.SQLException;
 import java.util.Objects;
+
+import ptud.DAO.DAO_NhanVien;
+import ptud.DAO.DAO_PhieuChamCongNhanVien;
 
 /**
  * 
@@ -68,7 +72,9 @@ public class PhieuLuongNhanVien {
     }
 
     public double getPhat() {
-        return phat;
+        double phat2 = 0; 
+        // xử lý tính toán
+        return phat2;
     }
 
     public void setPhat(double phat) {
@@ -76,50 +82,72 @@ public class PhieuLuongNhanVien {
     }
     
     public double getPhuCap() {
-        double PhuCap = 0;
-        // xử lý tính toán
+        double PhuCap = DAO_NhanVien.getInstance().get(maNV).getPhuCap(); 
         return PhuCap;
     }
 
-    public double getLuong() {
+    public double getLuong()  {
         double luong = 0;
         // xử lý tính toán
+        try {
+            luong = new DAO_PhieuChamCongNhanVien().getSoNgayLam(maNV, thang, nam)*DAO_NhanVien.getInstance().get(maNV).getLuongCoBan()/24;
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         return luong;
     }
 
-    public double getThuong() {
+    public double getThuong()  {
         double thuong = 0;
         // xử lý tính toán
+        double luongMoiGio = DAO_NhanVien.getInstance().get(maNV).getLuongCoBan()/(24*8); 
+        float gioTangCa=0;
+        try {
+            gioTangCa = new DAO_PhieuChamCongNhanVien().getTongGioTangCaTrongThang(maNV, thang, nam);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } 
+        thuong = luongMoiGio*gioTangCa*1.5; 
         return thuong;
     }
 
 
-    public int getSoNgayLam() {
+    public int getSoNgayLam()  {
         int soNgayLam = 0; 
         // xử lý tính toán
+        try {
+            soNgayLam = new DAO_PhieuChamCongNhanVien().getSoNgayLam(maNV, thang, nam);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } 
         return soNgayLam;
     }
 
-    public double getLuongThucNhan() {
+    public double getLuongThucNhan()  {
         double luongThucNhan = 0;
         // xử lý tính toán
+        luongThucNhan = getLuong() + getThuong() + getPhuCap() - getPhat();
         return luongThucNhan;
     }
 
 
     @Override
     public String toString() {
-        return "PhieuLuong{" +
-                "maPL='" + maPL + '\'' +
-                ", thang=" + thang +
-                ", nam=" + nam +
-                ", maNV='" + maNV + '\'' +
-                ", phat=" + phat +
-                ", luong=" + getLuong() +
-                ", thuong=" + getThuong() +
-                ", soNgayLam=" + getSoNgayLam() +
-                ", luongThucNhan=" + getLuongThucNhan() +
-                '}';
+
+            return "PhieuLuong{" +
+                    "maPL='" + maPL + '\'' +
+                    ", thang=" + thang +
+                    ", nam=" + nam +
+                    ", maNV='" + maNV + '\'' +
+                    ", phat=" + phat +
+                    ", luong=" + getLuong() +
+                    ", thuong=" + getThuong() +
+                    ", soNgayLam=" + getSoNgayLam() +
+                    ", luongThucNhan=" + getLuongThucNhan() +
+                    '}';
     }
 
     @Override

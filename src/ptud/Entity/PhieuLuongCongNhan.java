@@ -4,7 +4,10 @@
  */
 package ptud.Entity;
 
+import java.sql.SQLException;
 import java.util.Objects;
+
+import ptud.DAO.DAO_PhieuChamCongCongNhan;
 
 /**
  * 
@@ -67,7 +70,15 @@ public class PhieuLuongCongNhan {
     }
 
     public double getPhat() {
-        return phat;
+        double phat2 = 0; 
+        try {
+            phat2 = DAO_PhieuChamCongCongNhan.getInstance().getTongTienPhatTrongThang(maCN, thang, nam);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        // xử lý tính toán
+        return phat2;
     }
 
     public void setPhat(double phat) {
@@ -78,12 +89,25 @@ public class PhieuLuongCongNhan {
     public double getLuong() {
         double luong = 0;
         // xử lý tính toán
+        try {
+            luong = DAO_PhieuChamCongCongNhan.getInstance().getTongTienCongTrongThang(maCN, thang, nam);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         return luong;
     }
 
     public double getThuong() {
         double thuong = 0;
         // xử lý tính toán
+        try {
+            thuong = DAO_PhieuChamCongCongNhan.getInstance().getTongTienThuongTrongThang(maCN, thang, nam) ;
+
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } 
         return thuong;
     }
 
@@ -91,12 +115,19 @@ public class PhieuLuongCongNhan {
     public int getSoNgayLam() {
         int soNgayLam = 0; 
         // xử lý tính toán
+        try {
+            soNgayLam = DAO_PhieuChamCongCongNhan.getInstance().getSoNgayLam(maCN,  thang, nam);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         return soNgayLam;
     }
 
     public double getLuongThucNhan() {
         double luongThucNhan = 0;
         // xử lý tính toán
+        luongThucNhan = getLuong() + getThuong() - getPhat();
         return luongThucNhan;
     }
 
