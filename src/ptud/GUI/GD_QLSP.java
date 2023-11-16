@@ -204,8 +204,11 @@ public class GD_QLSP extends javax.swing.JPanel {
 
         for (ChiTietPhanCong ctpc : dsCTPC) {
             CongNhan cn = DAO_CongNhan.getInstance().get(ctpc.getMaCN());
-            int soLuongHoanThanh = 0;
             CongDoan cd = DAO_CongDoan.getInstance().get(ctpc.getMaCD());
+            int soLuongHoanThanh = 0;
+            // get Phieu cham cong cong nhan của cn trong ngày hôm nay 
+            LocalDate date = jDateChooser1.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            //soLuongHoanThanh = DAO_PhieuChamCongCongNhan.getInstance().getSoLuongCongDoanHoanThanhByMaCongNhan(cn.getMaCN(), date);
 
             String tenBP = new DAO_BoPhan().get(DAO_CongDoan.getInstance().get(ctpc.getMaCD()).getMaBP()).getTenBP();
             String tenCD = cd.getTenCD();

@@ -276,7 +276,7 @@ public class DAO_ChiTietPhanCong implements DAOInterface<ChiTietPhanCong> {
             statement.setString(1, maCTPC);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                return resultSet.getString("mcCD");
+                return resultSet.getString("maCD");
             }
             
         } catch (SQLException ex) {
