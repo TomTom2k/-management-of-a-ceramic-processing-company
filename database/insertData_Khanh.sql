@@ -32,11 +32,15 @@ INSERT INTO BoPhan (maBP, tenBP) VALUES ('HC03', N'Quản lý');
 INSERT INTO BoPhan (maBP, tenBP) VALUES ('HC04', N'Nhân sự');
 INSERT INTO BoPhan (maBP, tenBP) VALUES ('HC05', N'Tiếp thị');
 
-INSERT INTO BoPhan (maBP, tenBP) VALUES ('SX01', N'Kiểm tra chất lượng');
-INSERT INTO BoPhan (maBP, tenBP) VALUES ('SX02', N'Giao hàng và Vận chuyển');
-INSERT INTO BoPhan (maBP, tenBP) VALUES ('SX03', N'Lưu trữ và Logistik');
-INSERT INTO BoPhan (maBP, tenBP) VALUES ('SX04', N'đóng gói');
-INSERT INTO BoPhan (maBP, tenBP) VALUES ('SX05', N'in ấn');
+INSERT INTO BoPhan (maBP, tenBP) VALUES ('SX01', N'Thiết Kế');
+INSERT INTO BoPhan (maBP, tenBP) VALUES ('SX02', N'Chuẩn Bị Đất Sét');
+INSERT INTO BoPhan (maBP, tenBP) VALUES ('SX03', N'Tạo Hình');
+INSERT INTO BoPhan (maBP, tenBP) VALUES ('SX04', N'Phủ Men');
+INSERT INTO BoPhan (maBP, tenBP) VALUES ('SX05', N'Trang Trí');
+INSERT INTO BoPhan (maBP, tenBP) VALUES ('SX06', N'Nung');
+INSERT INTO BoPhan (maBP, tenBP) VALUES ('SX07', N'Kiểm tra Chất Lượng');
+INSERT INTO BoPhan (maBP, tenBP) VALUES ('SX08', N'Đóng Gói');
+INSERT INTO BoPhan (maBP, tenBP) VALUES ('SX09', N'Vận Chuyển');
 
 -- nhân viên
 -- thay lại bằng path đến assets của dự án
@@ -62,7 +66,7 @@ INSERT INTO NhanVien (maNV, maBP, tenNV, gioiTinh, ngaySinh, ngayBatDauLam, CCCD
 VALUES 
     ('HC02201007', 'HC02', N'Trần Thị Tố My', 1, '1999-08-25', '2020-06-20', '111100002222', 7000000.0, 1000000.0, 1, '9876543210', (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarNV\nv1.jpg', SINGLE_BLOB) as ImageData));
 
-    ('NV1810001', 'HC01', N'Lê Thị Bích', 1, '1992-08-25', '2018-03-15', '000022221111', 5000000.0, 1000000.0, 1, '0123456789', (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarNV\nv2.jpg', SINGLE_BLOB) as ImageData));
+   
 INSERT INTO CongNhan (maCN, maBP, tenCN, gioiTinh, ngaySinh, ngayBatDauLam, CCCD, trangThai, choPhanCong, dienThoai, hinhAnh)
 VALUES 
     ('SX01051001', 'SX01', N'Nguyễn Văn Bạch', 1, '1986-01-15', '2005-05-01', '0222211110000', 1, 1, '01357924680', 
@@ -111,9 +115,9 @@ VALUES
 -- Công đoạn cho sản phẩm 051120230101
 INSERT INTO CongDoan (maCD, maSP, maBP, tenCD, donGia, trangThai, soLuongChuanBi, soLuongChuanBiToiThieu, soLuongHoanThanh)
 VALUES
-('05112023010101', '051120230101', 'SX01', N'Gia công nền chén', 1000.0, 1, 50, 30, 120),
-('05112023010102', '051120230101', 'SX02', N'Sơn viền xanh lam', 2000.0, 1, 50, 30, 120),
-('05112023010103', '051120230101', 'SX03', N'Kiểm tra chất lượng', 500.0, 1, 50, 30, 120)
+('05112023010101', '051120230101', 'SX01', N'Thiết kế', 1000.0, 1, 50, 30, 120),
+('05112023010102', '051120230101', 'SX02', N'Chuẩn bị đất sét', 2000.0, 1, 50, 30, 120),
+('05112023010103', '051120230101', 'SX03', N'Tạo hình', 500.0, 1, 50, 30, 120)
 
 -- Công đoạn cho sản phẩm 051120230201
 INSERT INTO CongDoan (maCD, maSP, maBP, tenCD, donGia, trangThai, soLuongChuanBi, soLuongChuanBiToiThieu, soLuongHoanThanh)

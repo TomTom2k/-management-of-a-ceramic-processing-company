@@ -208,7 +208,7 @@ public class GD_QLSP extends javax.swing.JPanel {
             int soLuongHoanThanh = 0;
             // get Phieu cham cong cong nhan của cn trong ngày hôm nay 
             LocalDate date = jDateChooser1.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            //soLuongHoanThanh = DAO_PhieuChamCongCongNhan.getInstance().getSoLuongCongDoanHoanThanhByMaCongNhan(cn.getMaCN(), date);
+            soLuongHoanThanh = DAO_ChiTietPhanCong.getInstance().getSoLuongCongDoanHoanThanhByMaCongNhan(cn.getMaCN(), date);
 
             String tenBP = new DAO_BoPhan().get(DAO_CongDoan.getInstance().get(ctpc.getMaCD()).getMaBP()).getTenBP();
             String tenCD = cd.getTenCD();
@@ -424,8 +424,6 @@ public class GD_QLSP extends javax.swing.JPanel {
                 "Mã công đoạn", "Tên công đoạn"
             }
         ));
-        jTableCDTQ.setCellSelectionEnabled(false);
-        jTableCDTQ.setRowSelectionAllowed(true);
         jTableCDTQ.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTableCDTQ.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -618,6 +616,7 @@ public class GD_QLSP extends javax.swing.JPanel {
                 "Mã công đoạn", "Tên công đoạn", "Đơn giá", "Bộ phận", "Mã sản phẩm", "Trạng thái", "Số lượng chuẩn bị tối thiểu", "Số lượng chuẩn bị", "Số lượng hoàn thành"
             }
         ));
+        jTableCongDoan.setRowHeight(30);
         jTableCongDoan.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTableCongDoan.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTableCongDoan.setShowHorizontalLines(true);
