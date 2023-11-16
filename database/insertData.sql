@@ -65,7 +65,6 @@ VALUES
     ('NV1810001', 'HC01', N'Lê Thị Bích', 1, '1992-08-25', '2018-03-15', '000022221111', 5000000.0, 1000000.0, 1, '0123456789', (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarNV\nv2.jpg', SINGLE_BLOB) as ImageData));
 INSERT INTO NhanVien (maNV, maBP, tenNV, gioiTinh, ngaySinh, ngayBatDauLam, CCCD, luongCoBan, phuCap, trangThai, dienThoai, hinhAnh)
 VALUES 
-<<<<<<< HEAD
     ('SX01051001', 'SX01', N'Nguyễn Văn Bạch', 1, '1986-01-15', '2005-05-01', '0222211110000', 1, 1, '01357924680', 
         (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarCN\cn1.jpg', SINGLE_BLOB) as ImageData)),
     ('SX02181002', 'SX02', N'Đỗ Nhật Anh', 1, '1999-01-15', '2018-05-01', '0111122220000', 1, 1, '02468013579', 
@@ -106,11 +105,6 @@ VALUES
         (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarCN\cn19.jpeg', SINGLE_BLOB) as ImageData)),
     ('SX0520020', 'SX05', N'Trương Thị Phương', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
         (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData));
-=======
-    ('NV2010001', 'HC02', N'Đỗ Văn Tấn', 1, '1996-08-25', '2020-06-20', '111100002222', 7000000.0, 1000000.0, 1, '9876543210', (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\programming\JAVA\manage-salary-product\src\assets\images\avatarNV\nv1.jpg', SINGLE_BLOB) as ImageData));
->
-
->>>>>>> ff20db26fea391a8e4059d754c6c3f0507b7ed72
 
 
 -- công đoạn 
