@@ -86,25 +86,33 @@ public class DAO_PhieuChamCongNhanVien {
         }
         return 0;
     }
+    public static String getCurrentDateYYYYMMDD() {
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return currentDate.format(formatter);
+    }
+    
     public static ArrayList<Object[]> getDanhSachThongTinChamCongByIDBoPhan(String maBoPhan) {
         ArrayList<Object[]> ds = new ArrayList<Object[]>();
         try {
 
             String query = "select maNV, tenNV\n"
                     + "from NhanVien\n"
-                    + "where maBP = ?";
+                    + "where maBP = ? and maNV not in (select maNV from PhieuChamCongHanhChinh where ngaychamcong = ?)";
             PreparedStatement statement;
             statement = connection.prepareStatement(query);
             statement.setString(1, maBoPhan);
+            statement.setString(2, getCurrentDateYYYYMMDD());
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Object[] thongTinChamCong = new Object[6];
+                Object[] thongTinChamCong = new Object[7];
                 thongTinChamCong[0] = resultSet.getString("maNV");
                 thongTinChamCong[1] = resultSet.getString("tenNV");
                 thongTinChamCong[2] = false;
                 thongTinChamCong[3] = false;
                 thongTinChamCong[4] = 0;
-                thongTinChamCong[5] = "";
+                thongTinChamCong[5] = 0;
+                thongTinChamCong[6] = "";
                 ds.add(thongTinChamCong);
             }
 
@@ -112,5 +120,33 @@ public class DAO_PhieuChamCongNhanVien {
             java.util.logging.Logger.getLogger(DAO_PhieuChamCongNhanVien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         return ds;
+    }
+    public static Object[] gethongTinChamCongByMaNV(String maNV) {
+        Object[] thongTinChamCong = new Object[7];
+        try {
+
+            String query = "select maNV, tenNV\n"
+                    + "from NhanVien\n"
+                    + "where maNV = ? and maNV not in (select maNV from PhieuChamCongHanhChinh where ngaychamcong = ?)";
+            PreparedStatement statement;
+            statement = connection.prepareStatement(query);
+            statement.setString(1, maNV);
+            statement.setString(2, getCurrentDateYYYYMMDD());
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                thongTinChamCong[0] = resultSet.getString("maNV");
+                thongTinChamCong[1] = resultSet.getString("tenNV");
+                thongTinChamCong[2] = false;
+                thongTinChamCong[3] = false;
+                thongTinChamCong[4] = 0;
+                thongTinChamCong[5] = 0;
+                thongTinChamCong[6] = "";
+                return thongTinChamCong;
+            }
+
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(DAO_PhieuChamCongNhanVien.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        return null;
     }
 }

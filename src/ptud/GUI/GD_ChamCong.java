@@ -59,12 +59,12 @@ public class GD_ChamCong extends javax.swing.JPanel {
         }
         loadDataTabale1();
     }
-    
+
     public void loadDataTabale1() {
         DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
         model.setRowCount(0);
         String tenBoPhan = jComboBox3.getSelectedItem().toString();
-       
+
         String maBoPhan = DAO_BoPhan.getMaBoPhanByTenBoPhan(tenBoPhan);
         ArrayList<Object[]> dataChamCongCN
                 = DAO_PhieuChamCongCongNhan.getDanhSachThongTinChamCongByIDBoPhan(maBoPhan);
@@ -293,36 +293,36 @@ public class GD_ChamCong extends javax.swing.JPanel {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã nhân viên", "Tên nhân viên", "Vắng", "Đi trễ", "Tiền phạt", "Nội dung phạt"
+                "Mã nhân viên", "Tên nhân viên", "Vắng", "Đi trễ", "Giờ tăng ca", "Tiền phạt", "Nội dung phạt"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Float.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, true, true, true
+                false, false, true, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -334,11 +334,17 @@ public class GD_ChamCong extends javax.swing.JPanel {
             }
         });
         jTable2.setRowHeight(30);
+        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable2MouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable2);
         if (jTable2.getColumnModel().getColumnCount() > 0) {
             jTable2.getColumnModel().getColumn(0).setResizable(false);
             jTable2.getColumnModel().getColumn(1).setResizable(false);
             jTable2.getColumnModel().getColumn(4).setResizable(false);
+            jTable2.getColumnModel().getColumn(5).setResizable(false);
         }
 
         jButton2.setText("Chấm công");
@@ -576,14 +582,14 @@ public class GD_ChamCong extends javax.swing.JPanel {
                     jTable3.setValueAt(0, row, col + 3);
                     jTable3.setValueAt(0, row, col + 4);
                     jTable3.setValueAt(0, row, col + 5);
-                    jTable3.setValueAt("", row, col+6);
+                    jTable3.setValueAt("", row, col + 6);
 
                 } else {
                     String maCN = jTable3.getValueAt(row, 0).toString();
                     int soLuongCDGiao = DAO_ChiTietPhanCong.getSoLuongCongDoanGiaoByMaCongNHan(maCN);
-                    jTable3.setValueAt(soLuongCDGiao, row, col+2);
+                    jTable3.setValueAt(soLuongCDGiao, row, col + 2);
                 }
-                
+
             }
         }
     }//GEN-LAST:event_jTable3MouseClicked
@@ -628,17 +634,30 @@ public class GD_ChamCong extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
         model.setRowCount(0);
         String maNV = jTextField1.getText();
-        DAO_NhanVien daoNV = new DAO_NhanVien();
-        NhanVien nv = daoNV.get(maNV);
-        Object[] rowdata = new Object[6];
-        rowdata[0] = maNV;
-        rowdata[1] = nv.getTen();
-        rowdata[2] = false;
-        rowdata[3] = false;
-        rowdata[4] = 0;
-        rowdata[5] = "";
-        model.addRow(rowdata);
+        Object[] rowdata = DAO_PhieuChamCongNhanVien.gethongTinChamCongByMaNV(maNV);
+        if (rowdata != null)
+            model.addRow(rowdata);
     }//GEN-LAST:event_jButton4MouseClicked
+
+    private void jTable2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable2MouseClicked
+        // TODO add your handling code here:
+        int row = jTable2.getSelectedRow();
+        int col = jTable2.getSelectedColumn();
+        if (col == 3) {
+            Object value = jTable2.getValueAt(row, col);
+            if (value instanceof Boolean) {
+                boolean isSelected = (Boolean) value;
+                if (isSelected) {
+                    jTable2.setValueAt(100000, row, col + 2);
+                    jTable2.setValueAt(jTable2.getValueAt(row, col + 3).toString() + "Đi trễ", row, col + 3);
+                } else {
+                    jTable2.setValueAt(0, row, col + 2);
+                    jTable2.setValueAt("", row, col + 3);
+                }
+
+            }
+        }
+    }//GEN-LAST:event_jTable2MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -153,6 +153,12 @@ public class DAO_PhieuChamCongCongNhan {
                 - getTongTienPhatTrongThang(idCN, thang, nam);
     }
 
+    public static String getCurrentDateYYYYMMDD() {
+        LocalDate currentDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        return currentDate.format(formatter);
+    }
+
     public static ArrayList<Object[]> getDanhSachThongTinChamCongByIDBoPhan(String maBoPhan) {
         ArrayList<Object[]> ds = new ArrayList<Object[]>();
         try {
@@ -160,10 +166,12 @@ public class DAO_PhieuChamCongCongNhan {
                     + "from [dbo].[ChiTietPhanCong] c\n"
                     + "join [dbo].[CongNhan] cn on c.maCN = cn.maCN\n"
                     + "join [dbo].[CongDoan] cd on c.maCD = cd.maCD\n"
-                    + "where cd.maBP = ?";
+                    + "left join PhieuChamCongCongNhan p on c.maCTPC = p.maCTPC\n"
+                    + "where cd.maBP = ? and ngay = ? and c.maCTPC not in (select p.maCTPC from [dbo].[PhieuChamCongCongNhan] p)\n";
             PreparedStatement statement;
             statement = connection.prepareStatement(query);
             statement.setString(1, maBoPhan);
+            statement.setString(2, getCurrentDateYYYYMMDD());
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Object[] thongTinChamCong = new Object[9];
@@ -176,7 +184,7 @@ public class DAO_PhieuChamCongCongNhan {
                 thongTinChamCong[6] = 0;
                 thongTinChamCong[7] = 0;
                 thongTinChamCong[8] = "";
-                ds.add(thongTinChamCong);  
+                ds.add(thongTinChamCong);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DAO_PhieuChamCongCongNhan.class.getName()).log(Level.SEVERE, null, ex);
@@ -191,10 +199,11 @@ public class DAO_PhieuChamCongCongNhan {
                     + "from [dbo].[ChiTietPhanCong] c\n"
                     + "join [dbo].[CongNhan] cn on c.maCN = cn.maCN\n"
                     + "join [dbo].[CongDoan] cd on c.maCD = cd.maCD\n"
-                    + "where cn.maCN = ?";
+                    + "where cn.maCN = ? and ngay = ? and c.maCTPC not in (select p.maCTPC from [dbo].[PhieuChamCongCongNhan] p)\n";
             PreparedStatement statement;
             statement = connection.prepareStatement(query);
             statement.setString(1, maCN);
+            statement.setString(2, getCurrentDateYYYYMMDD());
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
 
@@ -204,7 +213,7 @@ public class DAO_PhieuChamCongCongNhan {
                 thongTinChamCong[3] = resultSet.getString("tenCD");
                 thongTinChamCong[4] = resultSet.getInt("soLuongCDGiao");
 
-}
+            }
         } catch (SQLException ex) {
             Logger.getLogger(DAO_PhieuChamCongCongNhan.class.getName()).log(Level.SEVERE, null, ex);
         }
