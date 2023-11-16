@@ -156,4 +156,17 @@ public class DAO_PhieuChamCongNhanVien {
         }
         return thongTinChamCong;
     }
+    public float getTongTienPhatTrongThang(String idNV, int thang, int nam) throws SQLException {
+        String query = "select sum(tienPhat) as tongTienPhat\n"
+                + "from PhieuChamCongHanhChinh\n"
+                + "where maPCCCN like ?";
+        PreparedStatement statement;
+        statement = connection.prepareStatement(query);
+        statement.setString(1, "%" + formatChuoi(thang, nam, idNV));
+        ResultSet resultSet = statement.executeQuery();
+        if (resultSet.next()) {
+            return resultSet.getFloat("tongTienPhat");
+        }
+        return 0;
+    }
 }
