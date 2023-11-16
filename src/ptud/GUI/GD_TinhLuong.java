@@ -246,6 +246,7 @@ public class GD_TinhLuong extends javax.swing.JPanel {
                 "Mã nhân viên", "Tên nhân viên", "Lương cơ bản", "Tiền phạt", "Tiền thưởng", "Phụ cấp", "Số ngày làm trong tháng", "Lương thực nhận"
             }
         ));
+        jTablePhieuLuongNhanVien.setRowHeight(30);
         jScrollPane1.setViewportView(jTablePhieuLuongNhanVien);
 
         jLabel5.setText("Tổng cộng:");
@@ -402,6 +403,7 @@ public class GD_TinhLuong extends javax.swing.JPanel {
                 "Mã công nhân", "Tên công nhân", "Lương", "Tiền phạt", "Tiền thưởng", "Số ngày làm trong tháng", "Lương thực nhận"
             }
         ));
+        jTablePhieuLuongCongNhan1.setRowHeight(30);
         jScrollPane3.setViewportView(jTablePhieuLuongCongNhan1);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
