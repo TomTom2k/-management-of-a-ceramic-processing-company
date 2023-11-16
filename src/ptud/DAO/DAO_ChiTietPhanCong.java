@@ -234,5 +234,17 @@ public class DAO_ChiTietPhanCong implements DAOInterface<ChiTietPhanCong>{
             Logger.getLogger(DAO_ChiTietPhanCong.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public void deleteHomNayByMaCN(String maCN) {
+        try {
+            String query = "DELETE FROM ChiTietPhanCong WHERE maCN = ? AND ngay = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, maCN);
+            statement.setDate(2, java.sql.Date.valueOf(LocalDate.now()));
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_ChiTietPhanCong.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
 
