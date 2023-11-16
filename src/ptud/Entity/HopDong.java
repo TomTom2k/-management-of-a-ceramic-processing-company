@@ -185,6 +185,8 @@ public class HopDong {
 
     public void updateListSanPham() {
         daosp = new DAO_SanPham();
+        sanPhams = null;
+        sanPhams = new ArrayList<>();
         for (SanPham sanPham : daosp.getAll()) {
             if (sanPham.getMaHD().compareToIgnoreCase(this.maHD) == 0) {  
                 if(!sanPhams.contains(sanPham))
