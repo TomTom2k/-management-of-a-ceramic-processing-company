@@ -9,6 +9,7 @@ import java.util.Objects;
 
 import ptud.DAO.DAO_NhanVien;
 import ptud.DAO.DAO_PhieuChamCongNhanVien;
+import ptud.DAO.DAO_PhieuLuongNhanVien;
 
 /**
  * 
@@ -74,6 +75,12 @@ public class PhieuLuongNhanVien {
     public double getPhat() {
         double phat2 = 0; 
         // xử lý tính toán
+        try {
+            phat2 = DAO_PhieuChamCongNhanVien.getInstance().getTongTienPhatTrongThang(maNV, thang, nam);
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } 
         return phat2;
     }
 
