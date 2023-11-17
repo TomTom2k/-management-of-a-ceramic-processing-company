@@ -5,6 +5,7 @@
 package ptud.GUI;
 
 import java.awt.CardLayout;
+import java.awt.Dimension;
 import java.lang.invoke.MethodHandles;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -33,6 +34,7 @@ public class GD_QLHD extends javax.swing.JPanel {
     public GD_QLHD() 
     {
         initComponents();
+       rightSide.setPreferredSize(new java.awt.Dimension(200, 600));
         cardLayout = (CardLayout) (rightSide.getLayout());
         hopDongModel = (DefaultTableModel) hopDongTable.getModel();
         khacHangModel = (DefaultTableModel) khachHangTable.getModel();

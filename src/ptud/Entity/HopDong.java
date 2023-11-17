@@ -130,9 +130,11 @@ public class HopDong {
         int day = ngayBatDau.getDayOfMonth();
         int month = ngayBatDau.getMonthValue();
         int year = ngayBatDau.getYear();
-        if (year % 100 < 10) {
-            return "" + day + month + "0" + year;
-        } else {
+        if (day<=9) {
+            return "0" + day + month + "0" + year;
+        } 
+        else
+        {
             return "" + day +""+ month +""+ year;
         }
 
