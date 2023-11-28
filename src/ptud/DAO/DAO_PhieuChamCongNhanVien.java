@@ -118,8 +118,7 @@ public class DAO_PhieuChamCongNhanVien {
                 thongTinChamCong[2] = false;
                 thongTinChamCong[3] = false;
                 thongTinChamCong[4] = 0;
-                thongTinChamCong[5] = 0;
-                thongTinChamCong[6] = "";
+                thongTinChamCong[5] = "";
                 ds.add(thongTinChamCong);
             }
 
@@ -130,7 +129,7 @@ public class DAO_PhieuChamCongNhanVien {
     }
 
     public static Object[] gethongTinChamCongByMaNV(String maNV) {
-        Object[] thongTinChamCong = new Object[7];
+        Object[] thongTinChamCong = new Object[6];
         try {
 
             String query = "select maNV, tenNV\n"
@@ -147,8 +146,7 @@ public class DAO_PhieuChamCongNhanVien {
                 thongTinChamCong[2] = false;
                 thongTinChamCong[3] = false;
                 thongTinChamCong[4] = 0;
-                thongTinChamCong[5] = 0;
-                thongTinChamCong[6] = "";
+                thongTinChamCong[5] = "";
             }
 
         } catch (SQLException ex) {

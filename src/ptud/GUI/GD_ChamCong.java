@@ -170,7 +170,7 @@ public class GD_ChamCong extends javax.swing.JPanel {
                 java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, false, false, false, true, true, true, true
+                false, false, true, false, false, true, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -185,6 +185,11 @@ public class GD_ChamCong extends javax.swing.JPanel {
         jTable3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTable3MouseClicked(evt);
+            }
+        });
+        jTable3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTable3KeyReleased(evt);
             }
         });
         jScrollPane3.setViewportView(jTable3);
@@ -289,8 +294,8 @@ public class GD_ChamCong extends javax.swing.JPanel {
                     .addComponent(jButton5)
                     .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(27, 27, 27)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 369, Short.MAX_VALUE)
-                .addGap(32, 32, 32)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
         );
@@ -299,36 +304,36 @@ public class GD_ChamCong extends javax.swing.JPanel {
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Mã nhân viên", "Tên nhân viên", "Vắng", "Đi trễ", "Giờ tăng ca", "Tiền phạt", "Nội dung phạt"
+                "Mã nhân viên", "Tên nhân viên", "Vắng", "Đi trễ", "Tiền phạt", "Nội dung phạt"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Float.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.Boolean.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, true, true, true, true
+                false, false, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -350,7 +355,6 @@ public class GD_ChamCong extends javax.swing.JPanel {
             jTable2.getColumnModel().getColumn(0).setResizable(false);
             jTable2.getColumnModel().getColumn(1).setResizable(false);
             jTable2.getColumnModel().getColumn(4).setResizable(false);
-            jTable2.getColumnModel().getColumn(5).setResizable(false);
         }
 
         jButton2.setText("Chấm công");
@@ -434,7 +438,7 @@ public class GD_ChamCong extends javax.swing.JPanel {
                     .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton4))
                 .addGap(27, 27, 27)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 370, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
                 .addGap(32, 32, 32)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16))
@@ -462,25 +466,28 @@ public class GD_ChamCong extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel2)
+                .addGap(18, 18, 18)
+                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(28, 28, 28))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addContainerGap())))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -572,9 +579,9 @@ public class GD_ChamCong extends javax.swing.JPanel {
             phieuChamCongHanhChinh.setMaNV(model.getValueAt(i, 0).toString());
             phieuChamCongHanhChinh.setVang(isVang);
             phieuChamCongHanhChinh.setDiTre(isTre);
-            phieuChamCongHanhChinh.setGioTangCa((int)model.getValueAt(i, 4));
-            phieuChamCongHanhChinh.setTienPhat((int)model.getValueAt(i, 5));
-            phieuChamCongHanhChinh.setNoiDungTienPhat((String)model.getValueAt(i, 6));
+            phieuChamCongHanhChinh.setGioTangCa(0);
+            phieuChamCongHanhChinh.setTienPhat((int)model.getValueAt(i, 4));
+            phieuChamCongHanhChinh.setNoiDungTienPhat((String)model.getValueAt(i, 5));
             try {
                 DAO_PhieuChamCongNhanVien.insert(phieuChamCongHanhChinh);
             } catch (SQLException ex) {
@@ -591,7 +598,7 @@ public class GD_ChamCong extends javax.swing.JPanel {
         for (int i = 0; i < row; i++) {
             String maCN = model.getValueAt(i, 0).toString();
             String maCTPC = DAO_ChiTietPhanCong.getMaChiTietPhanCongBymaCN(maCN);
-            
+            int soCDGiao = (int) model.getValueAt(i, 4);
             boolean isVang = (Boolean) (jTable3.getValueAt(i, 2));
             String maCD = DAO_ChiTietPhanCong.getMaCongDoanBymaCTPC(maCTPC);
             int donGiaCongDoan = (int) DAO_CongDoan.getInstance().get(maCD).getDonGia();
@@ -606,9 +613,18 @@ public class GD_ChamCong extends javax.swing.JPanel {
             phieuChamCongCongNhan.setTienCong((int) (phieuChamCongCongNhan.getSoLuongSanPham() + phieuChamCongCongNhan.getSoLuongSanPhamTangCa() * 1.2) * donGiaCongDoan);
             phieuChamCongCongNhan.setTienPhat((int) model.getValueAt(i, 8));
             phieuChamCongCongNhan.setTienThuong((int) (model.getValueAt(i, 7)));
+            
             try {
-                boolean kq = DAO_PhieuChamCongCongNhan.getInstance().insert(phieuChamCongCongNhan);
-                DAO_ChiTietPhanCong.getInstance().updateChoPhanCong(maCN, true);
+                if (soCDGiao < phieuChamCongCongNhan.getSoLuongSanPham() + phieuChamCongCongNhan.getSoLuongSanPhamTangCa()) {
+                    JOptionPane.showMessageDialog(this,
+                    "Số lượng nhập công đoạn vượt quá số lượng giao!",
+                    "Cảnh báo",
+                    JOptionPane.INFORMATION_MESSAGE);
+                }
+                else {
+                    boolean kq = DAO_PhieuChamCongCongNhan.getInstance().insert(phieuChamCongCongNhan);
+                    DAO_ChiTietPhanCong.getInstance().updateChoPhanCong(maCN, true);
+                }
 //                if (kq) {
 //                    JOptionPane.showMessageDialog(this,
 //                            "Chấm công thành công",
@@ -732,16 +748,50 @@ public class GD_ChamCong extends javax.swing.JPanel {
             if (value instanceof Boolean) {
                 boolean isSelected = (Boolean) value;
                 if (isSelected) {
-                    jTable2.setValueAt(100000, row, col + 2);
-                    jTable2.setValueAt(jTable2.getValueAt(row, col + 3).toString() + "Đi trễ", row, col + 3);
+                    jTable2.setValueAt(100000, row, col + 1);
+                    jTable2.setValueAt(jTable2.getValueAt(row, col + 2).toString() + "Đi trễ", row, col + 2);
                 } else {
-                    jTable2.setValueAt(0, row, col + 2);
-                    jTable2.setValueAt("", row, col + 3);
+                    jTable2.setValueAt(0, row, col + 1);
+                    jTable2.setValueAt("", row, col + 2);
+                    
                 }
 
             }
         }
     }//GEN-LAST:event_jTable2MouseClicked
+
+    private void jTable3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTable3KeyReleased
+        // TODO add your handling code here:
+        int row = jTable3.getSelectedRow();
+        int col = jTable3.getSelectedColumn();
+        
+        if (col == 5 || col == 6) {
+            int sl = (int) jTable3.getValueAt(row, 4);
+            int sl1 = (int) jTable3.getValueAt(row, 5);
+            int sl2 = (int) jTable3.getValueAt(row, 6);
+            System.out.println(sl + " " + sl1 + " " + sl2   );
+            if (sl1 + sl2 > sl) {
+                JOptionPane.showMessageDialog(this,
+                    "Số lượng nhập công đoạn vượt quá số lượng giao!",
+                    "Cảnh báo",
+                    JOptionPane.INFORMATION_MESSAGE);
+                String maCN = jTable3.getValueAt(row, 0).toString();
+                int soLuongCDGiao = DAO_ChiTietPhanCong.getSoLuongCongDoanGiaoByMaCongNHan(maCN);
+                    
+                jTable3.setValueAt(soLuongCDGiao, row, 4);
+                jTable3.setValueAt(soLuongCDGiao, row, 5);
+                jTable3.setValueAt(0, row, 6);
+                jTable3.setValueAt(0, row, 7);
+                jTable3.setValueAt(0, row, 8);
+                jTable3.setValueAt("", row, 9);
+                
+            }
+            else {
+                
+            }
+        }
+        
+    }//GEN-LAST:event_jTable3KeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
