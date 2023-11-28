@@ -207,11 +207,15 @@ public class DAO_ChiTietPhanCong implements DAOInterface<ChiTietPhanCong> {
 
     public static int getSoLuongCongDoanGiaoByMaCongNHan(String maCN) {
         try {
+            LocalDate ngayHomNay = LocalDate.now();
+
+            String chuoiNgayHomNay = ngayHomNay.format(DateTimeFormatter.ofPattern("ddMMyyyy"));
             String query = "select soLuongCDGiao\n"
                     + "from ChiTietPhanCong\n"
-                    + "where maCN = ?";
+                    + "where maCN = ? and maCTPC = ?";
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setString(1, maCN);
+            statement.setString(2, chuoiNgayHomNay + maCN);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
                 return resultSet.getInt("soLuongCDGiao");

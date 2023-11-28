@@ -174,16 +174,17 @@ public class DAO_PhieuChamCongCongNhan {
             statement.setString(2, getCurrentDateYYYYMMDD());
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Object[] thongTinChamCong = new Object[9];
+                Object[] thongTinChamCong = new Object[10];
                 thongTinChamCong[0] = resultSet.getString("maCN");
                 thongTinChamCong[1] = resultSet.getString("tenCN");
                 thongTinChamCong[2] = false;
                 thongTinChamCong[3] = resultSet.getString("tenCD");
                 thongTinChamCong[4] = resultSet.getInt("soLuongCDGiao");
-                thongTinChamCong[5] = 0;
+                thongTinChamCong[5] = thongTinChamCong[4];
                 thongTinChamCong[6] = 0;
                 thongTinChamCong[7] = 0;
-                thongTinChamCong[8] = "";
+                thongTinChamCong[8] = 0;
+                thongTinChamCong[9] = "";
                 ds.add(thongTinChamCong);
             }
         } catch (SQLException ex) {

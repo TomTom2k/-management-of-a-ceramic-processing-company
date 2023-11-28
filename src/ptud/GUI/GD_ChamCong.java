@@ -141,36 +141,36 @@ public class GD_ChamCong extends javax.swing.JPanel {
 
         jTable3.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã công nhân", "Tên công nhân", "Vắng", "Công đoạn", "Số lượng", "Số lượng tăng ca", "Tiền thưởng", "Tiền phạt", "Nội dung phạt"
+                "Mã công nhân", "Tên công nhân", "Vắng", "Công đoạn", "Số lượng giao", "Số lượng làm", "Số lượng tăng ca", "Tiền thưởng", "Tiền phạt", "Nội dung phạt"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Boolean.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, false, true, true, true, true, true
+                false, false, true, false, false, false, true, true, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -198,6 +198,7 @@ public class GD_ChamCong extends javax.swing.JPanel {
             jTable3.getColumnModel().getColumn(6).setResizable(false);
             jTable3.getColumnModel().getColumn(7).setResizable(false);
             jTable3.getColumnModel().getColumn(8).setResizable(false);
+            jTable3.getColumnModel().getColumn(9).setResizable(false);
         }
 
         jLabel5.setText("Tìm kiếm:");
@@ -599,12 +600,12 @@ public class GD_ChamCong extends javax.swing.JPanel {
             phieuChamCongCongNhan.setMaCTPC(maCTPC);
             phieuChamCongCongNhan.setNgay(LocalDate.now());
             phieuChamCongCongNhan.setVang(isVang);
-            phieuChamCongCongNhan.setSoLuongSanPham((int) model.getValueAt(i, 4));
-            phieuChamCongCongNhan.setSoLuongSanPhamTangCa((int) model.getValueAt(i, 5));
-            phieuChamCongCongNhan.setNoiDungPhat((String) model.getValueAt(i, 8));
+            phieuChamCongCongNhan.setSoLuongSanPham((int) model.getValueAt(i, 5));
+            phieuChamCongCongNhan.setSoLuongSanPhamTangCa((int) model.getValueAt(i, 6));
+            phieuChamCongCongNhan.setNoiDungPhat((String) model.getValueAt(i, 9));
             phieuChamCongCongNhan.setTienCong((int) (phieuChamCongCongNhan.getSoLuongSanPham() + phieuChamCongCongNhan.getSoLuongSanPhamTangCa() * 1.2) * donGiaCongDoan);
-            phieuChamCongCongNhan.setTienPhat((int) model.getValueAt(i, 7));
-            phieuChamCongCongNhan.setTienThuong((int) (model.getValueAt(i, 6)));
+            phieuChamCongCongNhan.setTienPhat((int) model.getValueAt(i, 8));
+            phieuChamCongCongNhan.setTienThuong((int) (model.getValueAt(i, 7)));
             try {
                 boolean kq = DAO_PhieuChamCongCongNhan.getInstance().insert(phieuChamCongCongNhan);
                 DAO_ChiTietPhanCong.getInstance().updateChoPhanCong(maCN, true);
@@ -646,15 +647,33 @@ public class GD_ChamCong extends javax.swing.JPanel {
                     jTable3.setValueAt(0, row, col + 3);
                     jTable3.setValueAt(0, row, col + 4);
                     jTable3.setValueAt(0, row, col + 5);
-                    jTable3.setValueAt("", row, col + 6);
+                    jTable3.setValueAt(0, row, col + 6);
+                    jTable3.setValueAt("", row, col + 7);
 
                 } else {
                     String maCN = jTable3.getValueAt(row, 0).toString();
                     int soLuongCDGiao = DAO_ChiTietPhanCong.getSoLuongCongDoanGiaoByMaCongNHan(maCN);
+                    
                     jTable3.setValueAt(soLuongCDGiao, row, col + 2);
+                    jTable3.setValueAt(soLuongCDGiao, row, col + 3);
                 }
 
             }
+        }
+        else if (5 <= col) {
+            Object value = jTable3.getValueAt(row, 2);
+            if (value instanceof Boolean) {
+                boolean isSelected = (Boolean) value;
+                if (isSelected) {
+                    JOptionPane.showMessageDialog(this,
+                        "Công nhân đang vắng làm!",
+                        "Cảnh báo",
+                    JOptionPane.INFORMATION_MESSAGE);    
+                    jTable3.setRowSelectionInterval(row, row);
+                    jTable3.setColumnSelectionInterval(0, 0);
+                }
+            }
+            
         }
     }//GEN-LAST:event_jTable3MouseClicked
 
@@ -669,7 +688,7 @@ public class GD_ChamCong extends javax.swing.JPanel {
             return;
         }
         Object[] thongTinChamCong = DAO_PhieuChamCongCongNhan.getThongTinChamCongByMaCongNhan(maCN);
-        Object[] rowdata = new Object[9];
+        Object[] rowdata = new Object[10];
         DefaultTableModel model = (DefaultTableModel) jTable3.getModel();
         model.setRowCount(0);
         rowdata[0] = thongTinChamCong[1];
@@ -677,10 +696,11 @@ public class GD_ChamCong extends javax.swing.JPanel {
         rowdata[2] = false;
         rowdata[3] = thongTinChamCong[3];
         rowdata[4] = thongTinChamCong[4];
-        rowdata[5] = 0;
+        rowdata[5] = rowdata[4];
         rowdata[6] = 0;
         rowdata[7] = 0;
-        rowdata[8] = "";
+        rowdata[8] = 0;
+        rowdata[9] = "";
         model.addRow(rowdata);
     }//GEN-LAST:event_jButton5MouseClicked
 
