@@ -23,8 +23,7 @@ public class TienDoTableCellRender extends DefaultTableCellRenderer
         Component com = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
         JProgressBar tienDoBar = new JProgressBar(0,100);
         if(value!=null)
-        {
-          
+        {          
             try 
             {
             int processValue =  Integer.parseInt(value.toString());
@@ -48,7 +47,7 @@ public class TienDoTableCellRender extends DefaultTableCellRenderer
             } 
             catch (Exception e) 
             {
-                tienDoBar.setValue(0);
+              
             }
            
         }

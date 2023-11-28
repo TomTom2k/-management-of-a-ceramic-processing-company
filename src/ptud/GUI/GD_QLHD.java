@@ -23,6 +23,7 @@ import ptud.ults.ImageCus;
  */
 public class GD_QLHD extends javax.swing.JPanel {
 
+  
     DAO_HopDong daoHongDong = new DAO_HopDong();
     DAO_KhachHang daoKhachHang = new DAO_KhachHang();
     DefaultTableModel hopDongModel;

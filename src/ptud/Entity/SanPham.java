@@ -49,31 +49,26 @@ public class SanPham
     public void setTienDo() 
     {        
         updateListCongDoans();
-        float tienDo;
-        if(congDoans.size()!=0)
+        int tienDo;
+        if (congDoans.size() != 0) {
+            String max = congDoans.get(0).getMaCD();
+            tienDo = congDoans.get(0).getSoLuongHoanThanh();
+            System.out.println(congDoans.get(0).getSoLuongHoanThanh());
+            for (CongDoan congDoan : congDoans) {
+                if (congDoan.getMaCD().compareToIgnoreCase(max) > 0) {
+                    max = congDoan.getMaCD();
+                    tienDo = congDoan.getSoLuongHoanThanh();
+                    System.out.println(congDoan.getSoLuongHoanThanh());
+                }
+
+                this.tienDo = tienDo;              
+            }
+        } 
+        else 
         {
-             String max = congDoans.get(0).getMaCD();
-        tienDo =congDoans.get(0).getSoLuongHoanThanh(); 
-         System.out.println(congDoans.get(0).getSoLuongHoanThanh());
-         for(CongDoan congDoan :congDoans)
-         {         
-             if(congDoan.getMaCD().compareToIgnoreCase(max)>0)
-             {
-                 max = congDoan.getMaCD();
-                 tienDo = congDoan.getSoLuongHoanThanh();
-                 System.out.println(congDoan.getSoLuongHoanThanh());
-             }
-         
-             float percent = 100*tienDo/soLuong;
-        this.tienDo = (int)percent;  
-          System.out.println("percent:"+tienDo);
+             this.tienDo = 0;
         }
-        }
-        else
-        {
-            tienDo =0;
-        }    
-        }
+    }
 
   public String getMaSanPham() 
     {
