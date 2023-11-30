@@ -188,6 +188,7 @@ public class GD_QLSP extends javax.swing.JPanel {
                 String tbData[] = { cn.getMaCN(), cn.getTen(), "" };
                 tblModelCongNhan.addRow(tbData);
             }
+            
         }
     }
 
@@ -1355,36 +1356,60 @@ public class GD_QLSP extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (jButtonPhanCong.isEnabled()) {
             try {
-                int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thêm?", "Xác nhận",
-                        JOptionPane.YES_NO_OPTION);
-                if (confirm == JOptionPane.YES_OPTION) {
+                int row = jTableCongDoan1.getSelectedRow();
+                if(row<0)
+                    throw new Exception("Vui lòng chọn công đoạn cần phân công!");
+                String macd = jTableCongDoan1.getValueAt(row, 0).toString();
+                CongDoan cd = DAO_CongDoan.getInstance().get(macd);
+                int soLuongChuanBi = cd.getSoLuongChuanBi();
 
-                    boolean have = false;
+                // check 
+                boolean have = false;
+                int sum = 0; 
+                for (int i = 0; i < jTableCongNhan.getRowCount(); i++) {
+                    String maCN = jTableCongNhan.getValueAt(i, 0).toString();
+                    String sl = jTableCongNhan.getValueAt(i, 2).toString();
+                    if(sl.isBlank()) 
+                        continue; 
+                    if (!sl.matches("\\d+"))
+                        throw new Exception("Vui lòng nhập số lượng là số tự nhiên >= 0");
+                    int soLuong = Integer.parseInt(sl);
+                    if (soLuong == 0)
+                        continue;
+                    System.out.println(soLuong);
+                    if (soLuong < 0) 
+                        throw new Exception("Vui lòng nhập số lượng là số tự nhiên >=  0");
+                    have = true;
+                    sum += soLuong; 
+                }
+                if (!have)
+                    throw new Exception("Vui lòng nhập số lượng cho ít nhất một công nhân!");
+                if(sum > soLuongChuanBi)
+                    throw new Exception("Số lượng phân công vượt quá số lượng chuẩn bị!"); 
+
+                // yes, no option
+                int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thêm?", "Xác nhận",JOptionPane.YES_NO_OPTION);
+                if (confirm == JOptionPane.YES_OPTION) {
                     for (int i = 0; i < jTableCongNhan.getRowCount(); i++) {
                         String maCN = jTableCongNhan.getValueAt(i, 0).toString();
                         String sl = jTableCongNhan.getValueAt(i, 2).toString();
+                        if(sl.isBlank()) 
+                        continue; 
                         if (!sl.matches("\\d+"))
-                            continue;
+                            throw new Exception("Vui lòng nhập số lượng là số tự nhiên >= 0");
+                        if (soLuong == 0)
+                            continue; 
                         int soLuong = Integer.parseInt(sl);
-                        if (soLuong <= 0)
-                            continue;
-                        have = true;
-
                         String ngay = new SimpleDateFormat("ddMMyyyy").format(new Date());
                         String maCTPC = ngay + maCN;
-                        String macd = jTableCongDoan1.getValueAt(jTableCongDoan1.getSelectedRow(), 0).toString();
                         DAO_ChiTietPhanCong.getInstance()
                                 .insert(new ChiTietPhanCong(maCTPC, macd, maCN, LocalDate.now(), soLuong));
                         DAO_ChiTietPhanCong.getInstance().updateChoPhanCong(maCN, false);
-
-                    }
-                    if (!have)
-                        throw new Exception("Vui lòng nhập số lượng cho ít nhất một công nhân");
+                    }  
                     loadDsCongNhan();
                     loadDsCongDoan();
                     loadDsCTPC();
                     // cập nhật vào bảng phân công
-
                     jButtonNhapSoLuong.setText("Nhập số lượng");
                     jButtonNhapSoLuong.setEnabled(false);
                     jButtonPhanCong.setEnabled(false);
@@ -1402,6 +1427,8 @@ public class GD_QLSP extends javax.swing.JPanel {
                 jTextFieldSoLuong.requestFocus();
             }
         }
+
+        
     }// GEN-LAST:event_jButtonPhanCongMouseReleased
 
     private void jTableCTPCMouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTableCTPCMouseReleased
