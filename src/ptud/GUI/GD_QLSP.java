@@ -53,19 +53,17 @@ public class GD_QLSP extends javax.swing.JPanel {
         AutoCompleteDecorator.decorate(jComboBoxMaBoPhan);
         AutoCompleteDecorator.decorate(jComboBoxCDTQ);
 
-        ArrayList<HopDong> dsHopDong = DAO_HopDong.getInstance().getAll();
+        dsHopDong = DAO_HopDong.getInstance().getAll();
         dsCongNhan = new DAO_CongNhan().getAll();
         dsSanPham = DAO_SanPham.getInstance().getAll();
         dsCongDoan = new DAO_CongDoan().getAll();
         dsBoPhan = new ArrayList<BoPhan>();
         dsCTPC = new ArrayList<ChiTietPhanCong>();
         // loaddata to jComboBoxMaHopDong
-        for (HopDong h : dsHopDong) {
-            // if( h.getTrangThai().equql("đang thực thi") )
-            jComboBoxMaHopDong.addItem(h.getMaHD());
-        }
 
-        loadDsSanPham();
+        
+
+        loadJComboBoxMaHopDong(); 
 
         // loaddata to jComboBoxMaBoPhan
         for (BoPhan boPhan : new DAO_BoPhan().getAll()) {
@@ -80,6 +78,10 @@ public class GD_QLSP extends javax.swing.JPanel {
 
         // loaddata sanpham vao jcombobox
         for (SanPham sanPham : dsSanPham) {
+            System.out.println(sanPham.getMaSanPham());
+            HopDong hd = new DAO_HopDong().get(sanPham.getMaHD());
+            System.out.println(hd);
+            if(hd.getTrangThai().equals("đang thực hiện"))
             jComboBoxSanPham.addItem(sanPham.getTenSanPham());
         }
 
@@ -103,16 +105,20 @@ public class GD_QLSP extends javax.swing.JPanel {
     public ArrayList<CongNhan> dsCongNhan;
     public ArrayList<BoPhan> dsBoPhan;
     public ArrayList<ChiTietPhanCong> dsCTPC;
-
+    ArrayList<HopDong> dsHopDong; 
     // loaddata SanPham
     private void loadDsSanPham() {
         dsSanPham = DAO_SanPham.getInstance().getAll();
         DefaultTableModel tblModel = (DefaultTableModel) jTableSanPham.getModel();
+        // xóa hết các phần tử trong jTableSanPham
         tblModel.setRowCount(0);
         String maHD = jComboBoxMaHopDong.getSelectedItem().toString();
         for (SanPham sp : dsSanPham) {
             String maHD1 = "0511202301";
             maHD1 = sp.getMaHD();
+            HopDong hd = DAO_HopDong.getInstance().get(maHD1);
+            String typeHD = jComboBoxLoaiHopDong.getSelectedItem().toString(); 
+            if(hd.getTrangThai().equals(typeHD))
             if (maHD1.equals(maHD) || maHD.equals("Tất cả")) {
                 String tbData[] = { sp.getMaSanPham(), sp.getTenSanPham() };
                 tblModel.addRow(tbData);
@@ -188,6 +194,7 @@ public class GD_QLSP extends javax.swing.JPanel {
                 String tbData[] = { cn.getMaCN(), cn.getTen(), "" };
                 tblModelCongNhan.addRow(tbData);
             }
+            
         }
     }
 
@@ -227,6 +234,19 @@ public class GD_QLSP extends javax.swing.JPanel {
             }
         }
 
+    }
+
+    private void loadJComboBoxMaHopDong() {
+        String tt = jComboBoxLoaiHopDong.getSelectedItem().toString(); 
+        jComboBoxMaHopDong.removeAllItems();
+        jComboBoxMaHopDong.addItem("Tất cả");
+        jComboBoxMaHopDong.setSelectedIndex(0);
+        for (HopDong h : dsHopDong) {
+           if( h.getTrangThai().equals(tt) ) {
+                jComboBoxMaHopDong.addItem(h.getMaHD());
+           }
+        }
+        loadDsSanPham(); 
     }
 
     private void clearData() {
@@ -280,6 +300,8 @@ public class GD_QLSP extends javax.swing.JPanel {
         jTableSanPham = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
         jComboBoxMaHopDong = new javax.swing.JComboBox<>();
+        jLabel12 = new javax.swing.JLabel();
+        jComboBoxLoaiHopDong = new javax.swing.JComboBox<>();
         jTextFieldMaCD = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -501,23 +523,22 @@ public class GD_QLSP extends javax.swing.JPanel {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jComboBoxCDTQ, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(83, 83, 83)
-                        .addComponent(jButtonThemCDTQ, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(28, Short.MAX_VALUE))
+                    .addComponent(jComboBoxCDTQ, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jButtonThemCDTQ, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(24, 24, 24)))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(21, 21, 21)
                 .addComponent(jComboBoxCDTQ, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButtonThemCDTQ)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
 
         jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder("Chọn sản phẩm"));
@@ -556,16 +577,32 @@ public class GD_QLSP extends javax.swing.JPanel {
                 jTableSanPhamKeyReleased(evt);
             }
         });
+        jTableSanPham.setRowHeight(30);
+        jTableSanPham.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane2.setViewportView(jTableSanPham);
         jTableSanPham.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
-        jLabel6.setText("Mã hợp đồng");
+        jLabel6.setText("Hợp đồng");
 
         jComboBoxMaHopDong.setEditable(true);
         jComboBoxMaHopDong.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
+        jComboBoxMaHopDong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jComboBoxMaHopDongMouseReleased(evt);
+            }
+        });
         jComboBoxMaHopDong.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxMaHopDongActionPerformed(evt);
+            }
+        });
+
+        jLabel12.setText("Loại hợp đồng:");
+
+        jComboBoxLoaiHopDong.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "chờ xác nhận", "đang thực hiện", "hủy" }));
+        jComboBoxLoaiHopDong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxLoaiHopDongActionPerformed(evt);
             }
         });
 
@@ -574,16 +611,17 @@ public class GD_QLSP extends javax.swing.JPanel {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel12)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxLoaiHopDong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jComboBoxMaHopDong, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 18, Short.MAX_VALUE)))
+                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxMaHopDong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
@@ -592,7 +630,9 @@ public class GD_QLSP extends javax.swing.JPanel {
                 .addGap(8, 8, 8)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jComboBoxMaHopDong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel12)
+                    .addComponent(jComboBoxLoaiHopDong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(17, Short.MAX_VALUE))
@@ -712,7 +752,7 @@ public class GD_QLSP extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -733,7 +773,7 @@ public class GD_QLSP extends javax.swing.JPanel {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jLabel4))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jComboBoxMaBoPhan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -752,7 +792,7 @@ public class GD_QLSP extends javax.swing.JPanel {
                                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jTextFieldTenCD)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(27, 27, 27)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -841,6 +881,8 @@ public class GD_QLSP extends javax.swing.JPanel {
             }
         });
         jTableCongDoan1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTableCongDoan1.setRowHeight(30);
+        jTableCongDoan1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTableCongDoan1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 jTableCongDoan1MouseReleased(evt);
@@ -900,6 +942,8 @@ public class GD_QLSP extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        jTableCongNhan.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTableCongNhan.setRowHeight(30);
         jTableCongNhan.setEnabled(false);
         jTableCongNhan.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane4.setViewportView(jTableCongNhan);
@@ -1047,6 +1091,8 @@ public class GD_QLSP extends javax.swing.JPanel {
         });
         jTableCTPC.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jTableCTPC.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTableCTPC.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTableCTPC.setRowHeight(30);
         jTableCTPC.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 jTableCTPCMouseReleased(evt);
@@ -1247,6 +1293,20 @@ public class GD_QLSP extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButtonXoa1MouseReleased
 
+    private void jComboBoxLoaiHopDongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxLoaiHopDongActionPerformed
+        // TODO add your handling code here:
+        //viết code kiểm tra jComboBoxLoaiHopDong có tồn tại item nào không ?
+        // TODO add your handling code here: viết code kiểm tra jComboBoxLoaiHopDong có tồn tại item nào không ?
+        if(jComboBoxLoaiHopDong.isEnabled() && jComboBoxLoaiHopDong.getItemCount() > 0){
+            loadJComboBoxMaHopDong(); 
+        }
+    }//GEN-LAST:event_jComboBoxLoaiHopDongActionPerformed
+
+    private void jComboBoxMaHopDongMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxMaHopDongMouseReleased
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jComboBoxMaHopDongMouseReleased
+
     private void jTableCongDoan1MouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTableCongDoan1MouseReleased
         // TODO add your handling code here:
         if (jTableCongDoan1.isEnabled()) {
@@ -1355,36 +1415,60 @@ public class GD_QLSP extends javax.swing.JPanel {
         // TODO add your handling code here:
         if (jButtonPhanCong.isEnabled()) {
             try {
-                int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thêm?", "Xác nhận",
-                        JOptionPane.YES_NO_OPTION);
-                if (confirm == JOptionPane.YES_OPTION) {
+                int row = jTableCongDoan1.getSelectedRow();
+                if(row<0)
+                    throw new Exception("Vui lòng chọn công đoạn cần phân công!");
+                String macd = jTableCongDoan1.getValueAt(row, 0).toString();
+                CongDoan cd = DAO_CongDoan.getInstance().get(macd);
+                int soLuongChuanBi = cd.getSoLuongChuanBi();
 
-                    boolean have = false;
+                // check 
+                boolean have = false;
+                int sum = 0; 
+                for (int i = 0; i < jTableCongNhan.getRowCount(); i++) {
+                    String maCN = jTableCongNhan.getValueAt(i, 0).toString();
+                    String sl = jTableCongNhan.getValueAt(i, 2).toString();
+                    if(sl.isBlank()) 
+                        continue; 
+                    if (!sl.matches("\\d+"))
+                        throw new Exception("Vui lòng nhập số lượng là số tự nhiên >= 0");
+                    int soLuong = Integer.parseInt(sl);
+                    if (soLuong == 0)
+                        continue;
+                    System.out.println(soLuong);
+                    if (soLuong < 0) 
+                        throw new Exception("Vui lòng nhập số lượng là số tự nhiên >=  0");
+                    have = true;
+                    sum += soLuong; 
+                }
+                if (!have)
+                    throw new Exception("Vui lòng nhập số lượng cho ít nhất một công nhân!");
+                if(sum > soLuongChuanBi)
+                    throw new Exception("Số lượng phân công vượt quá số lượng chuẩn bị!"); 
+
+                // yes, no option
+                int confirm = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thêm?", "Xác nhận",JOptionPane.YES_NO_OPTION);
+                if (confirm == JOptionPane.YES_OPTION) {
                     for (int i = 0; i < jTableCongNhan.getRowCount(); i++) {
                         String maCN = jTableCongNhan.getValueAt(i, 0).toString();
                         String sl = jTableCongNhan.getValueAt(i, 2).toString();
-                        if (!sl.matches("\\d+"))
-                            continue;
                         int soLuong = Integer.parseInt(sl);
-                        if (soLuong <= 0)
-                            continue;
-                        have = true;
-
                         String ngay = new SimpleDateFormat("ddMMyyyy").format(new Date());
                         String maCTPC = ngay + maCN;
-                        String macd = jTableCongDoan1.getValueAt(jTableCongDoan1.getSelectedRow(), 0).toString();
+                        if(sl.isBlank()) 
+                            continue; 
+                        if (!sl.matches("\\d+"))
+                            throw new Exception("Vui lòng nhập số lượng là số tự nhiên >= 0");
+                        if (soLuong == 0)
+                            continue; 
                         DAO_ChiTietPhanCong.getInstance()
                                 .insert(new ChiTietPhanCong(maCTPC, macd, maCN, LocalDate.now(), soLuong));
                         DAO_ChiTietPhanCong.getInstance().updateChoPhanCong(maCN, false);
-
-                    }
-                    if (!have)
-                        throw new Exception("Vui lòng nhập số lượng cho ít nhất một công nhân");
+                    }  
                     loadDsCongNhan();
                     loadDsCongDoan();
                     loadDsCTPC();
                     // cập nhật vào bảng phân công
-
                     jButtonNhapSoLuong.setText("Nhập số lượng");
                     jButtonNhapSoLuong.setEnabled(false);
                     jButtonPhanCong.setEnabled(false);
@@ -1402,6 +1486,8 @@ public class GD_QLSP extends javax.swing.JPanel {
                 jTextFieldSoLuong.requestFocus();
             }
         }
+
+        
     }// GEN-LAST:event_jButtonPhanCongMouseReleased
 
     private void jTableCTPCMouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTableCTPCMouseReleased
@@ -1666,8 +1752,11 @@ public class GD_QLSP extends javax.swing.JPanel {
 
     private void jComboBoxMaHopDongActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jComboBoxMaHopDongActionPerformed
         // TODO add your handling code here:
-        loadDsSanPham();
-        jButtonTaoMoi.setEnabled(false);
+        if(jComboBoxMaHopDong.getItemCount()>0) {
+            System.out.println("load sp");
+            loadDsSanPham();
+            jButtonTaoMoi.setEnabled(false);
+        }
     }// GEN-LAST:event_jComboBoxMaHopDongActionPerformed
 
     private void jButtonThemCDTQActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButtonThemCDTQActionPerformed
@@ -1717,7 +1806,9 @@ public class GD_QLSP extends javax.swing.JPanel {
             maSP = (String) jTableSanPham.getValueAt(row, 0);
             loadDataJTableCongDoan();
             loadDataJComboBoxCDTQ();
-            jButtonTaoMoi.setEnabled(true);
+            String typeHD = jComboBoxLoaiHopDong.getSelectedItem().toString(); 
+            if(typeHD.equals("chờ xác nhận"))
+                jButtonTaoMoi.setEnabled(true);
             jButtonXoa.setEnabled(false);
             jButtonSua.setEnabled(false);
             jTableCongDoan.setEnabled(true);
@@ -2136,6 +2227,7 @@ public class GD_QLSP extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> jComboBoxBoPhan1;
     private javax.swing.JComboBox<String> jComboBoxCDTQ;
     private javax.swing.JComboBox<String> jComboBoxCongDoan;
+    private javax.swing.JComboBox<String> jComboBoxLoaiHopDong;
     private javax.swing.JComboBox<String> jComboBoxMaBoPhan;
     private javax.swing.JComboBox<String> jComboBoxMaHopDong;
     private javax.swing.JComboBox<String> jComboBoxSanPham;
@@ -2144,6 +2236,7 @@ public class GD_QLSP extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;

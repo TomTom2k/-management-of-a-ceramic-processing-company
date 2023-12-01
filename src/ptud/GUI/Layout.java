@@ -9,6 +9,9 @@ import java.awt.Color;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import ptud.Connection.ConnectDB;
+import ptud.Entity.PhieuChamCongCongNhan;
+import ptud.Entity.PhieuLuongCongNhan;
+import ptud.Entity.PhieuLuongNhanVien;
 import ptud.ults.ImageCus;
 
 /**
@@ -42,8 +45,14 @@ public class Layout extends javax.swing.JFrame {
     	showLayout("xemChiTietNS");
     	gD_XemChiTietNS.updateData(maCN, "cn");
     }
-    
-
+    public void showChiTietPhieuLuongNV(PhieuLuongNhanVien plnv) {
+    	showLayout("chiTietPhieuLuongNV");
+    	gd_ChiTietPhieuLuongNV.updateData(plnv);
+    }
+    public void showChiTietPhieuLuongCN(PhieuLuongCongNhan plcn) {
+    	showLayout("chiTietPhieuLuongCN");
+    	gd_ChiTietPhieuLuongCN.updateData(plcn);
+    }
     /**
      * Creates new form Layout
      */
@@ -93,6 +102,8 @@ public class Layout extends javax.swing.JFrame {
         gD_ThemNV1 = new ptud.GUI.GD_ThemNS();
         gD_DanhGia2 = new ptud.GUI.GD_DanhGia();
         gD_XemChiTietNS = new ptud.GUI.GD_XemChiTietNS();
+        gd_ChiTietPhieuLuongNV = new ptud.GUI.GD_ChiTietPhieuLuongNV(); 
+        gd_ChiTietPhieuLuongCN = new ptud.GUI.GD_ChiTietPhieuLuongCN();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new java.awt.BorderLayout(0, 100));
@@ -295,8 +306,10 @@ public class Layout extends javax.swing.JFrame {
         body.add(gD_ChamCong, "tabCC");
         body.add(gD_ThemNV1, "themNS");
         body.add(gD_DanhGia2, "danhGiaNS");
-        body.add(gD_XemChiTietNS, "xemChiTietNS");
-
+        body.add(gD_XemChiTietNS, "xemChiTietNS");        
+        body.add(gd_ChiTietPhieuLuongNV, "chiTietPhieuLuongNV");
+        body.add(gd_ChiTietPhieuLuongCN, "chiTietPhieuLuongCN"); 
+        
         getContentPane().add(body, java.awt.BorderLayout.CENTER);
 
         pack();
@@ -649,6 +662,8 @@ public class Layout extends javax.swing.JFrame {
     private ptud.GUI.GD_ThemNS gD_ThemNV1;
     private ptud.GUI.GD_XemChiTietNS gD_XemChiTietNS;
     private ptud.GUI.GD_TinhLuong gD_TinhLuong;
+    private ptud.GUI.GD_ChiTietPhieuLuongNV gd_ChiTietPhieuLuongNV;    
+    private ptud.GUI.GD_ChiTietPhieuLuongCN gd_ChiTietPhieuLuongCN;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel logout;
     private javax.swing.JPanel menu;
