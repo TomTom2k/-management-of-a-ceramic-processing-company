@@ -11,10 +11,14 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import ptud.Connection.ConnectDB;
+import ptud.Entity.ChamCongDTO;
 import ptud.Entity.PhieuChamCongCongNhan;
+import ptud.Entity.PhieuLuongCongNhan;
+
 import static ptud.Main.connection;
 
 /**
@@ -219,5 +223,62 @@ public class DAO_PhieuChamCongCongNhan {
             Logger.getLogger(DAO_PhieuChamCongCongNhan.class.getName()).log(Level.SEVERE, null, ex);
         }
         return thongTinChamCong;
+    }
+
+    public ArrayList<ChamCongDTO> getDsCongDoanLamDuocCuaCongNhanTrongThang( String maCN, int thang, int nam ) {
+        // CREATE TABLE PhieuChamCongCongNhan (
+        //     maPCCCN VARCHAR(50) PRIMARY KEY,
+        //     maCTPC VARCHAR(50), 
+        //     ngayChamCong DATE,
+        //     vang BIT,
+        //     soLuongCD INT,
+        //     soLuongCDTangCa INT,	
+        //     noiDungPhat NVARCHAR(255),
+        //     tienCong FLOAT(10),
+        //     tienPhat FLOAT(10),
+        //     tienThuong FLOAT(10),
+        //     FOREIGN KEY (maCTPC) REFERENCES ChiTietPhanCong(maCTPC)
+        // );
+        // CREATE TABLE ChiTietPhanCong (
+        //     maCTPC VARCHAR(50),
+        //     maCD VARCHAR(50),
+        //     maCN VARCHAR(50),
+        //     ngay DATE,
+        //     soLuongCDGiao INT,
+        //     PRIMARY KEY (maCTPC),
+        //     FOREIGN KEY (maCD) REFERENCES CongDoan(maCD),
+        //     FOREIGN KEY (maCN) REFERENCES CongNhan(maCN)
+        // );
+       
+        // từ 2 bảng trên code DAO để trả về dữ liệu như sau
+        // maCN  tương ứng với ChiTietPhanCong[maCN], thang và nam tương ứng với PhieuChamCongCongNhan[ngayChamCong]
+        // trả về dữ liệu gồm danh sách gồm: maCD, TongsoLuongCD là tổng soLuongCD, TongSoLuongCDTangCa là tông soLuongCDTangCa
+        // hãy tạo kiểu dữ liệu java để lưu trữ dữ liệu trên
+       
+        ArrayList<ChamCongDTO> ds = new ArrayList<>();
+        try {
+            String query = "select cn.maCD, SUM(c.soLuongCD) as TongSoLuongCD, SUM(c.soLuongCDTangCa) as TongSoLuongCDTangCa\n"
+                    + "from [dbo].[PhieuChamCongCongNhan] c\n"
+                    + "join [dbo].[ChiTietPhanCong] cn on c.maCTPC = cn.maCTPC\n"
+                    + "where cn.maCN = ? and MONTH(ngay) = ? and YEAR(ngay) = ?\n"
+                    + "group by cn.maCD";
+            PreparedStatement statement;
+            statement = connection.prepareStatement(query);
+            statement.setString(1, maCN);
+            statement.setInt(2, thang);
+            statement.setInt(3, nam);
+            ResultSet resultSet = statement.executeQuery();
+            System.out.println("haha2");
+            while (resultSet.next()) {
+                ChamCongDTO thongTinChamCong = new ChamCongDTO();
+                thongTinChamCong.setMaCD(resultSet.getString("maCD"));
+                thongTinChamCong.setTongSoLuongCD(resultSet.getInt("TongSoLuongCD"));
+                thongTinChamCong.setTongSoLuongCDTangCa(resultSet.getInt("TongSoLuongCDTangCa"));
+                ds.add(thongTinChamCong);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAO_PhieuChamCongCongNhan.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ds;
     }
 }

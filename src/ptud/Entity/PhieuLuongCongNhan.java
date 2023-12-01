@@ -102,8 +102,7 @@ public class PhieuLuongCongNhan {
         double thuong = 0;
         // xử lý tính toán
         try {
-            thuong = DAO_PhieuChamCongCongNhan.getInstance().getTongTienThuongTrongThang(maCN, thang, nam) ;
-
+            thuong = DAO_PhieuChamCongCongNhan.getInstance().getTongTienCongTrongThang(maCN, thang, nam)*0.15;
         } catch (SQLException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -127,7 +126,12 @@ public class PhieuLuongCongNhan {
     public double getLuongThucNhan() {
         double luongThucNhan = 0;
         // xử lý tính toán
-        luongThucNhan = getLuong() + getThuong() - getPhat();
+        try {
+            luongThucNhan = DAO_PhieuChamCongCongNhan.getInstance().getTongTienCongTrongThang(maCN, thang, nam) + getThuong() - getPhat();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         return luongThucNhan;
     }
 
