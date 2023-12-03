@@ -15,6 +15,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.Vector;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -233,7 +234,18 @@ public class GD_QLSP extends javax.swing.JPanel {
                 tblModelCTPC.addRow(tbData);
             }
         }
+        // sao chép jTableCTPC vào jTableCTPC1
+        DefaultTableModel modelCTPC = (DefaultTableModel) jTableCTPC.getModel();
+        DefaultTableModel modelCTPC1 = (DefaultTableModel) jTableCTPC1.getModel();
 
+        modelCTPC1.setRowCount(0);
+        for (int row = 0; row < modelCTPC.getRowCount(); row++) {
+            Vector rowData = new Vector();
+            for (int column = 0; column < modelCTPC.getColumnCount(); column++) {
+                rowData.add(modelCTPC.getValueAt(row, column));
+            }
+            modelCTPC1.addRow(rowData);
+        }
     }
 
     private void loadJComboBoxMaHopDong() {
@@ -342,6 +354,7 @@ public class GD_QLSP extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         jComboBoxCongDoan = new javax.swing.JComboBox<>();
         jComboBoxBoPhan1 = new javax.swing.JComboBox<>();
+        jTableCTPC1 = new javax.swing.JTable();
 
         jButtonTaoMoi.setText("Tạo mới");
         jButtonTaoMoi.setEnabled(false);
@@ -473,20 +486,20 @@ public class GD_QLSP extends javax.swing.JPanel {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGap(118, 118, 118)
+                .addGap(113, 113, 113)
                 .addComponent(jButtonXoaCDTQ, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel4Layout.createSequentialGroup()
-                    .addGap(20, 20, 20)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(26, Short.MAX_VALUE)))
+                    .addContainerGap()
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
                 .addContainerGap(245, Short.MAX_VALUE)
-                .addComponent(jButtonXoaCDTQ)
+                .addComponent(jButtonXoaCDTQ, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel4Layout.createSequentialGroup()
@@ -619,7 +632,7 @@ public class GD_QLSP extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBoxLoaiHopDong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBoxMaHopDong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -703,10 +716,10 @@ public class GD_QLSP extends javax.swing.JPanel {
                         .addComponent(jComboBoxSapXep, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jToggleButtonSort, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGap(0, 759, Short.MAX_VALUE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1250, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane3)))
                 .addGap(18, 18, 18))
         );
         jPanel3Layout.setVerticalGroup(
@@ -753,11 +766,8 @@ public class GD_QLSP extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(31, 31, 31)
-                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jButtonTaoMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -795,8 +805,11 @@ public class GD_QLSP extends javax.swing.JPanel {
                         .addGap(27, 27, 27)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(155, 155, 155))
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(23, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(105, 105, 105))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -994,7 +1007,7 @@ public class GD_QLSP extends javax.swing.JPanel {
         jPanel9Layout.setHorizontalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                .addContainerGap(21, Short.MAX_VALUE)
+                .addGap(21, 21, 21)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                         .addComponent(jButtonNhapSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1006,7 +1019,7 @@ public class GD_QLSP extends javax.swing.JPanel {
                         .addComponent(jButtonPhanCong, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(57, 57, 57))
                     .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 505, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
                         .addContainerGap())))
         );
         jPanel9Layout.setVerticalGroup(
@@ -1049,7 +1062,7 @@ public class GD_QLSP extends javax.swing.JPanel {
                 .addGap(14, 14, 14)
                 .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1172,6 +1185,39 @@ public class GD_QLSP extends javax.swing.JPanel {
             }
         });
 
+        jTableCTPC1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Mã nhân viên", "Tên nhân viên", "Bộ phận", "Mã sản phẩm", "Công đoạn", "Số lượng được giao", "Số lượng hoàn thành"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, true, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jTableCTPC1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTableCTPC.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTableCTPC.setRowHeight(30);
+        jTableCTPC1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTableCTPC1MouseReleased(evt);
+            }
+        });
+        jTableCTPC1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTableCTPC1KeyReleased(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
         jPanel10Layout.setHorizontalGroup(
@@ -1203,6 +1249,11 @@ public class GD_QLSP extends javax.swing.JPanel {
                     .addGap(130, 130, 130)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 1124, Short.MAX_VALUE)
                     .addGap(15, 15, 15)))
+            .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                    .addContainerGap(1195, Short.MAX_VALUE)
+                    .addComponent(jTableCTPC1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(74, Short.MAX_VALUE)))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1229,6 +1280,11 @@ public class GD_QLSP extends javax.swing.JPanel {
                     .addGap(49, 49, 49)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
                     .addGap(20, 20, 20)))
+            .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                    .addContainerGap(112, Short.MAX_VALUE)
+                    .addComponent(jTableCTPC1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(192, Short.MAX_VALUE)))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -1261,7 +1317,7 @@ public class GD_QLSP extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1392, Short.MAX_VALUE)
+                .addComponent(jTabbedPane1)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -1306,6 +1362,14 @@ public class GD_QLSP extends javax.swing.JPanel {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_jComboBoxMaHopDongMouseReleased
+
+    private void jTableCTPC1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableCTPC1MouseReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTableCTPC1MouseReleased
+
+    private void jTableCTPC1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTableCTPC1KeyReleased
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTableCTPC1KeyReleased
 
     private void jTableCongDoan1MouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTableCongDoan1MouseReleased
         // TODO add your handling code here:
@@ -1609,7 +1673,9 @@ public class GD_QLSP extends javax.swing.JPanel {
             int row = jTableCTPC.getSelectedRow();
             try {
                 System.out.println(jTableCTPC.getValueAt(row, 5).toString());
-                int soLuongGiaoMoi = Integer.parseInt(jTableCTPC.getValueAt(row, 5).toString());
+                int soLuongGiaoMoi = Integer.parseInt(jTableCTPC.getValueAt(row, 5).toString());                
+                int soLuongGiaoCu = Integer.parseInt(jTableCTPC1.getValueAt(row, 5).toString());
+
                 // int soLuongChuanBi = jTableCTPC.getValueAt(row, 4).toString()
                 if (soLuongGiaoMoi <= 0)
                     throw new Exception("Vui lòng nhập số lượng là số tự nhiên > 0");
@@ -1626,7 +1692,7 @@ public class GD_QLSP extends javax.swing.JPanel {
                 }
                 if (cd == null)
                     throw new Exception("Vui lòng chọn công đoạn");
-                if(soLuongGiaoMoi > cd.getSoLuongChuanBi()) 
+                if(soLuongGiaoMoi-soLuongGiaoCu > cd.getSoLuongChuanBi()) 
                     throw new Exception("Số lượng giao không được lớn hơn số lượng chuẩn bị");
 
                 // yes, no option 
@@ -2266,6 +2332,7 @@ public class GD_QLSP extends javax.swing.JPanel {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTableCDTQ;
     private javax.swing.JTable jTableCTPC;
+    private javax.swing.JTable jTableCTPC1;
     private javax.swing.JTable jTableCongDoan;
     private javax.swing.JTable jTableCongDoan1;
     private javax.swing.JTable jTableCongNhan;
