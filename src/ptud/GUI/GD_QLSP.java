@@ -797,7 +797,7 @@ public class GD_QLSP extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextFieldSLCBTT, javax.swing.GroupLayout.PREFERRED_SIZE, 38, Short.MAX_VALUE))
+                                .addComponent(jTextFieldSLCBTT, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel14, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -806,9 +806,9 @@ public class GD_QLSP extends javax.swing.JPanel {
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap(23, Short.MAX_VALUE)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(105, 105, 105))
         );
         jPanel1Layout.setVerticalGroup(
@@ -1492,7 +1492,7 @@ public class GD_QLSP extends javax.swing.JPanel {
                 for (int i = 0; i < jTableCongNhan.getRowCount(); i++) {
                     String maCN = jTableCongNhan.getValueAt(i, 0).toString();
                     String sl = jTableCongNhan.getValueAt(i, 2).toString();
-                    if(sl.isBlank()) 
+                    if(sl==null || sl.isBlank()) 
                         continue; 
                     if (!sl.matches("\\d+"))
                         throw new Exception("Vui lòng nhập số lượng là số tự nhiên >= 0");
@@ -1516,13 +1516,13 @@ public class GD_QLSP extends javax.swing.JPanel {
                     for (int i = 0; i < jTableCongNhan.getRowCount(); i++) {
                         String maCN = jTableCongNhan.getValueAt(i, 0).toString();
                         String sl = jTableCongNhan.getValueAt(i, 2).toString();
-                        int soLuong = Integer.parseInt(sl);
                         String ngay = new SimpleDateFormat("ddMMyyyy").format(new Date());
                         String maCTPC = ngay + maCN;
                         if(sl.isBlank()) 
                             continue; 
                         if (!sl.matches("\\d+"))
                             throw new Exception("Vui lòng nhập số lượng là số tự nhiên >= 0");
+                        int soLuong = Integer.parseInt(sl);
                         if (soLuong == 0)
                             continue; 
                         DAO_ChiTietPhanCong.getInstance()
