@@ -625,13 +625,6 @@ public class GD_ChamCong extends javax.swing.JPanel {
                     boolean kq = DAO_PhieuChamCongCongNhan.getInstance().insert(phieuChamCongCongNhan);
                     DAO_ChiTietPhanCong.getInstance().updateChoPhanCong(maCN, true);
                 }
-//                if (kq) {
-//                    JOptionPane.showMessageDialog(this,
-//                            "Chấm công thành công",
-//                            "Thông báo",
-//                            JOptionPane.INFORMATION_MESSAGE);
-//                    loadDataTabale1();
-//                }
             } catch (SQLException ex) {
                 Logger.getLogger(GD_ChamCong.class.getName()).log(Level.SEVERE, null, ex);
             }
