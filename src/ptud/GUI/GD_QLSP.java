@@ -83,7 +83,7 @@ public class GD_QLSP extends javax.swing.JPanel {
             HopDong hd = new DAO_HopDong().get(sanPham.getMaHD());
             System.out.println(hd);
             if(hd.getTrangThai().equals("đang thực hiện"))
-            jComboBoxSanPham.addItem(sanPham.getTenSanPham());
+                jComboBoxSanPham.addItem(sanPham.getTenSanPham());
         }
 
         // loaddata jcombobox congdoan
@@ -107,6 +107,18 @@ public class GD_QLSP extends javax.swing.JPanel {
     public ArrayList<BoPhan> dsBoPhan;
     public ArrayList<ChiTietPhanCong> dsCTPC;
     ArrayList<HopDong> dsHopDong; 
+
+
+    private void loadJcomboboxSanPham() {
+        for (SanPham sanPham : dsSanPham) {
+            System.out.println(sanPham.getMaSanPham());
+            HopDong hd = new DAO_HopDong().get(sanPham.getMaHD());
+            System.out.println(hd);
+            if(hd.getTrangThai().equals("đang thực hiện"))
+                jComboBoxSanPham.addItem(sanPham.getTenSanPham());
+        }
+    }
+
     // loaddata SanPham
     private void loadDsSanPham() {
         dsSanPham = DAO_SanPham.getInstance().getAll();
@@ -133,6 +145,10 @@ public class GD_QLSP extends javax.swing.JPanel {
         ArrayList<CongDoan> dsCongDoan = DAO_CongDoan.getInstance().getAll();
         ArrayList<CongDoan> dsCongDoan2 = new ArrayList<CongDoan>();
         for (CongDoan cd : dsCongDoan) {
+            SanPham sp = new DAO_SanPham().get(cd.getMaSP());
+            HopDong hd = new DAO_HopDong().get(sp.getMaHD());
+            if(!hd.getTrangThai().equals("đang thực hiện"))
+                continue; 
             if (cd.getSoLuongChuanBi() < cd.getSoLuongChuanBiToiThieu())
                 continue;
 
@@ -356,6 +372,7 @@ public class GD_QLSP extends javax.swing.JPanel {
         jComboBoxBoPhan1 = new javax.swing.JComboBox<>();
         jTableCTPC1 = new javax.swing.JTable();
 
+        jButtonTaoMoi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons/icons8-add-24.png"))); // NOI18N
         jButtonTaoMoi.setText("Tạo mới");
         jButtonTaoMoi.setEnabled(false);
         jButtonTaoMoi.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -369,6 +386,7 @@ public class GD_QLSP extends javax.swing.JPanel {
             }
         });
 
+        jButtonSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons/editing.png"))); // NOI18N
         jButtonSua.setText("Sửa");
         jButtonSua.setEnabled(false);
         jButtonSua.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -382,6 +400,7 @@ public class GD_QLSP extends javax.swing.JPanel {
             }
         });
 
+        jButtonXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons/trash-bin.png"))); // NOI18N
         jButtonXoa.setText("Xoá");
         jButtonXoa.setEnabled(false);
         jButtonXoa.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -395,6 +414,7 @@ public class GD_QLSP extends javax.swing.JPanel {
             }
         });
 
+        jButtonLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons/diskette.png"))); // NOI18N
         jButtonLuu.setText("Lưu");
         jButtonLuu.setEnabled(false);
         jButtonLuu.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -468,6 +488,7 @@ public class GD_QLSP extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jTableCDTQ);
         jTableCDTQ.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
+        jButtonXoaCDTQ.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons/trash-bin.png"))); // NOI18N
         jButtonXoaCDTQ.setText("Xoá");
         jButtonXoaCDTQ.setEnabled(false);
         jButtonXoaCDTQ.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -498,8 +519,8 @@ public class GD_QLSP extends javax.swing.JPanel {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(245, Short.MAX_VALUE)
-                .addComponent(jButtonXoaCDTQ, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(237, Short.MAX_VALUE)
+                .addComponent(jButtonXoaCDTQ)
                 .addContainerGap())
             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel4Layout.createSequentialGroup()
@@ -518,6 +539,7 @@ public class GD_QLSP extends javax.swing.JPanel {
             }
         });
 
+        jButtonThemCDTQ.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons/icons8-add-24.png"))); // NOI18N
         jButtonThemCDTQ.setText("Thêm");
         jButtonThemCDTQ.setEnabled(false);
         jButtonThemCDTQ.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -536,12 +558,13 @@ public class GD_QLSP extends javax.swing.JPanel {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBoxCDTQ, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addComponent(jButtonThemCDTQ, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(24, 24, 24)))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(jComboBoxCDTQ, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(39, 39, 39)
+                        .addComponent(jButtonThemCDTQ)))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
@@ -595,7 +618,7 @@ public class GD_QLSP extends javax.swing.JPanel {
         jScrollPane2.setViewportView(jTableSanPham);
         jTableSanPham.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 
-        jLabel6.setText("Hợp đồng");
+        jLabel6.setText("Hợp đồng:");
 
         jComboBoxMaHopDong.setEditable(true);
         jComboBoxMaHopDong.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
@@ -631,9 +654,9 @@ public class GD_QLSP extends javax.swing.JPanel {
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBoxLoaiHopDong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jComboBoxMaHopDong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -769,12 +792,12 @@ public class GD_QLSP extends javax.swing.JPanel {
                         .addGap(31, 31, 31)
                         .addComponent(jPanel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButtonTaoMoi, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonLuu, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonSua, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButtonXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jButtonSua, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonTaoMoi, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
+                            .addComponent(jButtonXoa, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jButtonLuu, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -961,6 +984,7 @@ public class GD_QLSP extends javax.swing.JPanel {
         jTableCongNhan.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane4.setViewportView(jTableCongNhan);
 
+        jButtonPhanCong.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons/icons8-assignment-24.png"))); // NOI18N
         jButtonPhanCong.setText("Phân công");
         jButtonPhanCong.setEnabled(false);
         jButtonPhanCong.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -989,6 +1013,7 @@ public class GD_QLSP extends javax.swing.JPanel {
 
         jTextFieldSoLuong.setEditable(false);
 
+        jButtonLuu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons/diskette.png"))); // NOI18N
         jButtonLuu2.setText("Lưu");
         jButtonLuu2.setEnabled(false);
         jButtonLuu2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1014,10 +1039,10 @@ public class GD_QLSP extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextFieldSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonLuu2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonLuu2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonPhanCong, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(57, 57, 57))
+                        .addComponent(jButtonPhanCong)
+                        .addGap(50, 50, 50))
                     .addGroup(jPanel9Layout.createSequentialGroup()
                         .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
                         .addContainerGap())))
@@ -1025,7 +1050,7 @@ public class GD_QLSP extends javax.swing.JPanel {
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap(8, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1126,6 +1151,7 @@ public class GD_QLSP extends javax.swing.JPanel {
             }
         });
 
+        jButtonSua1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons/editing.png"))); // NOI18N
         jButtonSua1.setText("Sửa");
         jButtonSua1.setEnabled(false);
         jButtonSua1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1139,6 +1165,7 @@ public class GD_QLSP extends javax.swing.JPanel {
             }
         });
 
+        jButtonXoa1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons/trash-bin.png"))); // NOI18N
         jButtonXoa1.setText("Xoá");
         jButtonXoa1.setEnabled(false);
         jButtonXoa1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1152,6 +1179,7 @@ public class GD_QLSP extends javax.swing.JPanel {
             }
         });
 
+        jButtonLuu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons/diskette.png"))); // NOI18N
         jButtonLuu1.setText("Lưu");
         jButtonLuu1.setEnabled(false);
         jButtonLuu1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1274,7 +1302,7 @@ public class GD_QLSP extends javax.swing.JPanel {
                 .addComponent(jButtonXoa1)
                 .addGap(18, 18, 18)
                 .addComponent(jButtonLuu1)
-                .addContainerGap(152, Short.MAX_VALUE))
+                .addContainerGap(128, Short.MAX_VALUE))
             .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                     .addGap(49, 49, 49)
@@ -1790,6 +1818,7 @@ public class GD_QLSP extends javax.swing.JPanel {
         if (jComboBoxBoPhan.isEnabled()) {
             loadDsCongDoan();
             loadDsCongNhan();
+            loadJcomboboxSanPham();
         }
     }// GEN-LAST:event_jComboBoxMaHopDong3ActionPerformed
 
