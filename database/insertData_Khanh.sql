@@ -14,6 +14,13 @@ INSERT INTO HopDong(maHD,maKH,tenHD,ngayBatDau,ngayKetThucDukien,trangThai,donGi
 INSERT INTO SanPham(maHD,maSP,tenSP,soLuong,donGia) values('0511202301','051120230101',N'Chén sứ viền xanh lam',500,5000.0)
 INSERT INTO SanPham(maHD,maSP,tenSP,soLuong,donGia) values('0511202301','051120230102',N'Chén sứ họa tiết hình rồng',500,6000.0)
 INSERT INTO SanPham(maHD,maSP,tenSP,soLuong,donGia) values('0511202301','051120230103',N'Chén sứ viền cam',500,4000.0)
+INSERT INTO SanPham(maHD,maSP,tenSP,soLuong,donGia) values('0511202301','051120230103',N'Chén sứ trang trí độc đáo',500,50000.0)
+INSERT INTO SanPham(maHD,maSP,tenSP,soLuong,donGia) values('0511202301','051120230103',N'Chén Pha Cà Phê Gia Đình',500,50000.0)
+INSERT INTO SanPham(maHD,maSP,tenSP,soLuong,donGia) values('0511202301','051120230103',N'Chén Phục Vụ Hàng Khách Sạn',500,50000.0)
+INSERT INTO SanPham(maHD,maSP,tenSP,soLuong,donGia) values('0511202301','051120230103',N'Chén Đo Lường Công Nghiệp',500,50000.0)
+INSERT INTO SanPham(maHD,maSP,tenSP,soLuong,donGia) values('0511202301','051120230103',N'Chén Sứ Dùng Trong Dược Học',500,50000.0)
+INSERT INTO SanPham(maHD,maSP,tenSP,soLuong,donGia) values('0511202301','051120230103',N'Chén Đựng Mỹ Phẩm',500,50000.0) 
+INSERT INTO SanPham(maHD,maSP,tenSP,soLuong,donGia) values('0511202301','051120230103',N'Chén Pha Trộn Hóa Chất',500,50000.0) 
 --hopdong 2
 INSERT INTO SanPham(maHD,maSP,tenSP,soLuong,donGia) values('0511202302','051120230201',N'ly sứ viền xanh lam',1000,4000.0)
 INSERT INTO SanPham(maHD,maSP,tenSP,soLuong,donGia) values('0511202302','051120230202',N'ly sứ họa tiết hình rồng',1000,6000.0)
@@ -68,7 +75,158 @@ VALUES
 
    
 INSERT INTO CongNhan (maCN, maBP, tenCN, gioiTinh, ngaySinh, ngayBatDauLam, CCCD, trangThai, choPhanCong, dienThoai, hinhAnh)
-VALUES 
+VALUES
+    ('SX0720001', 'SX07', N'Lê Thị Kim Ngân', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0720002', 'SX07', N'Nguyễn Văn Khánh', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0720003', 'SX07', N'Hoàng Thị Hạnh Phúc', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0720004', 'SX07', N'Trịnh Văn Nam', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0720005', 'SX07', N'Đỗ Thị Hồng Loan', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0720006', 'SX07', N'Vũ Anh Tuấn', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0720007', 'SX07', N'Phạm Thị Minh Châu', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0720008', 'SX07', N'Trần Minh Tuấn', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0720009', 'SX07', N'Lê Thị Lan Anh', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0720010', 'SX07', N'Nguyễn Thanh Tùng', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+
+    ('SX0620061', 'SX06', N'Lê Thị Kim Ngân', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0620062', 'SX06', N'Nguyễn Văn Khánh', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0620063', 'SX06', N'Hoàng Thị Hạnh Phúc', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0620064', 'SX06', N'Trịnh Văn Nam', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0620065', 'SX06', N'Đỗ Thị Hồng Loan', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0620066', 'SX06', N'Vũ Anh Tuấn', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0620067', 'SX06', N'Phạm Thị Minh Châu', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0620068', 'SX06', N'Trần Minh Tuấn', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0620069', 'SX06', N'Lê Thị Lan Anh', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0620070', 'SX06', N'Nguyễn Thanh Tùng', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+
+    ('SX0520061', 'SX05', N'Lê Thị Thùy Dung', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0520062', 'SX05', N'Nguyễn Văn Khải', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0520063', 'SX05', N'Đặng Thị Thu Hà', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0520064', 'SX05', N'Trần Văn Hưng', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0520065', 'SX05', N'Phạm Thị Ngọc Mai', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0520066', 'SX05', N'Võ Văn Thành', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0520067', 'SX05', N'Nguyễn Thị Mai Phương', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0520068', 'SX05', N'Lê Văn An', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0520069', 'SX05', N'Trần Thị Mai Hương', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0520070', 'SX05', N'Hoàng Văn Hải', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+
+    ('SX0420051', 'SX04', N'Bùi Thị Phương Thảo', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0420052', 'SX04', N'Trần Quang Huy', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0420053', 'SX04', N'Đỗ Thị Thu Hà', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0420054', 'SX04', N'Nguyễn Văn Thắng', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0420055', 'SX04', N'Lê Thị Bích Ngọc', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0420056', 'SX04', N'Hoàng Minh Tuấn', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0420057', 'SX04', N'Phạm Thị Hồng Nhung', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0420058', 'SX04', N'Vũ Đức Anh', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0420059', 'SX04', N'Mai Thị Diệu Hương', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0420060', 'SX04', N'Trần Văn Hòa', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+
+
+    ('SX0320041', 'SX03', N'Trần Thị Hồng Nhung', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0320042', 'SX03', N'Nguyễn Minh Hải', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0320043', 'SX03', N'Phan Thị Hương Giang', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0320044', 'SX03', N'Lê Quang Dũng', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0320045', 'SX03', N'Hoàng Thị Thu Hằng', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0320046', 'SX03', N'Võ Minh Hiếu', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0320047', 'SX03', N'Đỗ Thị Thanh Hương', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0320048', 'SX03', N'Nguyễn Văn Nam', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0320049', 'SX03', N'Lê Thị Mai Anh', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0320050', 'SX03', N'Trịnh Văn Quân', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+
+
+    ('SX0220031', 'SX02', N'Lê Thị Thu Hà', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0220032', 'SX02', N'Nguyễn Đức Minh', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0220033', 'SX02', N'Trần Thị Thanh Thảo', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0220034', 'SX02', N'Phạm Quang Hải', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0220035', 'SX02', N'Vũ Thị Bích Ngọc', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0220036', 'SX02', N'Đặng Anh Tuấn', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0220037', 'SX02', N'Nguyễn Thị Ánh Ngọc', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0220038', 'SX02', N'Trương Văn Hùng', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0220039', 'SX02', N'Mai Thị Hương', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0220040', 'SX02', N'Ngô Đình Long', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+
+
+    ('SX0120021', 'SX01', N'Nguyễn Thị Hương', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0120022', 'SX01', N'Trần Minh Quân', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0120023', 'SX01', N'Lê Thị Mai', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0120024', 'SX01', N'Phạm Văn Long', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0120025', 'SX01', N'Ngọc Anh', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0120026', 'SX01', N'Lê Minh Tuấn', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0120027', 'SX01', N'Bùi Thị Hà', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0120028', 'SX01', N'Hoàng Đức Anh', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0120029', 'SX01', N'Mai Thanh Hương', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+    ('SX0120030', 'SX01', N'Vũ Hoàng Nam', 1, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
+
+
     ('SX01051001', 'SX01', N'Nguyễn Văn Bạch', 1, '1986-01-15', '2005-05-01', '0222211110000', 1, 1, '01357924680', 
         (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn1.jpg', SINGLE_BLOB) as ImageData)),
     ('SX02181002', 'SX02', N'Đỗ Nhật Anh', 1, '1999-01-15', '2018-05-01', '0111122220000', 1, 1, '02468013579', 
@@ -108,9 +266,9 @@ VALUES
     ('SX0421019', 'SX04', N'Lê Văn Hoàng', 1, '1991-03-30', '2022-01-03', '202020202020', 1, 1, '09876123450', 
         (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn19.jpeg', SINGLE_BLOB) as ImageData)),
     ('SX0520020', 'SX05', N'Trương Thị Phương', 0, '1989-12-03', '2022-01-04', '212121212121', 1, 1, '01234987650', 
-        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData));
+        (SELECT BulkColumn FROM OPENROWSET(BULK N'E:\HocDaiHoc\Ki_7\PTUD\project\source\-management-of-a-ceramic-processing-company\src\assets\images\avatarCN\cn20.jpeg', SINGLE_BLOB) as ImageData)),
 
-
+    
 -- công đoạn 
 -- Công đoạn cho sản phẩm 051120230101
 INSERT INTO CongDoan (maCD, maSP, maBP, tenCD, donGia, trangThai, soLuongChuanBi, soLuongChuanBiToiThieu, soLuongHoanThanh)
