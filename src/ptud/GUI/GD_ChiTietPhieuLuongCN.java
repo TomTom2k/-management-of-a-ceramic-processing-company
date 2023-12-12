@@ -76,6 +76,7 @@ public class GD_ChiTietPhieuLuongCN extends javax.swing.JPanel {
         back = new javax.swing.JButton();
         back1 = new javax.swing.JButton();
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons/printing.png"))); // NOI18N
         jButton1.setText("In phiếu lương");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
@@ -87,6 +88,8 @@ public class GD_ChiTietPhieuLuongCN extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
+
+        jPanelContainer.setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
@@ -263,7 +266,7 @@ public class GD_ChiTietPhieuLuongCN extends javax.swing.JPanel {
         jPanelContainerLayout.setVerticalGroup(
             jPanelContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelContainerLayout.createSequentialGroup()
-                .addGap(9, 9, 9)
+                .addContainerGap(9, Short.MAX_VALUE)
                 .addComponent(jLabelPL, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -288,13 +291,13 @@ public class GD_ChiTietPhieuLuongCN extends javax.swing.JPanel {
                 .addGap(34, 34, 34)
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanelContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelSoNgayLam, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabelTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addGap(145, 145, 145))
             .addGroup(jPanelContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanelContainerLayout.createSequentialGroup()
                     .addGap(408, 408, 408)
@@ -445,12 +448,18 @@ public class GD_ChiTietPhieuLuongCN extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) jTableCongDoan.getModel();
         model.setRowCount(0);
         double sum = 0; 
+        int height = 1000; 
         for (ChamCongDTO cc : dsChamCong) {
             CongDoan cd = DAO_CongDoan.getInstance().get(cc.getMaCD());
             model.addRow(new Object[]{cc.getMaCD(), cd.getTenCD(), cc.getTongSoLuongCD(), cc.getTongSoLuongCDTangCa(), 
                     decimalFormat.format(cc.getTongSoLuongCDTangCa()*cd.getDonGia()*1.2 + cc.getTongSoLuongCD()*cd.getDonGia()) });
             sum += cc.getTongSoLuongCDTangCa()*cd.getDonGia()*1.2 + cc.getTongSoLuongCD()*cd.getDonGia(); 
+
+            // tăng chiều dọc của jTableCongDoan lên 30 so với hiện tại
+            height+=30; 
         }
+        
+        jScrollPane1.setPreferredSize( new Dimension( 0, height ) );
         jLabelTongTien.setText(decimalFormat.format(sum));
         // jLabelThuongNangSuat.setText(decimalFormat.format(sum*0.15));
         jLabelLuongThucNhan.setText(decimalFormat.format(plcn.getLuongThucNhan()));

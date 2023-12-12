@@ -357,6 +357,9 @@ public class GD_QLSP extends javax.swing.JPanel {
         jButtonNhapSoLuong = new javax.swing.JButton();
         jTextFieldSoLuong = new javax.swing.JTextField();
         jButtonLuu2 = new javax.swing.JButton();
+        jTextFieldSoLuongCN = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
         jComboBoxBoPhan = new javax.swing.JComboBox<>();
         jPanel10 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -942,7 +945,7 @@ public class GD_QLSP extends javax.swing.JPanel {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 682, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 690, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -1012,6 +1015,11 @@ public class GD_QLSP extends javax.swing.JPanel {
         });
 
         jTextFieldSoLuong.setEditable(false);
+        jTextFieldSoLuong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldSoLuongActionPerformed(evt);
+            }
+        });
 
         jButtonLuu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/assets/icons/diskette.png"))); // NOI18N
         jButtonLuu2.setText("Lưu");
@@ -1027,6 +1035,12 @@ public class GD_QLSP extends javax.swing.JPanel {
             }
         });
 
+        jTextFieldSoLuongCN.setEditable(false);
+
+        jLabel15.setText("Công đoạn:");
+
+        jLabel16.setText("Công nhân:");
+
         javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
         jPanel9.setLayout(jPanel9Layout);
         jPanel9Layout.setHorizontalGroup(
@@ -1034,30 +1048,43 @@ public class GD_QLSP extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createSequentialGroup()
-                        .addComponent(jButtonNhapSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane4)
+                    .addGroup(jPanel9Layout.createSequentialGroup()
+                        .addComponent(jButtonNhapSoLuong)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel15)
+                            .addComponent(jLabel16))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTextFieldSoLuongCN)
+                            .addComponent(jTextFieldSoLuong))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonLuu2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButtonPhanCong)
-                        .addGap(50, 50, 50))
-                    .addGroup(jPanel9Layout.createSequentialGroup()
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE)
-                        .addContainerGap())))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonPhanCong)))
+                .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 222, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonPhanCong)
-                    .addComponent(jButtonNhapSoLuong)
-                    .addComponent(jTextFieldSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonLuu2))
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButtonLuu2, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jButtonNhapSoLuong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel9Layout.createSequentialGroup()
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 1, Short.MAX_VALUE)
+                            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jTextFieldSoLuong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel15))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jTextFieldSoLuongCN, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel16))))
+                    .addComponent(jButtonPhanCong, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -1094,7 +1121,7 @@ public class GD_QLSP extends javax.swing.JPanel {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel7Layout.createSequentialGroup()
                         .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
@@ -1399,6 +1426,10 @@ public class GD_QLSP extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTableCTPC1KeyReleased
 
+    private void jTextFieldSoLuongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldSoLuongActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldSoLuongActionPerformed
+
     private void jTableCongDoan1MouseReleased(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_jTableCongDoan1MouseReleased
         // TODO add your handling code here:
         if (jTableCongDoan1.isEnabled()) {
@@ -1472,17 +1503,8 @@ public class GD_QLSP extends javax.swing.JPanel {
                 jComboBoxSanPham.setEnabled(false);
                 jTableCongDoan1.setEnabled(false);
                 jTableCongNhan.setEnabled(true);
-
-                // jTableCongNhan.editCellAt(0, 2);
-                // Component editor = jTableCongNhan.getEditorComponent();
-                // if (editor instanceof JTextField) {
-                // JTextField textField = (JTextField) editor;
-                // textField.requestFocus();
-                //
-                // // Đặt con trỏ chuột ở cuối cell
-                // textField.setCaretPosition(textField.getText().length());
-                // }
-                jTextFieldSoLuong.setEditable(true);
+                jTextFieldSoLuong.setEditable(true);                
+                jTextFieldSoLuongCN.setEditable(true);
                 jTextFieldSoLuong.requestFocus();
                 jButtonLuu2.setEnabled(true);
             } else {
@@ -1606,8 +1628,13 @@ public class GD_QLSP extends javax.swing.JPanel {
             try {
                 loadDsCongNhan();
                 String sl = jTextFieldSoLuong.getText().toString();
-                jTextFieldSoLuong.setText("");
-                int soLuong = Integer.parseInt(sl);
+                String slcn = jTextFieldSoLuongCN.getText().toString(); 
+                jTextFieldSoLuong.setText("");                
+                jTextFieldSoLuongCN.setText("");
+
+                int soLuong = Integer.parseInt(sl);                
+                int soLuongCN = Integer.parseInt(slcn);
+
 
                 if (soLuong <= 0)
                     throw new Exception("Vui lòng nhập số lượng là số tự nhiên > 0");
@@ -1615,14 +1642,25 @@ public class GD_QLSP extends javax.swing.JPanel {
                 String macd = jTableCongDoan1.getValueAt(row, 0).toString();
                 CongDoan cd = DAO_CongDoan.getInstance().get(macd);
                 int soLuongChuanBi = cd.getSoLuongChuanBi();
-                for (int i = 0; i < jTableCongNhan.getRowCount(); i++) {
-                    if (soLuongChuanBi > 0) {
-                        // set giá trị row i, col 2 = min (soLuongChuanbi, soLuong)
-                        jTableCongNhan.setValueAt(Math.min(soLuongChuanBi, soLuong), i, 2);
-                        soLuongChuanBi -= Math.min(soLuongChuanBi, soLuong);
-                    } else
-                        break;
+
+
+                // yes no option 
+                int confirm = 0; 
+                if( soLuongCN > jTableCongNhan.getRowCount() ) {
+                    confirm = JOptionPane.showConfirmDialog(this, "Số lượng công nhân tối đa là " + jTableCongNhan.getRowCount() + ", bạn có muốn phân công hết cho công nhân ?", "Thông báo",JOptionPane.YES_NO_OPTION);
                 }
+                if(confirm == 0) {
+                    for (int i = 0; i < jTableCongNhan.getRowCount(); i++) {
+                        if (soLuongChuanBi > 0 && soLuongCN > 0) {
+                            // set giá trị row i, col 2 = min (soLuongChuanbi, soLuong)
+                            jTableCongNhan.setValueAt(Math.min(soLuongChuanBi, soLuong), i, 2);
+                            soLuongChuanBi -= Math.min(soLuongChuanBi, soLuong);
+                        } else
+                            break;
+                        soLuongCN-=1; 
+                    }
+                }
+                
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập số lượng là số tự nhiên > 0");
@@ -2334,6 +2372,8 @@ public class GD_QLSP extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -2370,6 +2410,7 @@ public class GD_QLSP extends javax.swing.JPanel {
     private javax.swing.JTextField jTextFieldMaCD;
     private javax.swing.JTextField jTextFieldSLCBTT;
     private javax.swing.JTextField jTextFieldSoLuong;
+    private javax.swing.JTextField jTextFieldSoLuongCN;
     private javax.swing.JTextField jTextFieldTenCD;
     private javax.swing.JToggleButton jToggleButtonSort;
     // End of variables declaration//GEN-END:variables

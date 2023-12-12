@@ -231,4 +231,32 @@ public class DAO_PhieuLuongCongNhan implements DAOInterface<PhieuLuongCongNhan>{
         }
         return phieuLuongCongNhans;
     }
+
+    public PhieuLuongCongNhan getOneByThangNam(String maCN, int thang, int nam) { 
+        try {
+            String query = "SELECT * FROM PhieuLuongCongNhan WHERE maCN = ? AND thang = ? AND nam = ?";
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, maCN);
+            statement.setInt(2, thang);
+            statement.setInt(3, nam);
+            ResultSet resultSet = statement.executeQuery();
+            
+            if (resultSet.next()) {
+                String maPL = resultSet.getString("maPL");
+                int thang1 = resultSet.getInt("thang");
+                int nam1 = resultSet.getInt("nam");
+                String maCN1 = resultSet.getString("maCN");
+                double phat = resultSet.getDouble("phat");
+                // double thuong = resultSet.getDouble("thuong");
+                // double phat = resultSet.getDouble("phat");
+                // int soNgayLam = resultSet.getInt("soNgayLam");
+                // double luongThucNhan = resultSet.getDouble("luongThucNhan");
+                PhieuLuongCongNhan phieuLuongCongNhan = new PhieuLuongCongNhan(maPL, thang1, nam1, maCN1, phat);
+                return phieuLuongCongNhan;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
